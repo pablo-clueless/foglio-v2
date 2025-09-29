@@ -3,6 +3,7 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { NAVBAR_LINKS } from "@/config/routes";
+import { Logo } from "./logo";
 import { cn } from "@/lib";
 
 export const Navbar = () => {
@@ -22,7 +23,7 @@ export const Navbar = () => {
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Foglio</h1>
+        <Logo />
         <div className="flex items-center gap-x-4">
           {NAVBAR_LINKS.map(({ href, label }) => (
             <Link className="link text-sm" href={href} key={label}>

@@ -3,6 +3,7 @@ export * from "./calendar";
 export * from "./date-picker";
 export * from "./footer";
 export * from "./loader";
+export * from "./logo";
 export * from "./navbar";
 export * from "./pricing";
 export * from "./section-header";

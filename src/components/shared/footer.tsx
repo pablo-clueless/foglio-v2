@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import { FOOTER_ROUTES } from "@/config/routes";
+import { Logo } from "./logo";
 
 export const Footer = () => {
   return (
@@ -9,7 +10,10 @@ export const Footer = () => {
       <div className="container mx-auto space-y-3">
         <div className="grid w-full grid-cols-1 py-10 lg:grid-cols-3">
           <div className="col-span-1">
-            <h1 className="text-primary-400 text-8xl font-semibold">Foglio</h1>
+            <div className="flex items-center gap-x-2">
+              <Logo className="size-20" />
+              <h1 className="text-primary-400 text-6xl font-semibold">Foglio</h1>
+            </div>
           </div>
           <div className="col-span-1 flex flex-wrap items-start justify-between lg:col-span-2">
             {FOOTER_ROUTES.map((route, index) => (

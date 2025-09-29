@@ -3,8 +3,8 @@ import React from "react";
 
 import AuthLayout from "@/components/layouts/auth";
 import { Button } from "@/components/ui/button";
+import { Logo, Seo } from "@/components/shared";
 import { Input } from "@/components/ui/input";
-import { Seo } from "@/components/shared";
 
 const Page = () => {
   return (
@@ -12,8 +12,8 @@ const Page = () => {
       <Seo title="Forgot Password" />
       <AuthLayout screen="signup">
         <div className="flex flex-col items-center gap-y-10">
-          <Link className="font-nunito-sans text-4xl font-bold" href="/">
-            Foglio
+          <Link href="/">
+            <Logo />
           </Link>
           <div className="text-center">
             <h3 className="text-2xl font-medium">Forgot Password</h3>
