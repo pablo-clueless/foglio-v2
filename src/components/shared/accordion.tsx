@@ -24,18 +24,25 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({ children, 
   const toggleItem = React.useCallback(
     (id: string) => {
       setActiveItems((prev) => {
-        const next = new Set(prev);
         if (single) {
-          next.has(id) ? next.clear() : next.add(id);
+          if (prev.has(id)) {
+            return new Set();
+          } else {
+            return new Set([id]);
+          }
         } else {
-          next.has(id) ? next.delete(id) : next.add(id);
+          const next = new Set(prev);
+          if (next.has(id)) {
+            next.delete(id);
+          } else {
+            next.add(id);
+          }
+          return next;
         }
-        return next;
       });
     },
     [single],
   );
-
   const value = React.useMemo(
     () => ({ activeItems, toggleItem, single }),
     [activeItems, toggleItem, single],
