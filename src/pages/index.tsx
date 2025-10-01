@@ -42,9 +42,9 @@ const Page = () => {
       <Navbar />
       <div className="w-screen">
         <div className="bg-grid h-screen w-full bg-cover bg-center bg-no-repeat py-10 lg:py-20">
-          <div className="container mx-auto grid h-full place-items-center">
-            <div className="flex h-full max-w-3/5 flex-1 flex-col items-center justify-center gap-y-5 text-center">
-              <h1 className="text-8xl font-bold">
+          <div className="container mx-auto grid h-full grid-cols-1 md:grid-cols-2">
+            <div className="flex h-full flex-1 flex-col justify-center gap-y-5">
+              <h1 className="text-6xl font-bold">
                 Create a stunning portfolio that stands out in minutes
               </h1>
               <p className="text-xl text-gray-600">
@@ -52,10 +52,11 @@ const Page = () => {
                 builder. Perfect for creatives, developers and professionals looking to make an
                 impact online.
               </p>
-              <Button asChild size="lg">
+              <Button asChild className="w-fit" size="lg">
                 <Link href="/signup">Get Started</Link>
               </Button>
             </div>
+            <div className="h-full flex-1"></div>
           </div>
         </div>
         <hr />

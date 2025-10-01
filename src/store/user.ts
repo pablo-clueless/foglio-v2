@@ -1,0 +1,92 @@
+import Cookies from "js-cookie";
+
+import type { Maybe, SigninResponse, UserProps } from "@/types";
+import { createPersistMiddleware } from "./middleware";
+
+const COOKIE_NAME = "FOGLIO_TOKEN";
+const STORAGE_KEY = "foglio_user";
+const COOKIE_OPTIONS = {
+  path: "/",
+  sameSite: "strict" as const,
+  expires: 30,
+};
+
+interface SignOutOptions {
+  callbackUrl?: string;
+  redirectUrl?: string;
+  soft?: boolean;
+  clearStorage?: boolean;
+}
+
+interface SignInOptions {
+  remember?: boolean;
+  expiresIn?: number;
+}
+
+interface UserStore {
+  user: Maybe<UserProps>;
+  isAuthenticated: boolean;
+  signin: (payload: SigninResponse, options: SignInOptions) => void;
+  signout: (option?: SignOutOptions) => void;
+}
+
+class UserManager {
+  static clearUserData(clearStorage = true) {
+    Cookies.remove(COOKIE_NAME, { path: "/" });
+    if (clearStorage) {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }
+
+  static redirect(path = "/") {
+    window.location.href = path;
+  }
+
+  static getCookieOptions(remember?: boolean, expiresIn?: number) {
+    return {
+      ...COOKIE_OPTIONS,
+      expires: remember ? expiresIn || 30 : undefined,
+    };
+  }
+}
+
+const useUserStore = createPersistMiddleware<UserStore>("", (set) => ({
+  user: null,
+  isAuthenticated: false,
+  signin: async (payload, options = {}) => {
+    try {
+      const { token, user } = payload;
+      const cookieOptions = UserManager.getCookieOptions(options.remember, options.expiresIn);
+
+      Cookies.set(COOKIE_NAME, token, cookieOptions);
+      set({ user, isAuthenticated: true });
+    } catch (error) {
+      console.error("Sign in failed:", error);
+      throw new Error("Failed to sign in user");
+    }
+  },
+  signout: async (options = {}) => {
+    try {
+      if (options.soft) {
+        set({ user: null, isAuthenticated: false });
+        return;
+      }
+
+      const token = Cookies.get(COOKIE_NAME);
+      if (!token) return;
+
+      UserManager.clearUserData(options.clearStorage ?? true);
+      set({ user: null, isAuthenticated: false });
+
+      if (!options.soft) {
+        UserManager.redirect(options.redirectUrl || "/");
+      }
+    } catch (error) {
+      console.error("Sign out failed:", error);
+      UserManager.clearUserData(options.clearStorage ?? true);
+      UserManager.redirect(options.redirectUrl || "/");
+    }
+  },
+}));
+
+export { useUserStore };

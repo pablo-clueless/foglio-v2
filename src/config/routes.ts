@@ -62,3 +62,13 @@ export const NAVBAR_LINKS = [
     href: "/talents",
   },
 ];
+
+export const PUBLIC_ROUTES = [
+  "/",
+  "/signin",
+  "/signup",
+  "forgot-password",
+  "/reset-password",
+  "/verification",
+  "/",
+];

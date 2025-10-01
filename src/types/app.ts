@@ -11,7 +11,8 @@ export type MaybePromiseOrNull<T> = MaybePromise<Nullable<T>>;
 export interface HttpResponse<T> {
   data: T;
   message: string;
-  status: number;
+  success: boolean;
+  timestamp: string;
 }
 
 export interface HttpError {
@@ -25,7 +26,10 @@ export interface HttpError {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  totalElements: number;
+  limit: number;
+  page: number;
+  total_items: number;
+  total_pages: number;
 }
 
 export interface PaginatedParams {

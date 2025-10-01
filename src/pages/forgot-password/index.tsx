@@ -10,7 +10,7 @@ const Page = () => {
   return (
     <>
       <Seo title="Forgot Password" />
-      <AuthLayout screen="signup">
+      <AuthLayout screen="forgot_password">
         <div className="flex flex-col items-center gap-y-10">
           <Link href="/">
             <Logo />
@@ -21,7 +21,7 @@ const Page = () => {
               Enter your email address and we&apos;ll send you instructions to reset your password.
             </p>
           </div>
-          <form className="min-w-[400px] space-y-4">
+          <form autoComplete="off" className="min-w-[400px] space-y-4">
             <Input label="Email" type="email" />
             <Button className="w-full" size="sm" type="submit">
               Continue

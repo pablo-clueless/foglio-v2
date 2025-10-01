@@ -1,64 +1,41 @@
-import type { TypeNode } from "./app";
+import type { UserProps } from "./user";
 
-export interface UserProps extends TypeNode {
+export interface OAuthCallbackDto {
+  code: string;
+  state: string;
+}
+
+export interface OAuthUserDto {
+  id: string;
+  email: string;
+  name: string;
+  avatar: string;
+  provider: string;
+}
+
+export interface SigninDto {
+  email: string;
+  password: string;
+}
+
+export interface ChangePasswordDto {
+  current_password: string;
+  new_password: string;
+}
+
+export interface ResetPasswordDto {
+  current_password: string;
+  new_password: string;
+  token: string;
+}
+
+export interface CreateUserDto {
   name: string;
   email: string;
-  phone?: string;
-  headline?: string;
-  location?: string;
-  image?: string;
-  summary: string;
-  skills: string[];
-  projects: ProjectProps[];
-  experiences: ExperienceProps[];
-  education: EducationProps[];
-  certifications?: CertificationProps[];
-  languages?: LanguageProps[];
+  password: string;
 }
 
-export interface ProjectProps extends TypeNode {
-  title: string;
-  description: string;
-  image?: string;
-  url?: string;
-  stack: string[];
-  startDate?: Date;
-  endDate?: Date;
-  highlights?: string[];
-}
-
-export interface ExperienceProps extends TypeNode {
-  companyName: string;
-  location?: string;
-  role: string;
-  description: string;
-  startDate: Date;
-  endDate?: Date;
-  highlights?: string[];
-  technologies?: string[];
-}
-
-export interface EducationProps extends TypeNode {
-  institution: string;
-  degree: string;
-  field: string;
-  location?: string;
-  startDate: Date;
-  endDate?: Date;
-  gpa?: number;
-  highlights?: string[];
-}
-
-export interface CertificationProps extends TypeNode {
-  name: string;
-  issuer: string;
-  issueDate: Date;
-  expiryDate?: Date;
-  credentialId?: string;
-  url?: string;
-}
-
-export interface LanguageProps {
-  name: string;
-  proficiency: "Basic" | "Intermediate" | "Advanced" | "Native";
+export interface SigninResponse {
+  user: UserProps;
+  token: string;
 }
