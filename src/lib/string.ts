@@ -6,6 +6,7 @@ export const getInitials = (value?: string) => {
     .join("");
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const removeNullorUndefined = <T extends Record<string, any>>(params: T): T => {
   const result: Partial<T> = {};
   for (const key in params) {

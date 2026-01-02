@@ -76,11 +76,11 @@ export const FOOTER_ROUTES = [
     links: [
       {
         name: "Privacy Policy",
-        href: "/privacy",
+        href: "/privacy-policy",
       },
       {
         name: "Terms of Service",
-        href: "/terms",
+        href: "/terms-of-service",
       },
     ],
   },
