@@ -78,6 +78,8 @@ export const OtpInput = ({ onChange, value, error, helperText, length = 4 }: Pro
             onKeyDown={handleKeyDown}
             autoComplete="one-time-code"
             maxLength={length}
+            inputMode="numeric"
+            pattern="[0-9]*"
           />
         ))}
       </div>

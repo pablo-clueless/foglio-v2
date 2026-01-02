@@ -2,8 +2,7 @@ import type { ReviewProps } from "@/types";
 
 export const MOCK_REVIEWS: ReviewProps[] = [
   {
-    comment:
-      "This portfolio builder is incredibly intuitive! I was able to create a stunning site in under an hour.",
+    comment: "This portfolio builder is incredibly intuitive! I was able to create a stunning site in under an hour.",
     user: {
       image: "https://i.pravatar.cc/150?img=1",
       name: "Sarah Chen",
@@ -29,8 +28,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     },
   },
   {
-    comment:
-      "The drag-and-drop interface is so smooth, even my non-tech friends could use it. Highly recommend!",
+    comment: "The drag-and-drop interface is so smooth, even my non-tech friends could use it. Highly recommend!",
     user: {
       image: "https://i.pravatar.cc/150?img=4",
       name: "David Kim",
@@ -38,8 +36,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     },
   },
   {
-    comment:
-      "I love how responsive the designs are. My portfolio looks perfect on every device I've tested.",
+    comment: "I love how responsive the designs are. My portfolio looks perfect on every device I've tested.",
     user: {
       image: "https://i.pravatar.cc/150?img=5",
       name: "Jessica Liu",
@@ -47,8 +44,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     },
   },
   {
-    comment:
-      "The SEO features are fantastic. My portfolio started ranking on Google within a week of publishing!",
+    comment: "The SEO features are fantastic. My portfolio started ranking on Google within a week of publishing!",
     user: {
       image: "https://i.pravatar.cc/150?img=6",
       name: "Alex Thompson",
@@ -56,8 +52,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     },
   },
   {
-    comment:
-      "Customer support is top-notch. They helped me customize a template to match my brand perfectly.",
+    comment: "Customer support is top-notch. They helped me customize a template to match my brand perfectly.",
     user: {
       image: "https://i.pravatar.cc/150?img=7",
       name: "Rachel Green",
@@ -83,8 +78,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     },
   },
   {
-    comment:
-      "The integration with social media platforms is seamless. Updating my portfolio has never been easier!",
+    comment: "The integration with social media platforms is seamless. Updating my portfolio has never been easier!",
     user: {
       image: "https://i.pravatar.cc/150?img=10",
       name: "James Wilson",

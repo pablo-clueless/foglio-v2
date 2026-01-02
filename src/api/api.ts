@@ -14,8 +14,8 @@ export const api = createApi({
         return endpoint.toLowerCase() === path.toLowerCase();
       });
       if (token && !isPublic) {
-        headers.set("Authorization", `Bearer ${token}`);
       }
+      headers.set("Authorization", `Bearer ${token}`);
       headers.set("Content-Type", "application/json");
       return headers;
     },

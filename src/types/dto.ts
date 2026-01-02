@@ -4,12 +4,70 @@ export interface UpdateUserDto {
   headline?: string;
   location?: string;
   summary?: string;
-  skills?: any[];
-  projects?: any[];
-  experiences?: any[];
-  education?: any[];
-  certifications?: any[];
-  languages?: any[];
+  skills?: string[];
+  projects?: ProjectDto[];
+  experiences?: ExperienceDto[];
+  education?: EducationDto[];
+  certifications?: CertificationDto[];
+  languages?: LanguageDto[];
+  company?: CompanyDto;
+}
+
+export interface CompanyDto {
+  name: string;
+  industry?: string;
+  size?: string;
+  website?: string;
+  logo?: string;
+  description?: string;
+  location?: string;
+}
+
+export interface ProjectDto {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  stack?: string[];
+  start_date?: Date;
+  end_date?: Date;
+  highlights?: string;
+}
+
+export interface ExperienceDto {
+  company_name: string;
+  location?: string;
+  role: string;
+  description: string;
+  start_date: Date;
+  end_date?: Date;
+  highlights?: string;
+  technologies?: string[];
+}
+
+export interface EducationDto {
+  institution: string;
+  degree: string;
+  field: string;
+  location?: string;
+  start_date: Date;
+  end_date?: Date;
+  gpa?: number;
+  highlights?: string;
+}
+
+export interface CertificationDto {
+  name: string;
+  issuer: string;
+  issue_date: Date;
+  expiry_date?: Date;
+  credential_id?: string;
+  url?: string;
+}
+
+export interface LanguageDto {
+  name: string;
+  proficiency: string;
 }
 
 export interface CreateJobDto {

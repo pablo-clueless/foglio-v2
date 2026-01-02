@@ -1,3 +1,58 @@
+"use client";
+
+import { FileTextIcon, GearIcon, HouseIcon, UserGearIcon, UserIcon, UsersIcon } from "@phosphor-icons/react";
+
+export const DASHBOARD_ROUTES = [
+  {
+    label: "Home",
+    href: "/",
+    icon: HouseIcon,
+  },
+  {
+    label: "Me",
+    href: "/me",
+    icon: UserIcon,
+  },
+  {
+    label: "Applications",
+    href: "/me/applications",
+    icon: FileTextIcon,
+  },
+  {
+    label: "Settings",
+    href: "/me/settings",
+    icon: GearIcon,
+  },
+];
+
+export const ADMIN_ROUTES = [
+  {
+    label: "Dashboard",
+    href: "/super-admin/dashboard",
+    icon: UserIcon,
+  },
+  {
+    label: "Users",
+    href: "/super-admin/users",
+    icon: UsersIcon,
+  },
+  {
+    label: "Recruiters",
+    href: "/super-admin/recruiters",
+    icon: UserGearIcon,
+  },
+  {
+    label: "Jobs",
+    href: "/super-admin/jobs",
+    icon: UserGearIcon,
+  },
+  {
+    label: "Settings",
+    href: "/super-admin/settings",
+    icon: GearIcon,
+  },
+];
+
 export const FOOTER_ROUTES = [
   {
     label: "Features",
@@ -63,12 +118,4 @@ export const NAVBAR_LINKS = [
   },
 ];
 
-export const PUBLIC_ROUTES = [
-  "/",
-  "/signin",
-  "/signup",
-  "forgot-password",
-  "/reset-password",
-  "/verification",
-  "/",
-];
+export const PUBLIC_ROUTES = ["/", "/signin", "/signup", "forgot-password", "/reset-password", "/verification", "/"];

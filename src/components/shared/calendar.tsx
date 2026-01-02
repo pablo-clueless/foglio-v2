@@ -64,12 +64,8 @@ export const Calendar = ({ onSelect, value, className, maxDate, minDate }: Calen
       days.push(new Date(year, month, i));
     }
 
-    const isPrevDisabled = minDate
-      ? isBefore(subMonths(currentMonth, 1), startOfMonth(minDate))
-      : false;
-    const isNextDisabled = maxDate
-      ? isAfter(addMonths(currentMonth, 1), startOfMonth(maxDate))
-      : false;
+    const isPrevDisabled = minDate ? isBefore(subMonths(currentMonth, 1), startOfMonth(minDate)) : false;
+    const isNextDisabled = maxDate ? isAfter(addMonths(currentMonth, 1), startOfMonth(maxDate)) : false;
 
     return { calendarDays: days, isPrevDisabled, isNextDisabled };
   }, [currentMonth, minDate, maxDate]);
@@ -97,9 +93,7 @@ export const Calendar = ({ onSelect, value, className, maxDate, minDate }: Calen
           <CaretLeftIcon className="size-4" />
         </button>
 
-        <div className="flex-1 text-center text-sm font-medium">
-          {format(currentMonth, "MMMM, yyyy")}
-        </div>
+        <div className="flex-1 text-center text-sm font-medium">{format(currentMonth, "MMMM, yyyy")}</div>
 
         <button
           className={cn(

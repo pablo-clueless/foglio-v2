@@ -11,14 +11,7 @@ interface Props {
   buttonClassName?: string;
 }
 
-export const Pagination = ({
-  current,
-  limit,
-  onPageChange,
-  total,
-  buttonClassName,
-  className,
-}: Props) => {
+export const Pagination = ({ current, limit, onPageChange, total, buttonClassName, className }: Props) => {
   const totalPages = Math.ceil(total / limit);
 
   const goToPrevious = () => {

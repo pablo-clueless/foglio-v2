@@ -10,3 +10,8 @@ export interface NotificationProps {
   owner_id: string;
   owner: UserProps;
 }
+
+export interface WsStatsProps {
+  connected_clients: number;
+  connected_users: number;
+}

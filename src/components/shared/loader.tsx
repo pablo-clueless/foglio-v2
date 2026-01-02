@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useRouteChangeLoader } from "@/hooks";
-
 export const Loader = () => {
   return (
     <div className="!z-50 grid h-screen w-screen place-items-center">
@@ -11,9 +9,4 @@ export const Loader = () => {
       </div>
     </div>
   );
-};
-
-export const GlobalLoader = () => {
-  const loading = useRouteChangeLoader();
-  return loading ? <Loader /> : null;
 };

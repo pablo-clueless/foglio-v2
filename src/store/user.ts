@@ -25,9 +25,9 @@ interface SignInOptions {
 
 interface UserStore {
   user: Maybe<UserProps>;
-  isAuthenticated: boolean;
   signin: (payload: SigninResponse, options: SignInOptions) => void;
   signout: (option?: SignOutOptions) => void;
+  setUser: (user: UserProps) => void;
 }
 
 class UserManager {
@@ -52,14 +52,13 @@ class UserManager {
 
 const useUserStore = createPersistMiddleware<UserStore>("", (set) => ({
   user: null,
-  isAuthenticated: false,
   signin: async (payload, options = {}) => {
     try {
       const { token, user } = payload;
       const cookieOptions = UserManager.getCookieOptions(options.remember, options.expiresIn);
 
       Cookies.set(COOKIE_NAME, token, cookieOptions);
-      set({ user, isAuthenticated: true });
+      set({ user });
     } catch (error) {
       console.error("Sign in failed:", error);
       throw new Error("Failed to sign in user");
@@ -68,7 +67,7 @@ const useUserStore = createPersistMiddleware<UserStore>("", (set) => ({
   signout: async (options = {}) => {
     try {
       if (options.soft) {
-        set({ user: null, isAuthenticated: false });
+        set({ user: null });
         return;
       }
 
@@ -76,17 +75,18 @@ const useUserStore = createPersistMiddleware<UserStore>("", (set) => ({
       if (!token) return;
 
       UserManager.clearUserData(options.clearStorage ?? true);
-      set({ user: null, isAuthenticated: false });
+      set({ user: null });
 
       if (!options.soft) {
-        UserManager.redirect(options.redirectUrl || "/");
+        UserManager.redirect(options.redirectUrl || "/signin");
       }
     } catch (error) {
       console.error("Sign out failed:", error);
       UserManager.clearUserData(options.clearStorage ?? true);
-      UserManager.redirect(options.redirectUrl || "/");
+      UserManager.redirect(options.redirectUrl || "/signin");
     }
   },
+  setUser: (user) => set({ user }),
 }));
 
 export { useUserStore };

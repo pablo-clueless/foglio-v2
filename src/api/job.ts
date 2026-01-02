@@ -1,14 +1,15 @@
+import { removeNullorUndefined } from "@/lib";
+import { api } from "./api";
 import type {
   ApplyToJobDto,
   CreateJobDto,
   HttpResponse,
+  JobApplicationProps,
   JobProps,
   PaginatedParams,
   PaginatedResponse,
   UpdateJobDto,
 } from "@/types";
-import { api } from "./api";
-import { removeNullorUndefined } from "@/lib";
 
 export interface JobPagination {
   company?: string;
@@ -29,12 +30,16 @@ const job = api.injectEndpoints({
         body: payload,
       }),
     }),
-    getJobs: builder.query<
-      HttpResponse<PaginatedResponse<JobProps>>,
-      PaginatedParams & JobPagination
-    >({
+    getJobs: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
       query: (params) => ({
         url: "/jobs",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
+    getJobsByUser: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
+      query: (params) => ({
+        url: "/me/jobs",
         method: "GET",
         params: removeNullorUndefined(params),
       }),
@@ -64,6 +69,13 @@ const job = api.injectEndpoints({
         method: "POST",
       }),
     }),
+    getApplications: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
+      query: (params) => ({
+        url: "/jobs/applications/user",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
   }),
 });
 
@@ -71,6 +83,9 @@ export const {
   useApplyToJobMutation,
   useCreateJobMutation,
   useDeleteJobMutation,
+  useGetApplicationsQuery,
   useGetJobQuery,
+  useGetJobsByUserQuery,
   useGetJobsQuery,
+  useUpdateJobMutation,
 } = job;

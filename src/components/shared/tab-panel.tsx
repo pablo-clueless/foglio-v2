@@ -16,18 +16,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabPanel = React.forwardRef<HTMLDivElement, Props>(
-  (
-    {
-      selected,
-      value,
-      children,
-      className,
-      innerClassName,
-      animated = true,
-      preserveContent = false,
-    },
-    ref,
-  ) => {
+  ({ selected, value, children, className, innerClassName, animated = true, preserveContent = false }, ref) => {
     if (typeof selected !== typeof value) {
       throw new Error("TabPanel: selected and value must be of the same type");
     }

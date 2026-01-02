@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import React from "react";
@@ -43,10 +45,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({ children, 
     },
     [single],
   );
-  const value = React.useMemo(
-    () => ({ activeItems, toggleItem, single }),
-    [activeItems, toggleItem, single],
-  );
+  const value = React.useMemo(() => ({ activeItems, toggleItem, single }), [activeItems, toggleItem, single]);
 
   return <AccordionContext.Provider value={value}>{children}</AccordionContext.Provider>;
 };
@@ -86,12 +85,7 @@ interface AccordionTriggerProps {
   onToggle?: (isActive: boolean) => void;
 }
 
-export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
-  children,
-  id,
-  disabled,
-  onToggle,
-}) => {
+export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({ children, id, disabled, onToggle }) => {
   const { activeItems, toggleItem } = useAccordion();
   const isActive = activeItems.has(id);
 
@@ -112,9 +106,7 @@ export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
       )}
     >
       {children}
-      <CaretDownIcon
-        className={cn("size-3 transition-transform duration-300", isActive && "rotate-180")}
-      />
+      <CaretDownIcon className={cn("size-3 transition-transform duration-300", isActive && "rotate-180")} />
     </button>
   );
 };

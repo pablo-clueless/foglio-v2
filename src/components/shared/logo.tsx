@@ -9,7 +9,7 @@ interface Props {
 
 export const Logo = ({ className }: Props) => {
   return (
-    <div className={cn("relative aspect-square size-16", className)}>
+    <div className={cn("relative aspect-[2.5/1] w-16", className)}>
       <Image src="/assets/images/logo.png" alt="foglio" fill sizes="100%" />
     </div>
   );

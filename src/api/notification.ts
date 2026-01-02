@@ -3,31 +3,28 @@ import { api } from "./api";
 
 const notification = api.injectEndpoints({
   endpoints: (builder) => ({
-    getNotifications: builder.query<
-      HttpResponse<PaginatedResponse<NotificationProps>>,
-      PaginatedParams
-    >({
+    getNotifications: builder.query<HttpResponse<PaginatedResponse<NotificationProps>>, PaginatedParams>({
       query: () => ({
-        url: "",
-        method: "",
+        url: "/notifications",
+        method: "GET",
       }),
     }),
     getNotification: builder.query<HttpResponse<NotificationProps>, string>({
-      query: () => ({
-        url: "",
-        method: "",
+      query: (id) => ({
+        url: `/notifications/${id}`,
+        method: "GET",
       }),
     }),
     readNotifications: builder.query<HttpResponse<null>, string>({
       query: () => ({
-        url: "",
-        method: "",
+        url: "/notifications/read",
+        method: "POST",
       }),
     }),
     deleteNotification: builder.query<HttpResponse<null>, string>({
-      query: () => ({
-        url: "",
-        method: "",
+      query: (id) => ({
+        url: `/notifications/${id}`,
+        method: "DELETE",
       }),
     }),
   }),

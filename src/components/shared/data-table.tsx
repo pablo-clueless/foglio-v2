@@ -8,14 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,9 +45,7 @@ export function DataTable<TData, TValue>({ columns, data }: Props<TData, TValue>
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id} className="bg-primary-400 font-medium text-white">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );
               })}

@@ -6,14 +6,12 @@ export const FEATURES: FeaturesProps[] = [
   {
     icon: LightningIcon,
     title: "Quick Setup",
-    subtitle:
-      "Get your portfolio up and running in less than 5 minutes with our streamlined process",
+    subtitle: "Get your portfolio up and running in less than 5 minutes with our streamlined process",
   },
   {
     icon: PaletteIcon,
     title: "Easy Customization",
-    subtitle:
-      "Personalize your portfolio with our intuitive drag-and-drop interface and pre-built templates",
+    subtitle: "Personalize your portfolio with our intuitive drag-and-drop interface and pre-built templates",
   },
   {
     icon: RocketLaunchIcon,
@@ -23,8 +21,7 @@ export const FEATURES: FeaturesProps[] = [
   {
     icon: GearIcon,
     title: "Advanced Features",
-    subtitle:
-      "Access powerful tools like analytics, SEO optimization, and custom domains to enhance your portfolio",
+    subtitle: "Access powerful tools like analytics, SEO optimization, and custom domains to enhance your portfolio",
   },
 ];
 
@@ -32,26 +29,22 @@ export const HOW_IT_WORKS = [
   {
     step: 1,
     title: "Upload or Enter",
-    description:
-      "Drag-and-drop your existing resume or fill out a simple form to add your information manually.",
+    description: "Drag-and-drop your existing resume or fill out a simple form to add your information manually.",
   },
   {
     step: 2,
     title: "Organize & Review",
-    description:
-      "Review and organize your data in the visual editor; tweak anything to perfect your presentation.",
+    description: "Review and organize your data in the visual editor; tweak anything to perfect your presentation.",
   },
   {
     step: 3,
     title: "Pick a Template",
-    description:
-      "Choose from professional, modern, or creative templates and customize colors, fonts, and sections.",
+    description: "Choose from professional, modern, or creative templates and customize colors, fonts, and sections.",
   },
   {
     step: 4,
     title: "Export & Share",
-    description:
-      "Download your polished resume as PDF or get a shareable link to send to recruiters in one click.",
+    description: "Download your polished resume as PDF or get a shareable link to send to recruiters in one click.",
   },
 ];
 
@@ -90,13 +83,7 @@ export const PRICING_PLANS: PricingProps[] = [
     currency: "$",
     interval: "month",
     description: "Built for teams and agencies",
-    features: [
-      "Everything in Pro",
-      "Team collaboration",
-      "White-label options",
-      "Priority support",
-      "API access",
-    ],
+    features: ["Everything in Pro", "Team collaboration", "White-label options", "Priority support", "API access"],
     cta: "Contact Sales",
     link: "/",
     popular: false,
@@ -120,8 +107,7 @@ export const FREQUENTLY_ASKED_QUESTIONS = [
   },
   {
     question: "Is there a free plan?",
-    answer:
-      "Absolutely. The Starter plan is free forever and includes one published portfolio with basic templates.",
+    answer: "Absolutely. The Starter plan is free forever and includes one published portfolio with basic templates.",
   },
   {
     question: "How do I export my portfolio?",
@@ -137,13 +123,11 @@ export const FREQUENTLY_ASKED_QUESTIONS = [
   },
   {
     question: "Is my data secure?",
-    answer:
-      "We use industry-standard encryption and never share your personal information with third parties.",
+    answer: "We use industry-standard encryption and never share your personal information with third parties.",
   },
   {
     question: "Can I cancel my subscription anytime?",
-    answer:
-      "Yes, you can downgrade or cancel your paid plan at any time from your account settings.",
+    answer: "Yes, you can downgrade or cancel your paid plan at any time from your account settings.",
   },
   {
     question: "Do you offer support?",

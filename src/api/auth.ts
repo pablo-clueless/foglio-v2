@@ -1,38 +1,34 @@
-import type {
-  CreateUserDto,
-  HttpResponse,
-  ResetPasswordDto,
-  SigninDto,
-  SigninResponse,
-  UserProps,
-} from "@/types";
+import type { CreateUserDto, HttpResponse, ResetPasswordDto, SigninDto, SigninResponse, UserProps } from "@/types";
 import { api } from "./api";
 
 const auth = api.injectEndpoints({
   endpoints: (builder) => ({
     signup: builder.mutation<HttpResponse<UserProps>, CreateUserDto>({
-      query: () => ({
+      query: (payload) => ({
         url: "/auth/signup",
         method: "POST",
+        body: payload,
       }),
     }),
     signin: builder.mutation<HttpResponse<SigninResponse>, SigninDto>({
-      query: () => ({
+      query: (payload) => ({
         url: "/auth/signin",
         method: "POST",
+        body: payload,
       }),
     }),
-    verification: builder.mutation<HttpResponse<string>, string>({
-      query: () => ({
+    verification: builder.mutation<HttpResponse<SigninResponse>, string>({
+      query: (otp) => ({
         url: "/auth/verification",
         method: "POST",
+        body: { otp },
       }),
     }),
-    forgotPassword: builder.mutation<HttpResponse<string>, { email: string }>({
+    forgotPassword: builder.mutation<HttpResponse<string>, string>({
       query: (email) => ({
         url: "/auth/forgot-password",
         method: "POST",
-        body: email,
+        body: { email },
       }),
     }),
     resetPassword: builder.mutation<HttpResponse<string>, ResetPasswordDto>({
@@ -78,4 +74,5 @@ export const {
   useResetPasswordMutation,
   useSigninMutation,
   useSignupMutation,
+  useVerificationMutation,
 } = auth;

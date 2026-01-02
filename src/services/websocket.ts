@@ -72,9 +72,7 @@ class WebSocketService {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       setTimeout(() => {
-        console.log(
-          `Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`,
-        );
+        console.log(`Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
         this.connect();
       }, 3000 * this.reconnectAttempts);
     }

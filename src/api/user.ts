@@ -1,6 +1,6 @@
-import type { HttpResponse, PaginatedParams, PaginatedResponse, UserProps } from "@/types";
-import { api } from "./api";
+import type { HttpResponse, PaginatedParams, PaginatedResponse, UpdateUserDto, UserProps } from "@/types";
 import { removeNullorUndefined } from "@/lib";
+import { api } from "./api";
 
 export interface UserPagination {
   username?: string;
@@ -11,29 +11,33 @@ export interface UserPagination {
 
 const user = api.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<
-      HttpResponse<PaginatedResponse<UserProps>>,
-      PaginatedParams & UserPagination
-    >({
+    getUsers: builder.query<HttpResponse<PaginatedResponse<UserProps>>, PaginatedParams & UserPagination>({
       query: (params) => ({
         url: "/users",
         method: "GET",
         params: removeNullorUndefined(params),
       }),
     }),
-    getUser: builder.query<HttpResponse<PaginatedResponse<UserProps>>, string>({
+    getUser: builder.query<HttpResponse<UserProps>, string>({
       query: (id) => ({
         url: `/users/${id}`,
         method: "GET",
       }),
     }),
-    updateUser: builder.query<HttpResponse<PaginatedResponse<UserProps>>, string>({
-      query: (id) => ({
-        url: `/users/${id}`,
-        method: "PUT",
+    getMe: builder.query<HttpResponse<UserProps>, undefined>({
+      query: () => ({
+        url: "/me",
+        method: "GET",
       }),
     }),
-    deleteUser: builder.query<HttpResponse<PaginatedResponse<null>>, string>({
+    updateUser: builder.mutation<HttpResponse<UserProps>, { id: string; payload: Partial<UpdateUserDto> }>({
+      query: ({ id, payload }) => ({
+        url: `/users/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+    deleteUser: builder.mutation<HttpResponse<null>, string>({
       query: (id) => ({
         url: `/users/${id}`,
         method: "DELETE",
@@ -42,4 +46,4 @@ const user = api.injectEndpoints({
   }),
 });
 
-export const { useDeleteUserQuery, useGetUserQuery, useGetUsersQuery, useUpdateUserQuery } = user;
+export const { useDeleteUserMutation, useGetMeQuery, useGetUserQuery, useGetUsersQuery, useUpdateUserMutation } = user;
