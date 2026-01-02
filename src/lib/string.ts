@@ -6,7 +6,7 @@ export const getInitials = (value?: string) => {
     .join("");
 };
 
-export const removeNullorUndefined = <T extends Record<string, any>>(params: T): T => {
+export const removeNullorUndefined = <T extends Record<string, unknown>>(params: T): T => {
   const result: Partial<T> = {};
   for (const key in params) {
     const value = params[key];
