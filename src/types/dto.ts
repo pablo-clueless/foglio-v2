@@ -76,7 +76,7 @@ export interface CreateJobDto {
   location: string;
   description: string;
   requirements: string[];
-  salary?: any;
+  salary?: number;
   deadline?: Date;
   is_remote: boolean;
   employment_type: string;
@@ -86,7 +86,7 @@ export interface UpdateJobDto {
   title: string;
   description: string;
   requirements: string[];
-  salary?: any;
+  salary?: number;
   deadline?: Date;
   is_remote: boolean;
   employment_type: string;

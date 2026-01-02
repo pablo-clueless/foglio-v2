@@ -1,3 +1,5 @@
+"use client";
+
 import { GearIcon, LightningIcon, PaletteIcon, RocketLaunchIcon } from "@phosphor-icons/react";
 
 import type { FeaturesProps, PricingProps } from "@/types";

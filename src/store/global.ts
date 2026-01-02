@@ -1,7 +1,15 @@
 import { createReportableStore } from "./middleware";
 
-interface GlobalStore {}
+interface GlobalStore {
+  loading: boolean;
+}
 
-const useGlobalStore = createReportableStore<GlobalStore>(() => ({}));
+const initialState: GlobalStore = {
+  loading: false,
+};
+
+const useGlobalStore = createReportableStore<GlobalStore>(() => ({
+  ...initialState,
+}));
 
 export { useGlobalStore };
