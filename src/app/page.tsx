@@ -28,9 +28,7 @@ const Page = () => {
             ))}
           </Accordion>
         </section>
-        <section className="w-full bg-white">
-          <div className="container mx-auto w-full max-w-6xl py-10 sm:py-20"></div>
-        </section>
+        <section className="container mx-auto max-w-6xl py-10 sm:py-20"></section>
       </div>
       <Footer />
     </>
