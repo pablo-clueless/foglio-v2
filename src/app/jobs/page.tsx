@@ -22,7 +22,7 @@ const Page = () => {
   const filtered = React.useMemo(() => {
     if (q.trim() === "") return MOCK_JOBS;
     return MOCK_JOBS.filter((job) => job.title.toLowerCase().includes(q.toLowerCase()));
-  }, []);
+  }, [q]);
 
   const paginated = paginate(filtered, page, PAGE_SIZE, filtered.length);
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const paginate = <T>(data: T[], page: number, size: number, total: number): T[] => {
   const startIndex = (page - 1) * size;
   const endIndex = Math.min(startIndex + size, total);
@@ -16,7 +18,6 @@ export const groupArray = <T, K extends keyof T>(data: T[], discriminator: K): R
     },
     {} as Record<string, T[]>,
   );
-
   return groupedObjects;
 };
 

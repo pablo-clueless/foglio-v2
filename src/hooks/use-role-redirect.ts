@@ -20,5 +20,5 @@ export const useRoleRedirect = (user: UserProps) => {
         router.push("/home");
         return;
     }
-  }, [user]);
+  }, [router, user]);
 };
