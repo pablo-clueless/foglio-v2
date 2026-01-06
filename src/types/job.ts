@@ -1,5 +1,7 @@
 import type { UserProps } from "./user";
 
+export type EmploymentType = "FULL_TIME" | "PART_TIME" | "CONTRACT" | "TEMPORARY" | "INTERNSHIP";
+
 export interface SalaryProps {
   min: number;
   max: number;
@@ -17,12 +19,11 @@ export interface JobProps {
   posted_date: Date;
   deadline: Date;
   is_remote: boolean;
-  employment_type: string;
-  created_by: string;
-  created_by_user: UserProps;
+  employment_type: EmploymentType;
+  created_by: UserProps;
   created_at: Date;
   updated_at: Date;
-  deleted_at?: Date | null;
+  deleted_at: Date | null;
   applications: JobApplicationProps[];
   comments: CommentProps[];
   reactions: ReactionProps[];
