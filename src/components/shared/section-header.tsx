@@ -1,16 +1,19 @@
-import type { Icon } from "@phosphor-icons/react";
 import React from "react";
 
 interface Props {
-  icon: Icon;
+  label: string;
+  subtitle: string;
   title: string;
 }
 
-export const SectionHeader = ({ icon: Icon, title }: Props) => {
+export const SectionHeader = ({ label, subtitle, title }: Props) => {
   return (
-    <div className="bg-primary-400 flex w-fit items-center gap-x-1 rounded px-3 py-1 text-white">
-      <Icon className="size-4" />
-      <p className="text-sm font-medium">{title}</p>
+    <div className="flex w-full flex-col gap-y-4 px-10 sm:px-0">
+      <div className="border-primary-400 bg-primary-100/25 w-fit border-l px-2 py-1 text-xs uppercase">{label}</div>
+      <div className="space-y-1">
+        <h3 className="text-xl font-semibold sm:text-4xl">{title}</h3>
+        <p className="w-full text-sm text-gray-600 sm:w-1/2 sm:text-base">{subtitle}</p>
+      </div>
     </div>
   );
 };

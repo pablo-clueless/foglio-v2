@@ -1,55 +1,82 @@
-"use client";
+import {
+  RiBriefcase2Line,
+  RiBuilding2Line,
+  RiDashboardLine,
+  RiFilePdf2Line,
+  RiFileTextLine,
+  RiGroup3Line,
+  RiHome2Line,
+  RiPieChart2Line,
+  RiSettings4Line,
+  RiUserSettingsLine,
+} from "@remixicon/react";
 
-import { FileTextIcon, GearIcon, HouseIcon, UserGearIcon, UserIcon, UsersIcon } from "@phosphor-icons/react";
-
-export const DASHBOARD_ROUTES = [
-  {
-    label: "Home",
-    href: "/",
-    icon: HouseIcon,
-  },
-  {
-    label: "Me",
-    href: "/me",
-    icon: UserIcon,
-  },
-  {
-    label: "Applications",
-    href: "/me/applications",
-    icon: FileTextIcon,
-  },
-  {
-    label: "Settings",
-    href: "/me/settings",
-    icon: GearIcon,
-  },
-];
+export const DASHBOARD_ROUTES = (isRecruiter: boolean) => {
+  return [
+    {
+      label: "Home",
+      href: "/home",
+      icon: RiHome2Line,
+      show: true,
+    },
+    {
+      label: "Resume",
+      href: "/resume",
+      icon: RiFilePdf2Line,
+      show: !isRecruiter,
+    },
+    {
+      label: "Analytics",
+      href: "/analytics",
+      icon: RiPieChart2Line,
+      show: isRecruiter,
+    },
+    {
+      label: "Applications",
+      href: "/applications",
+      icon: RiFileTextLine,
+      show: true,
+    },
+    {
+      label: "Company",
+      href: "/company",
+      icon: RiBuilding2Line,
+      show: isRecruiter,
+    },
+    {
+      label: "Settings",
+      href: "/settings",
+      icon: RiSettings4Line,
+      show: true,
+    },
+  ];
+};
 
 export const ADMIN_ROUTES = [
   {
     label: "Dashboard",
     href: "/super-admin/dashboard",
-    icon: UserIcon,
+    icon: RiDashboardLine,
   },
   {
     label: "Users",
     href: "/super-admin/users",
-    icon: UsersIcon,
+    icon: RiGroup3Line,
   },
   {
     label: "Recruiters",
     href: "/super-admin/recruiters",
-    icon: UserGearIcon,
+    icon: RiUserSettingsLine,
   },
   {
     label: "Jobs",
     href: "/super-admin/jobs",
-    icon: UserGearIcon,
+    icon: RiBriefcase2Line,
   },
   {
     label: "Settings",
     href: "/super-admin/settings",
-    icon: GearIcon,
+    icon: RiSettings4Line,
   },
 ];
 
@@ -118,4 +145,15 @@ export const NAVBAR_LINKS = [
   },
 ];
 
-export const PUBLIC_ROUTES = ["/", "/signin", "/signup", "forgot-password", "/reset-password", "/verification", "/"];
+export const PUBLIC_ROUTES = [
+  "/",
+  "/forgot-password",
+  "/jobs",
+  "/reset-password",
+  "/recruiters",
+  "/privacy-policy",
+  "/signin",
+  "/signup",
+  "/talents",
+  "/terms-of-service",
+];

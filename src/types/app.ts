@@ -1,4 +1,4 @@
-import type { Icon } from "@phosphor-icons/react";
+import type { RemixiconComponentType } from "@remixicon/react";
 
 export type Maybe<T> = T | null;
 
@@ -43,8 +43,13 @@ export interface TypeNode {
   modified_at: Date;
 }
 
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  className?: string;
+}
+
 export interface FeaturesProps {
-  icon: Icon;
+  icon: RemixiconComponentType;
+  image: string;
   title: string;
   subtitle: string;
 }
@@ -53,11 +58,11 @@ export interface TemplateThemeProps {
   id: string;
   name: string;
   colors: {
-    background: string;
-    surface: string;
-    primary: string;
-    secondary: string;
-    text: string;
+    backgroundColor: string;
+    surfaceColor: string;
+    primaryColor: string;
+    secondaryColor: string;
+    textPrimary: string;
     textSecondary: string;
     border: string;
   };
