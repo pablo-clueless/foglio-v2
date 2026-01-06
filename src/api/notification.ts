@@ -1,7 +1,7 @@
 import type { HttpResponse, NotificationProps, PaginatedParams, PaginatedResponse } from "@/types";
 import { api } from "./api";
 
-const notification = api.injectEndpoints({
+export const notification = api.injectEndpoints({
   endpoints: (builder) => ({
     getNotifications: builder.query<HttpResponse<PaginatedResponse<NotificationProps>>, PaginatedParams>({
       query: () => ({

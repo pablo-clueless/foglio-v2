@@ -19,13 +19,13 @@ export interface SigninDto {
 }
 
 export interface ChangePasswordDto {
-  current_password: string;
-  new_password: string;
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface ResetPasswordDto {
-  current_password: string;
-  new_password: string;
+  confirmPassword: string;
+  newPassword: string;
   token: string;
 }
 
@@ -33,6 +33,7 @@ export interface CreateUserDto {
   name: string;
   email: string;
   password: string;
+  username: string;
 }
 
 export interface SigninResponse {

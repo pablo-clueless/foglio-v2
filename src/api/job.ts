@@ -21,7 +21,7 @@ export interface JobPagination {
   is_remote?: boolean;
 }
 
-const job = api.injectEndpoints({
+export const job = api.injectEndpoints({
   endpoints: (builder) => ({
     createJob: builder.mutation<HttpResponse<JobProps>, CreateJobDto>({
       query: (payload) => ({

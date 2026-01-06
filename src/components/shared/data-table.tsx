@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({ columns, data }: Props<TData, TValue>
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="bg-primary-400 font-medium text-white">
+                  <TableHead key={header.id} className="bg-primary-400/50 font-medium text-white">
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );

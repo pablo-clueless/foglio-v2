@@ -1,32 +1,33 @@
+export type ProviderType = "EMAIL" | "GITHUB" | "GOOGLE";
+
 export interface UserProps {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  password?: string;
-  provider: "local" | "google" | "github";
-  provider_id?: string;
-  phone?: string;
-  headline?: string;
-  location?: string;
-  image?: string;
-  summary: string;
-  company_id?: string;
-  skills?: string[];
-  projects?: ProjectProps[];
-  experiences?: ExperienceProps[];
-  education?: EducationProps[];
-  certifications?: CertificationProps[];
-  languages?: LanguageProps[];
-  is_admin: boolean;
-  is_recruiter: boolean;
-  is_premium: boolean;
   created_at: Date;
+  email: string;
+  id: string;
+  headline: string;
+  is_admin: boolean;
+  is_premium: boolean;
+  is_recruiter: boolean;
+  name: string;
+  provider: ProviderType;
+  summary: string;
   updated_at: Date;
-  deleted_at?: Date;
+  username: string;
   verified: boolean;
-  otp: string;
+  certifications?: CertificationProps[];
   company?: CompanyProps;
+  company_id?: string;
+  deleted_at?: Date;
+  education?: EducationProps[];
+  experiences?: ExperienceProps[];
+  image?: string;
+  languages?: LanguageProps[];
+  location?: string;
+  phone?: string;
+  projects?: ProjectProps[];
+  provider_id?: string;
+  skills?: string[];
+  otp?: string;
 }
 
 export interface CompanyProps {

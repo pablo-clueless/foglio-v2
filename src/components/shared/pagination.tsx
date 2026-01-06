@@ -32,7 +32,7 @@ export const Pagination = ({ current, limit, onPageChange, total, buttonClassNam
       disabled={current === index}
       className={cn(
         "grid size-8 place-items-center rounded-md text-sm font-medium",
-        current === index && "bg-primary-400 text-white",
+        current === index && "bg-primary-400 text-black",
         buttonClassName,
       )}
     >

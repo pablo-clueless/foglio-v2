@@ -48,7 +48,8 @@
   --color-primary-700: var(--primary-700);
   --color-primary-800: var(--primary-800);
 
-  --background-image-grid: url("/assets/images/grid.png");
+  --background-image-grid-1: url("/assets/images/grid.png");
+  --background-image-grid-2: url("/assets/images/grid-2.jpg");
 
   --animate-follow: follow 5s linear infinite;
 }

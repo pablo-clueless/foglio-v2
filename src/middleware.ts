@@ -3,9 +3,22 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export const config = {
-  matcher: ["/me", "/signin", "/signup"],
+  matcher: ["/(dashboard)/:path*", "/admin/:path*", "/(auth)/:path*"],
   name: "auth-middleware",
 };
+
+const publicEntries = [
+  "/",
+  "/forgot-password",
+  "/jobs",
+  "/reset-password",
+  "/recruiters",
+  "/privacy-policy",
+  "/signin",
+  "/signup",
+  "/talents",
+  "/terms-of-service",
+];
 
 export function middleware(req: NextRequest) {
   const requestHeaders = new Headers(req.headers);
@@ -19,12 +32,12 @@ export function middleware(req: NextRequest) {
     return response;
   };
 
-  if (hasToken && (url.pathname === "/signin" || url.pathname === "/signup")) {
-    url.pathname = "/me";
+  if (hasToken && publicEntries.includes(url.pathname)) {
+    url.pathname = "/home";
     return redirectResponse(url);
   }
 
-  if (!hasToken && url.pathname === "/me") {
+  if (!hasToken && !publicEntries.includes(url.pathname)) {
     url.pathname = "/signin";
     return redirectResponse(url);
   }

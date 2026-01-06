@@ -28,7 +28,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <ReduxProvider>
             {children}
-            <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
+            <Toaster position="top-right" richColors toastOptions={{ duration: 5000 }} />
           </ReduxProvider>
         </ErrorBoundary>
       </body>

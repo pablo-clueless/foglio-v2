@@ -7,6 +7,7 @@ export const columns: ColumnDef<JobProps>[] = [
   {
     accessorKey: "title",
     header: "Title",
+    cell: ({ row }) => <div className="flex h-12 items-center capitalize">{row.original.title}</div>,
   },
   {
     accessorKey: "location",
@@ -29,7 +30,7 @@ export const columns: ColumnDef<JobProps>[] = [
   {
     accessorKey: "created_by_user",
     header: "Posted By",
-    cell: ({ row }) => <p>{row.original.created_by_user.name}</p>,
+    cell: ({ row }) => <p>{row.original.created_by.name}</p>,
   },
   {
     id: "actions",

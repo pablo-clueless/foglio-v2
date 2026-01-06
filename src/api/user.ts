@@ -9,7 +9,7 @@ export interface UserPagination {
   skill?: string;
 }
 
-const user = api.injectEndpoints({
+export const user = api.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query<HttpResponse<PaginatedResponse<UserProps>>, PaginatedParams & UserPagination>({
       query: (params) => ({
