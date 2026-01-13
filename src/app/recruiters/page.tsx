@@ -14,7 +14,7 @@ const Page = () => {
         <section className="container mx-auto max-w-6xl space-y-2 py-10 sm:py-28">
           <Badge>
             <RiBuilding2Line />
-            Job Openings
+            Top Recruiters
           </Badge>
           <h1 className="text-4xl font-semibold sm:text-6xl">For Recruiters</h1>
           <p className="text-sm text-gray-400 sm:text-base">Get access to the best talents accross the globe</p>

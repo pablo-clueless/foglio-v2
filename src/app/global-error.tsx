@@ -20,11 +20,11 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
               </svg>
             </div>
             <h2 className="mb-2 text-2xl font-bold text-gray-900">Application Error</h2>
-            <p className="mb-6 text-gray-600">
+            <p className="mb-6 text-gray-400">
               A critical error occurred. Please reload the page or contact support if the issue persists.
             </p>
             {error.digest && (
-              <p className="mb-4 rounded bg-gray-100 px-3 py-2 font-mono text-xs text-gray-600">
+              <p className="mb-4 rounded bg-gray-100 px-3 py-2 font-mono text-xs text-gray-400">
                 Error ID: {error.digest}
               </p>
             )}
