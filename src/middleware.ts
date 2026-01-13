@@ -2,6 +2,8 @@ import type { NextURL } from "next/dist/server/web/next-url";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+import { COOKIE_NAME } from "@/api/store/auth";
+
 export const config = {
   matcher: ["/(dashboard)/:path*", "/admin/:path*", "/(auth)/:path*"],
   name: "auth-middleware",
@@ -23,7 +25,7 @@ const publicEntries = [
 export function middleware(req: NextRequest) {
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-next-pathname", req.nextUrl.pathname);
-  const hasToken = req.cookies.has("FOGLIO_TOKEN");
+  const hasToken = req.cookies.has(COOKIE_NAME);
   const url = req.nextUrl.clone();
 
   const redirectResponse = (url: string | NextURL) => {

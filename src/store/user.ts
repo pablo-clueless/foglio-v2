@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 import type { Maybe, SigninResponse, UserProps } from "@/types";
 import { createPersistMiddleware } from "./middleware";
 
-const COOKIE_NAME = "FOGLIO_TOKEN";
-const STORAGE_KEY = "foglio_user";
+export const COOKIE_NAME = "FOGLIO_TOKEN";
+export const STORAGE_KEY = "foglio_user";
 const COOKIE_OPTIONS = {
   path: "/",
   sameSite: "strict" as const,

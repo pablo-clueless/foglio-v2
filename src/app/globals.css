@@ -75,7 +75,6 @@
   }
 
   body {
-    /* background: url("/assets/images/grain.png") var(--background); */
     background: var(--color-black);
     color: var(--color-white);
     overflow-x: hidden;

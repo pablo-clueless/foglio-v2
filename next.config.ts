@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    remotePatterns: [],
+    remotePatterns: [{ hostname: "images.unsplash.com" }, { hostname: "res.cloudinary.com" }],
   },
 };
 

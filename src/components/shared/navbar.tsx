@@ -29,7 +29,7 @@ export const Navbar = () => {
     >
       <div className="container mx-auto flex max-w-6xl items-center justify-between">
         <Link href="/">
-          <Logo />
+          <Logo mode="light" />
         </Link>
         <div className="flex items-center gap-x-4">
           {NAVBAR_LINKS.map(({ href, label }) => (
@@ -49,13 +49,13 @@ export const Navbar = () => {
               </PopoverTrigger>
               <PopoverContent align="end" className="w-48 p-2">
                 <Button variant="ghost" className="w-full justify-start" asChild>
-                  <Link href="/me">Profile</Link>
+                  <Link href="/home">Profile</Link>
                 </Button>
                 <Button variant="ghost" className="w-full justify-start" asChild>
-                  <Link href="/me/applications">Job Applications</Link>
+                  <Link href="/applications">Job Applications</Link>
                 </Button>
                 <Button variant="ghost" className="w-full justify-start" asChild>
-                  <Link href="/me/settings">Settings</Link>
+                  <Link href="/settings">Settings</Link>
                 </Button>
                 <hr className="my-2" />
                 <Button variant="ghost" className="w-full justify-start text-red-600" asChild>
