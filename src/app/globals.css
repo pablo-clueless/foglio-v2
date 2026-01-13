@@ -2,7 +2,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 :root {
   font-synthesis: none;
@@ -50,6 +50,7 @@
 
   --background-image-grid-1: url("/assets/images/grid.png");
   --background-image-grid-2: url("/assets/images/grid-2.jpg");
+  --background-image-grid-3: url("/assets/images/grid-3.avif");
 
   --animate-follow: follow 5s linear infinite;
 }

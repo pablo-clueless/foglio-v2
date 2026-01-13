@@ -47,7 +47,7 @@ export const Navbar = () => {
                   <p className="text-sm">{user.name}</p>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="end" className="w-48 p-2">
+              <PopoverContent align="end" className="w-48 p-2 text-black">
                 <Button variant="ghost" className="w-full justify-start" asChild>
                   <Link href="/home">Profile</Link>
                 </Button>
