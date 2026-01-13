@@ -13,7 +13,7 @@ export const Footer = () => {
         <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-10 py-10 md:grid-cols-3">
           <div className="col-span-1">
             <Link href="/">
-              <Logo className="w-80" />
+              <Logo className="w-80" mode="light" />
             </Link>
           </div>
           <div className="col-span-1 flex flex-wrap items-start justify-between gap-10 md:col-span-2">

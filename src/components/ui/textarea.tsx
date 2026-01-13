@@ -30,7 +30,7 @@ function Textarea({
       {label && (
         <label
           className={cn(
-            "text-sm font-medium text-gray-600",
+            "text-sm font-medium text-gray-400",
             labelClassName,
             required && "after:ml-1 after:text-red-500 after:content-['*']",
           )}

@@ -12,7 +12,7 @@ export const SectionHeader = ({ label, subtitle, title }: Props) => {
       <div className="border-primary-400 bg-primary-100/25 w-fit border-l px-2 py-1 text-xs uppercase">{label}</div>
       <div className="space-y-1">
         <h3 className="text-xl font-semibold sm:text-4xl">{title}</h3>
-        <p className="w-full text-sm text-gray-600 sm:w-1/2 sm:text-base">{subtitle}</p>
+        <p className="w-full text-sm text-gray-400 sm:w-1/2 sm:text-base">{subtitle}</p>
       </div>
     </div>
   );

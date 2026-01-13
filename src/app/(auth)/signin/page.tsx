@@ -12,8 +12,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useSigninMutation } from "@/api/auth";
 import { Input } from "@/components/ui/input";
+import { useUserStore } from "@/store/user";
 import { Logo } from "@/components/shared";
-import { signin } from "@/api/store/auth";
 
 const initialValues: SigninDto = {
   email: "",
@@ -22,6 +22,7 @@ const initialValues: SigninDto = {
 
 const Page = () => {
   const [signinMutation, { isLoading }] = useSigninMutation();
+  const { signin } = useUserStore();
   const router = useRouter();
 
   const { handleChange, handleSubmit } = useFormik({
@@ -32,7 +33,7 @@ const Page = () => {
         .then((response) => {
           const message = response.message || "";
           toast.success(message);
-          signin(response.data);
+          signin(response.data, { remember: true });
           router.push("/home");
         })
         .catch((error) => {
