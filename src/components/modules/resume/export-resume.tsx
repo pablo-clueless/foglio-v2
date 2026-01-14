@@ -24,7 +24,7 @@ export const ExportResume = () => {
       <DialogTrigger asChild>
         <Button size="sm">Export Resume</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[850px]">
+      <DialogContent className="sm:max-w-[80vw]">
         <div className="flex w-full items-center justify-between">
           <div className="">
             <DialogTitle>Export Resume</DialogTitle>
