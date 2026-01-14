@@ -1,6 +1,6 @@
 import type { NotificationProps } from "@/types";
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URI as string;
+const WS_URL = process.env.NEXT_PUBLIC_WSS_URI as string;
 
 class WebSocketService {
   private socket: WebSocket | null;

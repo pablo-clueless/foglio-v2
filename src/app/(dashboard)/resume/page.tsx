@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ExportResume } from "@/components/modules/resume";
 import { ScrollArea } from "@/components/shared";
 import { useUserStore } from "@/store/user";
 import { getInitials } from "@/lib";
@@ -17,6 +18,9 @@ const Page = () => {
   return (
     <ScrollArea>
       <div className="w-full space-y-4 text-black">
+        <div className="flex items-center justify-end">
+          <ExportResume />
+        </div>
         <div className="bg-primary-100/25 flex items-center gap-x-5 rounded-xl p-4">
           <Avatar className="size-20">
             <AvatarImage src={user.image} />
