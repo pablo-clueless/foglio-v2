@@ -64,7 +64,8 @@ export const normalize = (path: string): string => {
   return `/${firstPart}/${secondPart}`;
 };
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date | undefined) => {
+  if (!date) return "";
   return new Date(date).toLocaleDateString("en-NG", {
     year: "numeric",
     month: "short",

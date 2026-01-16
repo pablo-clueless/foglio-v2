@@ -41,7 +41,7 @@ function Textarea({
       )}
       <div
         className={cn(
-          "focus-within:border-primary-400 flex field-sizing-content min-h-20 min-w-0 rounded-md border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none",
+          "focus-within:border-primary-400 flex field-sizing-content min-h-20 min-w-0 border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none",
           inputClassName,
         )}
       >

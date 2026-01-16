@@ -11,7 +11,7 @@ interface Props {
 export const Card = ({ job }: Props) => {
   return (
     <Link
-      className="border-primary-100/15 hover:bg-primary-100/25 flex flex-col justify-between space-y-2 rounded-md border p-4 transition-colors duration-500"
+      className="border-primary-100/15 hover:bg-primary-100/25 flex flex-col justify-between space-y-2 border p-4 transition-colors duration-500"
       href={`/jobs/${job.id}`}
     >
       <p className="truncate text-sm capitalize sm:text-base">{job.title}</p>

@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ExportResume } from "@/components/modules/resume";
-import { ScrollArea } from "@/components/shared";
+import { Avatar, ScrollArea } from "@/components/shared";
+import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user";
 import { getInitials } from "@/lib";
 
@@ -19,13 +19,16 @@ const Page = () => {
     <ScrollArea>
       <div className="w-full space-y-4 text-black">
         <div className="flex items-center justify-end">
-          <ExportResume />
+          <Button asChild size="sm">
+            <Link href="/resume/export">Export Resume</Link>
+          </Button>
         </div>
-        <div className="bg-primary-100/25 flex items-center gap-x-5 rounded-xl p-4">
-          <Avatar className="size-20">
-            <AvatarImage src={user.image} />
-            <AvatarFallback className="text-4xl font-bold">{getInitials(user.name)}</AvatarFallback>
-          </Avatar>
+        <div className="bg-primary-100/25 flex items-center gap-x-5 p-4">
+          <Avatar
+            alt={getInitials(user.name)}
+            className="bg-primary-400 size-20 text-4xl font-bold text-black"
+            src={user.image}
+          />
           <div className="space-y-1">
             <p className="text-3xl font-semibold">{user.name}</p>
             <div className="flex items-center gap-x-3 text-gray-400">

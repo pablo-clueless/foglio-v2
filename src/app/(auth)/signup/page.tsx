@@ -45,7 +45,7 @@ const Page = () => {
     <div className="flex w-[400px] flex-col items-center gap-y-20">
       <div className="">
         <Link href="/">
-          <Logo />
+          <Logo mode="light" />
         </Link>
       </div>
       <form className="w-full space-y-4" onSubmit={handleSubmit}>
@@ -53,7 +53,7 @@ const Page = () => {
         <Input label="Username" name="username" onChange={handleChange} type="text" />
         <Input label="Email" name="email" onChange={handleChange} type="email" />
         <Input label="Password" name="password" onChange={handleChange} type="password" />
-        <Button className="w-full" type="submit">
+        <Button disabled={isLoading} className="w-full" type="submit">
           {isLoading ? <RiLoaderLine className="animate-spin" /> : "Create Account"}
         </Button>
       </form>
@@ -64,10 +64,10 @@ const Page = () => {
         </Link>
       </p>
       <div className="flex w-full flex-col gap-5">
-        <Button variant="default-outline">
+        <Button disabled={isLoading} variant="default-outline">
           <RiGoogleFill /> Continue with Google
         </Button>
-        <Button variant="default-outline">
+        <Button disabled={isLoading} variant="default-outline">
           <RiGithubFill /> Continue with Github
         </Button>
       </div>

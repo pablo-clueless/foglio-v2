@@ -44,7 +44,7 @@ const Page = () => {
     <div className="flex w-[400px] flex-col items-center gap-y-20">
       <div className="">
         <Link href="/">
-          <Logo />
+          <Logo mode="light" />
         </Link>
       </div>
       <form className="w-full space-y-4" onSubmit={handleSubmit}>
