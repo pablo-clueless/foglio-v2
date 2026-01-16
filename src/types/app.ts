@@ -58,13 +58,12 @@ export interface TemplateThemeProps {
   id: string;
   name: string;
   colors: {
-    backgroundColor: string;
     surfaceColor: string;
     primaryColor: string;
     secondaryColor: string;
     textPrimary: string;
     textSecondary: string;
-    border: string;
+    borderColor: string;
   };
 }
 

@@ -48,7 +48,7 @@ function Input({
       )}
       <div
         className={cn(
-          "focus-within:border-primary-400 flex h-9 min-w-0 items-center gap-x-2 rounded-md border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
+          "focus-within:border-primary-400 flex h-9 min-w-0 items-center gap-x-2 border px-3 py-1 shadow-xs transition-[color,box-shadow,border] duration-300 outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
           inputClassName,
         )}
       >

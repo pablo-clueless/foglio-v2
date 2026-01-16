@@ -24,15 +24,15 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <WithAuth>
       <div className="flex h-screen w-screen items-start overflow-hidden">
-        <aside className="h-full w-[250px] border-r">
-          <div className="h-20 w-full"></div>
+        <aside className="border-primary-100/15 h-full w-[250px] border-r">
+          <div className="border-primary-100/15 h-14 w-full border-b"></div>
           <div className="h-[calc(100%-56px)] w-full p-4">
             <div className="w-full space-y-3">
               {DASHBOARD_ROUTES(isRecruiter).map((route) => (
                 <Link
                   className={cn(
                     "hover:bg-primary-100/25 flex items-center gap-x-2 rounded-md px-4 py-3 text-sm font-medium",
-                    isActive(route.href) && "bg-primary-400 text-black",
+                    isActive(route.href) ? "text-primary-400" : "text-gray-400",
                     !route.show && "hidden",
                   )}
                   href={route.href}

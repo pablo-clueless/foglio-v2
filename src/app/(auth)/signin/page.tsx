@@ -22,6 +22,7 @@ const initialValues: SigninDto = {
 
 const Page = () => {
   const [signinMutation, { isLoading }] = useSigninMutation();
+  const [remember, setRemember] = React.useState(false);
   const { signin } = useUserStore();
   const router = useRouter();
 
@@ -33,7 +34,7 @@ const Page = () => {
         .then((response) => {
           const message = response.message || "";
           toast.success(message);
-          signin(response.data, { remember: true });
+          signin(response.data, { remember });
           router.push("/home");
         })
         .catch((error) => {
@@ -47,7 +48,7 @@ const Page = () => {
     <div className="flex w-[400px] flex-col items-center gap-y-20">
       <div className="">
         <Link href="/">
-          <Logo />
+          <Logo mode="light" />
         </Link>
       </div>
       <form className="w-full space-y-4" onSubmit={handleSubmit}>
@@ -55,14 +56,14 @@ const Page = () => {
         <Input label="Password" name="password" onChange={handleChange} type="password" />
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-x-2">
-            <Checkbox />
+            <Checkbox checked={remember} onCheckedChange={(checked: boolean) => setRemember(checked)} />
             <p className="text-sm">Keep me signed in</p>
           </div>
           <Link className="text-sm underline" href="/forgot-password">
             Forgot Password
           </Link>
         </div>
-        <Button className="w-full" type="submit">
+        <Button aria-disabled={isLoading} disabled={isLoading} className="w-full" type="submit">
           {isLoading ? <RiLoaderLine className="animate-spin" /> : "Sign In"}
         </Button>
       </form>
@@ -73,10 +74,10 @@ const Page = () => {
         </Link>
       </p>
       <div className="flex w-full flex-col gap-5">
-        <Button variant="default-outline">
+        <Button aria-disabled={isLoading} disabled={isLoading} variant="default-outline">
           <RiGoogleFill /> Continue with Google
         </Button>
-        <Button variant="default-outline">
+        <Button aria-disabled={isLoading} disabled={isLoading} variant="default-outline">
           <RiGithubFill /> Continue with Github
         </Button>
       </div>

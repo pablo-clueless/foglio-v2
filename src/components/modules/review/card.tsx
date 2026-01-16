@@ -9,7 +9,7 @@ interface Props {
 
 export const Card = ({ review }: Props) => {
   return (
-    <div className="border-primary-100/15 h-full w-full shrink-0 rounded-xl border p-4 sm:p-8">
+    <div className="border-primary-100/15 h-full w-full shrink-0 border p-4 sm:p-8">
       <div className=""></div>
       <div className="flex items-center justify-between">
         <div className="space-y-4">

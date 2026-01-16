@@ -1,5 +1,6 @@
 export * from "./accordion";
 export * from "./app-header";
+export * from "./avatar";
 export * from "./calendar";
 export * from "./data-table";
 export * from "./date-picker";

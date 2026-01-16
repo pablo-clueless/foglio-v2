@@ -102,6 +102,10 @@ export const FOOTER_ROUTES = [
     label: "Company",
     links: [
       {
+        name: "Help Center",
+        href: "/help-center",
+      },
+      {
         name: "Privacy Policy",
         href: "/privacy-policy",
       },
