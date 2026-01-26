@@ -33,15 +33,20 @@ export const capitalizeWords = (value?: string): string => {
 
 export const normalize = (path: string): string => {
   if (!path) return "";
-  if (path.length <= 3) return path;
+  const qIndex = path.indexOf("?");
+  const hIndex = path.indexOf("#");
+  const end =
+    qIndex === -1 ? (hIndex === -1 ? path.length : hIndex) : hIndex === -1 ? qIndex : Math.min(qIndex, hIndex);
+  const cleanPath = path.slice(0, end);
+  if (cleanPath.length <= 3) return cleanPath;
 
   let firstPart = "";
   let secondPart = "";
   let partCount = 0;
-  const start = path.startsWith("/") ? 1 : 0;
+  const start = cleanPath.startsWith("/") ? 1 : 0;
 
-  for (let i = start; i < path.length; i++) {
-    if (path[i] === "/") {
+  for (let i = start; i < cleanPath.length; i++) {
+    if (cleanPath[i] === "/") {
       if (partCount === 0 && firstPart) {
         partCount++;
         continue;
@@ -53,9 +58,9 @@ export const normalize = (path: string): string => {
     }
 
     if (partCount === 0) {
-      firstPart += path[i];
+      firstPart += cleanPath[i];
     } else if (partCount === 1) {
-      secondPart += path[i];
+      secondPart += cleanPath[i];
     }
   }
 

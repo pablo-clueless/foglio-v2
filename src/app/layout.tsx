@@ -1,13 +1,64 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import {
+  Bricolage_Grotesque,
+  Figtree,
+  Fira_Code,
+  Geist,
+  Inter,
+  JetBrains_Mono,
+  Nunito,
+  Space_Grotesk,
+} from "next/font/google";
 
 import { ErrorBoundary, ReduxProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib";
 
 export const metadata: Metadata = {
   title: "Foglio",
   description: "The next generation customer care agent",
 };
+
+const bricolage_grotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage-grotesque",
+});
+
+const figtree = Figtree({
+  subsets: ["latin"],
+  variable: "--font-figtree",
+});
+
+const fira_code = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-fira-code",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const jetbrains_mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+});
+
+const space_grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 export default function RootLayout({
   children,
@@ -16,15 +67,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Fira+Code:wght@300..700&family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Space+Grotesk:wght@300..700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`anti-aliased`}>
+      <body
+        className={cn(
+          "anti-aliased",
+          bricolage_grotesque.variable,
+          figtree.variable,
+          fira_code.variable,
+          geist.variable,
+          inter.variable,
+          jetbrains_mono.variable,
+          nunito.variable,
+          space_grotesk.variable,
+        )}
+      >
         <ErrorBoundary>
           <ReduxProvider>
             {children}

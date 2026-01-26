@@ -1,6 +1,7 @@
 "use client";
 
 import { RiGithubFill, RiGoogleFill, RiLoaderLine } from "@remixicon/react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import { toast } from "sonner";
@@ -19,6 +20,26 @@ const initialValues: SigninDto = {
   email: "",
   password: "",
 };
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+} as const;
 
 const Page = () => {
   const [signinMutation, { isLoading }] = useSigninMutation();
@@ -45,13 +66,18 @@ const Page = () => {
   });
 
   return (
-    <div className="flex w-[400px] flex-col items-center gap-y-20">
-      <div className="">
+    <motion.div
+      className="flex w-[400px] flex-col items-center gap-y-20"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div variants={itemVariants}>
         <Link href="/">
           <Logo mode="light" />
         </Link>
-      </div>
-      <form className="w-full space-y-4" onSubmit={handleSubmit}>
+      </motion.div>
+      <motion.form className="w-full space-y-4" onSubmit={handleSubmit} variants={itemVariants}>
         <Input label="Email" name="email" onChange={handleChange} type="email" />
         <Input label="Password" name="password" onChange={handleChange} type="password" />
         <div className="flex w-full items-center justify-between">
@@ -66,22 +92,22 @@ const Page = () => {
         <Button aria-disabled={isLoading} disabled={isLoading} className="w-full" type="submit">
           {isLoading ? <RiLoaderLine className="animate-spin" /> : "Sign In"}
         </Button>
-      </form>
-      <p className="text-sm text-gray-400">
+      </motion.form>
+      <motion.p className="text-sm text-gray-400" variants={itemVariants}>
         Don&apos;t have an account?{" "}
         <Link className="link text-primary-400" href="/signup">
           Sign Up
         </Link>
-      </p>
-      <div className="flex w-full flex-col gap-5">
+      </motion.p>
+      <motion.div className="flex w-full flex-col gap-5" variants={itemVariants}>
         <Button aria-disabled={isLoading} disabled={isLoading} variant="default-outline">
           <RiGoogleFill /> Continue with Google
         </Button>
         <Button aria-disabled={isLoading} disabled={isLoading} variant="default-outline">
           <RiGithubFill /> Continue with Github
         </Button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
