@@ -16,11 +16,7 @@ const containerVariants = {
 
 const Page = () => {
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
       Home
     </motion.div>
   );

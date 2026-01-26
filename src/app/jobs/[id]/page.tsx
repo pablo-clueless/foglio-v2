@@ -256,8 +256,8 @@ const Page = () => {
                 <div className="border-primary-100/15 border-t pt-6">
                   <h3 className="mb-4 font-semibold">About {jobData.company}</h3>
                   <p className="text-sm text-gray-400">
-                    {jobData.company} is looking for talented individuals to join their team.
-                    Apply now to learn more about this opportunity.
+                    {jobData.company} is looking for talented individuals to join their team. Apply now to learn more
+                    about this opportunity.
                   </p>
                 </div>
               </motion.div>

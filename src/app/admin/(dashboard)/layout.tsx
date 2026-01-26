@@ -29,7 +29,7 @@ export default function AdminDashboardLayout({ children }: Props) {
       <div className="flex h-screen w-screen overflow-hidden bg-black">
         {/* Mobile Menu Button */}
         <button
-          className="fixed left-4 top-4 z-50 grid size-10 place-items-center rounded-lg bg-black/80 md:hidden"
+          className="fixed top-4 left-4 z-50 grid size-10 place-items-center rounded-lg bg-black/80 md:hidden"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <RiCloseLine className="size-5" /> : <RiMenuLine className="size-5" />}
@@ -78,7 +78,7 @@ export default function AdminDashboardLayout({ children }: Props) {
 
           {/* Navigation */}
           <nav className="flex-1 overflow-y-auto p-4">
-            <p className="mb-3 px-4 text-xs font-semibold uppercase tracking-wider text-gray-600">Management</p>
+            <p className="mb-3 px-4 text-xs font-semibold tracking-wider text-gray-600 uppercase">Management</p>
             <div className="space-y-1">
               {ADMIN_ROUTES.map((route) => {
                 const active = isActive(route.href);
@@ -89,9 +89,7 @@ export default function AdminDashboardLayout({ children }: Props) {
                     onClick={() => setSidebarOpen(false)}
                     className={cn(
                       "group flex items-center gap-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200",
-                      active
-                        ? "bg-red-500/20 text-red-400"
-                        : "text-gray-400 hover:bg-white/5 hover:text-white",
+                      active ? "bg-red-500/20 text-red-400" : "text-gray-400 hover:bg-white/5 hover:text-white",
                     )}
                   >
                     <route.icon
