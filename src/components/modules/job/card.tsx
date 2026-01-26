@@ -21,9 +21,7 @@ export const Card = ({ job }: Props) => {
           </h3>
           <span
             className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
-              job.is_remote
-                ? "bg-green-500/20 text-green-400"
-                : "bg-blue-500/20 text-blue-400"
+              job.is_remote ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"
             }`}
           >
             {job.is_remote ? "Remote" : "On-site"}
@@ -38,11 +36,7 @@ export const Card = ({ job }: Props) => {
           <span>{job.location}</span>
         </div>
         <div className="flex items-center gap-x-1">
-          {job.is_remote ? (
-            <RiHomeOfficeLine className="size-3.5" />
-          ) : (
-            <RiBuilding2Line className="size-3.5" />
-          )}
+          {job.is_remote ? <RiHomeOfficeLine className="size-3.5" /> : <RiBuilding2Line className="size-3.5" />}
           <span className="capitalize">{job.employment_type?.toLowerCase() || "Full-time"}</span>
         </div>
         <div className="flex items-center gap-x-1">
