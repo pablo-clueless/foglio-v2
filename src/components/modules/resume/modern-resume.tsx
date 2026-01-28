@@ -1,14 +1,13 @@
 import type { ResumeProps } from "./types";
-import { formatDate } from "@/lib";
+import { cn, formatDate } from "@/lib";
 
 export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
   <div
     style={{
-      fontFamily: `var(${fontFamily})`,
       backgroundColor: theme.colors.surfaceColor,
       color: theme.colors.textPrimary,
     }}
-    className="min-h-full w-full p-4"
+    className={cn("min-h-full w-full p-4", fontFamily)}
   >
     <div className="mb-3 pb-3" style={{ borderBottom: `3px solid ${theme.colors.primaryColor}` }}>
       <h1 className="mb-1 text-xl font-bold" style={{ color: theme.colors.primaryColor }}>
