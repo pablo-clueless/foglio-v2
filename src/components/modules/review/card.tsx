@@ -132,7 +132,7 @@ export const Card = ({ review, index = 0 }: Props) => {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                "{review.comment}"
+                &ldquo;{review.comment}&rdquo;
               </motion.p>
               <motion.div
                 className="bg-primary-100 absolute -top-2 -left-2 h-1"

@@ -66,7 +66,7 @@ const Page = () => {
   };
 
   const { data: users, isFetching } = useGetUsersQuery(
-    { page, size: PAGE_SIZE },
+    { page, query: q, size: PAGE_SIZE, user_type: "talent" },
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 

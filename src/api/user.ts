@@ -3,10 +3,8 @@ import { removeNullorUndefined } from "@/lib";
 import { api } from "./api";
 
 export interface UserPagination {
-  username?: string;
-  language?: string;
-  location?: string;
-  skill?: string;
+  query?: string;
+  user_type?: "recruiter" | "talent";
 }
 
 export const user = api.injectEndpoints({
