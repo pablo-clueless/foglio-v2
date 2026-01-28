@@ -140,7 +140,6 @@ const Page = () => {
               </motion.div>
             )}
           </AnimatePresence>
-
           {(jobs?.data.total_items || 0) > PAGE_SIZE && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}

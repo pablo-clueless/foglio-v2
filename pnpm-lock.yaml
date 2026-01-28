@@ -112,6 +112,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      xstate:
+        specifier: ^5.25.1
+        version: 5.25.1
       yup:
         specifier: ^1.7.1
         version: 1.7.1
@@ -3513,6 +3516,10 @@ packages:
       { integrity: sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ== }
     engines: { node: ">=0.4.0" }
 
+  xstate@5.25.1:
+    resolution:
+      { integrity: sha512-oyvsNH5pF2qkHmiHEMdWqc3OjDtoZOH2MTAI35r01f/ZQWOD+VLOiYqo65UgQET0XMA5s9eRm8fnsIo+82biEw== }
+
   yallist@5.0.0:
     resolution:
       { integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw== }
@@ -6524,6 +6531,8 @@ snapshots:
   ws@8.17.1: {}
 
   xmlhttprequest-ssl@2.1.2: {}
+
+  xstate@5.25.1: {}
 
   yallist@5.0.0: {}
 

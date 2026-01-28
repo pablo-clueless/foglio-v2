@@ -1,10 +1,10 @@
 import type { ResumeProps } from "./types";
-import { formatDate } from "@/lib";
+import { cn, formatDate } from "@/lib";
 
 export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
   <div
-    style={{ fontFamily: `var(${fontFamily})`, backgroundColor: theme.colors.surfaceColor }}
-    className="min-h-full w-full"
+    style={{ backgroundColor: theme.colors.surfaceColor, color: theme.colors.textPrimary }}
+    className={cn("min-h-full w-full", fontFamily)}
   >
     <div className="p-4" style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}>
       <h1 className="mb-1 text-2xl font-bold">{user.name}</h1>
