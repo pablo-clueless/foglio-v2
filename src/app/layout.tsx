@@ -20,7 +20,39 @@ import { cn } from "@/lib";
 
 export const metadata: Metadata = {
   title: "Foglio",
-  description: "The next generation customer care agent",
+  description: "The next generation portfolio builder",
+  creator: "Samson Okunola",
+  authors: [{ name: "Samson Okunola", url: "https://opensause.vercel.app" }],
+  twitter: {
+    card: "summary_large_image",
+    title: "Foglio",
+    description: "The next generation portfolio builder",
+    creator: "@pablo_clueless",
+    images: ["https://res.cloudinary.com/pabloclueless/image/upload/v1769641447/1_lxdshb.png"],
+  },
+  openGraph: {
+    title: "Foglio",
+    description: "The next generation portfolio builder",
+    url: "https://foglio-v2.vercel.app",
+    siteName: "Foglio",
+    images: [
+      {
+        url: "https://res.cloudinary.com/pabloclueless/image/upload/v1769641447/1_lxdshb.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  icons: [
+    { rel: "icon", url: "/meta/favicon.ico" },
+    { rel: "apple-touch-icon", url: "/meta/apple-touch-icon.png" },
+    { rel: "favicon-16x16", url: "/meta/favicon-16x16.png" },
+    { rel: "favicon-32x32", url: "/meta/favicon-32x32.png" },
+    { rel: "192x192", url: "/meta/192x192.png" },
+    { rel: "512x512", url: "/meta/512x512.png" },
+  ],
 };
 
 const bricolage_grotesque = Bricolage_Grotesque({
