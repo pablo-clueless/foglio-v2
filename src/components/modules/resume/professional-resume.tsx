@@ -1,8 +1,8 @@
 import type { ResumeProps } from "./types";
-import { formatDate } from "@/lib";
+import { cn, formatDate } from "@/lib";
 
 export const ProfessionalResume = ({ user, theme, fontFamily }: ResumeProps) => (
-  <div style={{ fontFamily }} className="flex min-h-full">
+  <div className={cn("flex min-h-full", fontFamily)}>
     <div className="w-1/3 p-3" style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}>
       <div className="mb-3">
         <h1 className="mb-1 text-lg font-bold">{user.name}</h1>

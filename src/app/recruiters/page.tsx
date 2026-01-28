@@ -139,7 +139,7 @@ const Page = () => {
                   </Link>
                 </Button>
                 <Button asChild size="xl" variant="default-outline">
-                  <Link href="/">View Talent Pool</Link>
+                  <Link href="/talent-pool">View Talent Pool</Link>
                 </Button>
               </motion.div>
             </motion.div>
@@ -273,8 +273,6 @@ const Page = () => {
             </div>
           </motion.div>
         </section>
-
-        {/* CTA Section */}
         <motion.section
           className="bg-grid-2 bg-black/50 bg-cover bg-center bg-no-repeat py-16 bg-blend-overlay sm:py-24"
           initial={{ opacity: 0 }}

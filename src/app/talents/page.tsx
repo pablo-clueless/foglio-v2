@@ -1,5 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Link from "next/link";
+import React from "react";
 import {
   RiArrowRightLine,
   RiBriefcase4Line,
@@ -16,9 +19,6 @@ import {
   RiShieldCheckLine,
   RiUserLine,
 } from "@remixicon/react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import React from "react";
 
 import { Footer, Navbar, SectionHeader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
@@ -122,7 +122,6 @@ const Page = () => {
     <>
       <Navbar />
       <div className="w-screen overflow-hidden">
-        {/* Hero Section */}
         <section className="bg-grid-1 min-h-[90vh] w-full bg-black/85 bg-cover bg-no-repeat bg-blend-overlay">
           <div className="container mx-auto grid h-full max-w-6xl place-items-center px-4 py-20 sm:py-32">
             <motion.div
@@ -157,8 +156,6 @@ const Page = () => {
             </motion.div>
           </div>
         </section>
-
-        {/* Stats Section */}
         <section className="border-primary-100/15 border-y bg-black/30">
           <div className="container mx-auto max-w-6xl px-4 py-12">
             <motion.div
@@ -177,8 +174,6 @@ const Page = () => {
             </motion.div>
           </div>
         </section>
-
-        {/* Features Section */}
         <section className="container mx-auto max-w-6xl space-y-12 px-4 py-16 sm:py-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -211,8 +206,6 @@ const Page = () => {
             ))}
           </div>
         </section>
-
-        {/* How It Works Section */}
         <section className="border-primary-100/15 border-y bg-black/20">
           <div className="container mx-auto max-w-6xl space-y-12 px-4 py-16 sm:py-24">
             <motion.div
@@ -245,8 +238,6 @@ const Page = () => {
             </div>
           </div>
         </section>
-
-        {/* Resume Builder Highlight */}
         <section className="container mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <motion.div
@@ -305,8 +296,6 @@ const Page = () => {
             </motion.div>
           </div>
         </section>
-
-        {/* Benefits Section */}
         <section className="border-primary-100/15 border-y bg-black/20">
           <div className="container mx-auto max-w-6xl px-4 py-16 sm:py-24">
             <motion.div
@@ -349,8 +338,6 @@ const Page = () => {
             </motion.div>
           </div>
         </section>
-
-        {/* CTA Section */}
         <motion.section
           className="bg-grid-2 bg-black/50 bg-cover bg-center bg-no-repeat py-16 bg-blend-overlay sm:py-24"
           initial={{ opacity: 0 }}

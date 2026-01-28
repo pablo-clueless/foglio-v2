@@ -20,6 +20,7 @@ import {
   ModernResume,
   ProfessionalResume,
 } from "@/components/modules/resume";
+import { cn } from "@/lib";
 
 const initialValues = {
   fontface: FONTFACES[0].value,
@@ -81,9 +82,9 @@ const Page = () => {
   });
 
   const selectedFontFamily = React.useMemo(() => {
-    if (!values.fontface) return "--font-figtree";
+    if (!values.fontface) return "font-figtree";
     const fontFamily = FONTFACES.find((f) => f.value === values.fontface);
-    if (!fontFamily) return "--font-figtree";
+    if (!fontFamily) return "font-figtree";
     else return fontFamily.value;
   }, [values.fontface]);
 
@@ -118,7 +119,7 @@ const Page = () => {
                       checked={values.theme === theme.id}
                       onCheckedChange={() => setFieldValue("theme", theme.id)}
                     />
-                    <p className="text-sm">{theme.name}</p>
+                    <p className="font text-sm">{theme.name}</p>
                   </motion.div>
                 ))}
               </div>
@@ -138,7 +139,7 @@ const Page = () => {
                       checked={values.fontface === fontface.value}
                       onCheckedChange={() => setFieldValue("fontface", fontface.value)}
                     />
-                    <p className="text-sm">{fontface.label}</p>
+                    <p className={cn("text-sm", fontface.value)}>{fontface.label}</p>
                   </motion.div>
                 ))}
               </div>

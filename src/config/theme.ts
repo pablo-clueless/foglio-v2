@@ -100,12 +100,12 @@ export const THEMES: TemplateThemeProps[] = [
 ];
 
 export const FONTFACES = [
-  { label: "Figtree", value: "--font-figtree" },
-  { label: "Inter", value: "--font-inter" },
-  { label: "Space Grotesk", value: "--font-space-grotesk" },
-  { label: "Bricolage Grotesque", value: "--font-bricolage-grotesque" },
-  { label: "Nunito", value: "--font-nunito" },
-  { label: "Geist", value: "--font-geist" },
-  { label: "JetBrains Mono", value: "--font-jetbrains-mono" },
-  { label: "Fira Code", value: "--font-fira-code" },
+  { label: "Figtree", value: "font-figtree" },
+  { label: "Inter", value: "font-inter" },
+  { label: "Space Grotesk", value: "font-space-grotesk" },
+  { label: "Bricolage Grotesque", value: "font-bricolage-grotesque" },
+  { label: "Nunito", value: "font-nunito" },
+  { label: "Geist", value: "font-geist" },
+  { label: "JetBrains Mono", value: "font-jetbrains-mono" },
+  { label: "Fira Code", value: "font-fira-code" },
 ];

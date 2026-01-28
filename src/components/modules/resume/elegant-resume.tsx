@@ -1,17 +1,16 @@
 import type { ResumeProps } from "./types";
-import { formatDate } from "@/lib";
+import { cn, formatDate } from "@/lib";
 
 export const ElegantResume = ({ user, theme, fontFamily }: ResumeProps) => (
   <div
     style={{
-      fontFamily: `var(${fontFamily})`,
       backgroundColor: theme.colors.surfaceColor,
       color: theme.colors.textPrimary,
     }}
-    className="min-h-full w-full p-12"
+    className={cn("min-h-full w-full p-12", fontFamily)}
   >
     <div className="mb-10 pb-8 text-center" style={{ borderBottom: `2px solid ${theme.colors.primaryColor}` }}>
-      <h1 className="mb-3 font-serif text-4xl" style={{ color: theme.colors.primaryColor }}>
+      <h1 className="mb-3 text-4xl" style={{ color: theme.colors.primaryColor }}>
         {user.name}
       </h1>
       <p className="mb-4 text-lg italic" style={{ color: theme.colors.secondaryColor }}>
