@@ -32,8 +32,18 @@ export const Footer = () => {
           </div>
         </div>
         <div className="container mx-auto flex w-full max-w-6xl items-center justify-between py-4">
-          <p className="text-sm">&copy; {new Date().getFullYear()}. All rights reserved.</p>
-          <p className="text-sm font-medium text-white">Foglio</p>
+          <p className="text-sm">&copy; {new Date().getFullYear()}. All rights reserved. Foglio</p>
+          <p className="text-sm font-medium text-white">
+            Icons from{" "}
+            <a
+              className="text-primary-500 underline"
+              href="https://www.isocons.app/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Isocons
+            </a>
+          </p>
         </div>
       </div>
     </footer>

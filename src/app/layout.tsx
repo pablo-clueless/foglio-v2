@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import {
   Bricolage_Grotesque,
+  Courier_Prime,
   Figtree,
   Fira_Code,
   Geist,
+  IBM_Plex_Serif,
   Inter,
   JetBrains_Mono,
+  Montserrat,
   Nunito,
   Space_Grotesk,
 } from "next/font/google";
@@ -25,6 +28,12 @@ const bricolage_grotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
 });
 
+const courier_prime = Courier_Prime({
+  subsets: ["latin"],
+  variable: "--font-courier-prime",
+  weight: "400",
+});
+
 const figtree = Figtree({
   subsets: ["latin"],
   variable: "--font-figtree",
@@ -40,6 +49,12 @@ const geist = Geist({
   variable: "--font-geist",
 });
 
+const ibm_plex_serif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-serif",
+  weight: "400",
+});
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -48,6 +63,11 @@ const inter = Inter({
 const jetbrains_mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
 
 const nunito = Nunito({
@@ -71,11 +91,14 @@ export default function RootLayout({
         className={cn(
           "anti-aliased",
           bricolage_grotesque.variable,
+          courier_prime,
           figtree.variable,
           fira_code.variable,
           geist.variable,
+          ibm_plex_serif.variable,
           inter.variable,
           jetbrains_mono.variable,
+          montserrat.variable,
           nunito.variable,
           space_grotesk.variable,
         )}
