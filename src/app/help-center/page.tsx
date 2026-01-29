@@ -36,9 +36,9 @@ const Page = () => {
   return (
     <>
       <Navbar />
-      <div className="w-screen overflow-hidden">
+      <div className="w-screen overflow-hidden px-4 sm:px-0">
         <motion.section
-          className="container mx-auto max-w-6xl space-y-6 py-10 sm:py-28"
+          className="container mx-auto max-w-6xl space-y-6 py-20 sm:py-32"
           variants={containerVariants}
           initial="hidden"
           animate="visible"

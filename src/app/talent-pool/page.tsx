@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 
 import { Footer, Navbar, Pagination } from "@/components/shared";
+import { Card } from "@/components/modules/user";
 import { Button } from "@/components/ui/button";
 import { useGetUsersQuery } from "@/api/user";
 import { Badge } from "@/components/ui/badge";
@@ -101,7 +102,7 @@ const Page = () => {
               </motion.p>
             </motion.div>
             <motion.section
-              className="container mx-auto flex max-w-6xl flex-col items-center py-10 sm:py-20"
+              className="container mx-auto flex max-w-6xl flex-col items-center space-y-10 py-10 sm:space-y-20 sm:py-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -117,67 +118,67 @@ const Page = () => {
                   wrapperClassName="w-full"
                 />
               </div>
-            </motion.section>
-          </div>
-        </section>
-        <section className="container mx-auto max-w-6xl space-y-8 py-10 sm:py-20">
-          <AnimatePresence mode="wait">
-            {isFetching ? (
-              <motion.div
-                key="loading"
-                className="flex min-h-[400px] flex-col items-center justify-center py-20"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <RiLoaderLine className="text-primary-400 mb-4 size-10 animate-spin" />
-                <p className="text-gray-400">Loading talents...</p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key={page + q}
-                className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                exit={{ opacity: 0 }}
-              >
-                {(users?.data.total_items || 0) > 0 ? (
-                  users?.data.data.map((user) => (
-                    <motion.div key={user.id} variants={cardVariants}>
-                      <div key={user.id}></div>
+              <div className="w-full">
+                <AnimatePresence mode="wait">
+                  {isFetching ? (
+                    <motion.div
+                      key="loading"
+                      className="flex min-h-[400px] flex-col items-center justify-center py-20"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <RiLoaderLine className="text-primary-400 mb-4 size-10 animate-spin" />
+                      <p className="text-gray-400">Loading talents...</p>
                     </motion.div>
-                  ))
-                ) : (
+                  ) : (
+                    <motion.div
+                      key={page + q}
+                      className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+                      variants={staggerContainer}
+                      initial="hidden"
+                      animate="visible"
+                      exit={{ opacity: 0 }}
+                    >
+                      {(users?.data.total_items || 0) > 0 ? (
+                        users?.data.data.map((user) => (
+                          <motion.div key={user.id} variants={cardVariants}>
+                            <Card key={user.id} user={user} />
+                          </motion.div>
+                        ))
+                      ) : (
+                        <motion.div
+                          className="col-span-full flex flex-col items-center justify-center py-20 text-center"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                          <RiSearchLine className="mb-4 size-12 text-gray-600" />
+                          <p className="text-lg text-gray-400">No talents found matching &quot;{q}&quot;</p>
+                          <p className="text-sm text-gray-500">Try adjusting your search terms</p>
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                {(users?.data.total_items || 0) > PAGE_SIZE && (
                   <motion.div
-                    className="col-span-full flex flex-col items-center justify-center py-20 text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <RiSearchLine className="mb-4 size-12 text-gray-600" />
-                    <p className="text-lg text-gray-400">No talents found matching &quot;{q}&quot;</p>
-                    <p className="text-sm text-gray-500">Try adjusting your search terms</p>
+                    <Pagination
+                      current={page}
+                      limit={PAGE_SIZE}
+                      onPageChange={handlePageChange}
+                      total={users?.data.total_items || 0}
+                      className="border-primary-100/15 rounded-lg border bg-black/20 p-4"
+                      buttonClassName="hover:bg-primary-400/20"
+                    />
                   </motion.div>
                 )}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {(users?.data.total_items || 0) > PAGE_SIZE && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Pagination
-                current={page}
-                limit={PAGE_SIZE}
-                onPageChange={handlePageChange}
-                total={users?.data.total_items || 0}
-                className="border-primary-100/15 rounded-lg border bg-black/20 p-4"
-                buttonClassName="hover:bg-primary-400/20"
-              />
-            </motion.div>
-          )}
+              </div>
+            </motion.section>
+          </div>
         </section>
         <motion.section
           className="bg-grid-2 bg-black/50 bg-cover bg-center bg-no-repeat py-16 bg-blend-overlay sm:py-24"

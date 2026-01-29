@@ -9,12 +9,9 @@ import React from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { FEATURES, FREQUENTLY_ASKED_QUESTIONS, HOW_IT_WORKS } from "@/constants/data";
 import { Footer, Navbar, SectionHeader } from "@/components/shared";
-import { Card } from "@/components/modules/review";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib";
-
-import { MOCK_REVIEWS } from "@/__mock__";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -64,16 +61,6 @@ const slideInFromRight = {
 } as const;
 
 const Page = () => {
-  const [current, setCurrent] = React.useState(0);
-
-  const handleNext = () => {
-    setCurrent((current) => (current + 1) % MOCK_REVIEWS.length);
-  };
-
-  const handlePrevious = () => {
-    setCurrent((current) => (current - 1 + MOCK_REVIEWS.length) % MOCK_REVIEWS.length);
-  };
-
   return (
     <>
       <Navbar />
@@ -163,7 +150,7 @@ const Page = () => {
         </section>
         <section className="container mx-auto max-w-6xl space-y-10 py-10 sm:space-y-20 sm:py-20">
           <motion.div
-            className="flex w-full items-center justify-between"
+            className="flex w-full flex-col items-center justify-between sm:flex-row"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -174,42 +161,17 @@ const Page = () => {
               subtitle="See what our users are saying about Foglio"
               title="Loved by job seekers"
             />
-            <div className="flex items-center gap-x-4">
-              <motion.button
-                className="bg-primary-400 hover:bg-primary-400/90 grid aspect-square w-5 place-items-center rounded-md sm:w-10"
-                onClick={handlePrevious}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <RiArrowRightLine className="rotate-180 text-black" />
-              </motion.button>
-              <motion.button
-                className="bg-primary-400 hover:bg-primary-400/90 grid aspect-square w-5 place-items-center rounded-md sm:w-10"
-                onClick={handleNext}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <RiArrowRightLine className="text-black" />
-              </motion.button>
-            </div>
           </motion.div>
-          <motion.div
-            className="flex w-full items-center overflow-x-hidden"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="w-full px-4 sm:px-0">
             <motion.div
-              className="flex aspect-[5/2] w-full shrink-0"
-              animate={{ x: `-${current * 100}%` }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="border-primary-100/15 grid w-full place-items-center items-center overflow-x-hidden rounded-xl border border-dashed p-5 sm:p-20"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              {MOCK_REVIEWS.map((review) => (
-                <Card key={review.id} review={review} />
-              ))}
+              <p className="text-base sm:text-xl">No reviews yet.</p>
             </motion.div>
-          </motion.div>
+          </div>
         </section>
         <section className="container mx-auto max-w-6xl space-y-10 py-10 sm:space-y-20 sm:py-20">
           <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
