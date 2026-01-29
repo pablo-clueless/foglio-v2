@@ -18,7 +18,7 @@ export const Navbar = () => {
   const { user } = useUserStore();
 
   React.useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 200);
+    const handleScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
