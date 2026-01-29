@@ -57,7 +57,7 @@ const Page = () => {
         <Navbar />
         <div className="w-screen overflow-hidden">
           <motion.section
-            className="container mx-auto grid h-[500px] max-w-6xl place-items-center py-10 sm:py-28"
+            className="container mx-auto grid h-[500px] max-w-6xl place-items-center py-20 sm:py-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -79,7 +79,7 @@ const Page = () => {
         <Navbar />
         <div className="w-screen overflow-hidden">
           <motion.section
-            className="container mx-auto grid h-[500px] max-w-6xl place-items-center py-10 sm:py-28"
+            className="container mx-auto grid h-[500px] max-w-6xl place-items-center py-20 sm:py-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -104,14 +104,13 @@ const Page = () => {
   return (
     <>
       <Navbar />
-      <div className="w-screen overflow-hidden">
+      <div className="w-screen overflow-hidden px-4 sm:px-0">
         <motion.section
-          className="container mx-auto max-w-6xl px-4 py-10 sm:py-20"
+          className="container mx-auto max-w-6xl px-4 py-20 sm:py-32"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Back Button */}
           <motion.div variants={itemVariants} className="mb-8">
             <button
               onClick={() => router.back()}
@@ -121,11 +120,8 @@ const Page = () => {
               Back to Jobs
             </button>
           </motion.div>
-
           <div className="grid gap-8 lg:grid-cols-3">
-            {/* Main Content */}
             <div className="space-y-6 lg:col-span-2">
-              {/* Header */}
               <motion.div variants={itemVariants} className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <Badge>
@@ -150,8 +146,6 @@ const Page = () => {
                   </div>
                 </div>
               </motion.div>
-
-              {/* Description */}
               <motion.div
                 variants={itemVariants}
                 className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
@@ -161,8 +155,6 @@ const Page = () => {
                   <p className="leading-relaxed">{jobData.description}</p>
                 </div>
               </motion.div>
-
-              {/* Requirements Section */}
               <motion.div
                 variants={itemVariants}
                 className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
@@ -175,8 +167,6 @@ const Page = () => {
                   <li>Problem-solving mindset</li>
                 </ul>
               </motion.div>
-
-              {/* Benefits Section */}
               <motion.div
                 variants={itemVariants}
                 className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
@@ -190,10 +180,7 @@ const Page = () => {
                 </ul>
               </motion.div>
             </div>
-
-            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Apply Card */}
               <motion.div
                 variants={itemVariants}
                 className="border-primary-100/15 sticky top-24 space-y-6 rounded-lg border bg-black/30 p-6"
@@ -207,7 +194,6 @@ const Page = () => {
                     Share Job
                   </Button>
                 </div>
-
                 <div className="border-primary-100/15 border-t pt-6">
                   <h3 className="mb-4 font-semibold">Job Overview</h3>
                   <div className="space-y-4">
@@ -252,7 +238,6 @@ const Page = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="border-primary-100/15 border-t pt-6">
                   <h3 className="mb-4 font-semibold">About {jobData.company}</h3>
                   <p className="text-sm text-gray-400">

@@ -147,6 +147,10 @@ export const NAVBAR_LINKS = [
     label: "For Talents",
     href: "/talents",
   },
+  {
+    label: "Talent Pool",
+    href: "/talent-pool",
+  },
 ];
 
 export const PUBLIC_ROUTES = [
