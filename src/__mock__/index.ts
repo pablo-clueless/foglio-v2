@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import type { EmploymentType, ProviderType, ReviewProps, ReviewUserProps } from "@/types";
+import type { ReviewProps, ReviewUserProps } from "@/types";
 
 const getRandomItem = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 const getRandomNumber = (max: number) => Math.max(1, Math.round(Math.random() * max));
