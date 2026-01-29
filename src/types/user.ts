@@ -10,7 +10,7 @@ export interface UserProps {
   is_recruiter: boolean;
   name: string;
   provider: ProviderType;
-  role: string;
+  role: string; //job role e.g Frontend Developer
   summary: string;
   updated_at: Date;
   username: string;

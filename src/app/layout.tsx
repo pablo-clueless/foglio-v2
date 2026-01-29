@@ -14,7 +14,7 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 
-import { ErrorBoundary, ReduxProvider } from "@/components/providers";
+import { ErrorBoundary, ReduxProvider, WebSocketProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib";
 
@@ -137,8 +137,10 @@ export default function RootLayout({
       >
         <ErrorBoundary>
           <ReduxProvider>
-            {children}
-            <Toaster position="top-right" richColors toastOptions={{ duration: 5000 }} />
+            <WebSocketProvider autoConnect>
+              {children}
+              <Toaster position="top-right" richColors toastOptions={{ duration: 5000 }} />
+            </WebSocketProvider>
           </ReduxProvider>
         </ErrorBoundary>
       </body>
