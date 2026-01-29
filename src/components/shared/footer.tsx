@@ -9,7 +9,7 @@ import { Logo } from "./logo";
 export const Footer = () => {
   return (
     <footer className="w-screen border-t border-white bg-black text-white">
-      <div className="w-full space-y-3">
+      <div className="w-full space-y-3 px-4 sm:px-0">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-10 py-10 md:grid-cols-3">
           <div className="col-span-1">
             <Link href="/">
@@ -31,7 +31,7 @@ export const Footer = () => {
             ))}
           </div>
         </div>
-        <div className="container mx-auto flex w-full max-w-6xl items-center justify-between py-4">
+        <div className="container mx-auto flex w-full max-w-6xl flex-col items-center justify-between py-4 sm:flex-row">
           <p className="text-sm">&copy; {new Date().getFullYear()}. All rights reserved. Foglio</p>
           <p className="text-sm font-medium text-white">
             Icons from{" "}

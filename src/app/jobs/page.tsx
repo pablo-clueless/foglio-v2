@@ -66,7 +66,7 @@ const Page = () => {
       <Navbar />
       <div className="w-screen overflow-hidden">
         <motion.section
-          className="container mx-auto max-w-6xl space-y-2 py-10 sm:py-28"
+          className="container mx-auto max-w-6xl space-y-2 px-4 py-20 sm:px-0 sm:py-32"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -81,7 +81,7 @@ const Page = () => {
           </p>
         </motion.section>
         <motion.section
-          className="container mx-auto flex max-w-6xl flex-col items-center py-10 sm:py-20"
+          className="container mx-auto flex max-w-6xl flex-col items-center px-4 py-10 sm:px-0 sm:py-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
