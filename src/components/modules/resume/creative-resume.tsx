@@ -1,13 +1,14 @@
 import type { ResumeProps } from "./types";
 import { cn, formatDate } from "@/lib";
 
-export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
+export const CreativeResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
   <div
     style={{ backgroundColor: theme.colors.surfaceColor, color: theme.colors.textPrimary }}
     className={cn("min-h-full w-full", fontFamily)}
+    ref={ref}
   >
     <div className="p-4" style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}>
-      <h1 className="mb-1 text-2xl font-bold">{user.name}</h1>
+      <h1 className="mb-1 text-xl font-bold">{user.name}</h1>
       <p className="text-sm opacity-90">{user.headline}</p>
     </div>
 
@@ -19,7 +20,7 @@ export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
       </div>
 
       {user.summary && (
-        <div className="mb-3 rounded-lg p-3" style={{ backgroundColor: theme.colors.borderColor }}>
+        <div className="mb-3 p-3" style={{ backgroundColor: theme.colors.borderColor }}>
           <p className="text-xs leading-relaxed" style={{ color: theme.colors.textPrimary }}>
             {user.summary}
           </p>
@@ -35,13 +36,13 @@ export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
             Experience
           </h2>
           {user.experiences.map((exp) => (
-            <div key={exp.id} className="mb-3 rounded-lg p-2" style={{ backgroundColor: theme.colors.borderColor }}>
+            <div key={exp.id} className="mb-3 p-2" style={{ backgroundColor: theme.colors.borderColor }}>
               <div className="mb-1 flex items-start justify-between">
                 <h3 className="text-sm font-bold" style={{ color: theme.colors.secondaryColor }}>
                   {exp.role}
                 </h3>
                 <span
-                  className="rounded-full px-2 py-0.5 text-xs"
+                  className="px-2 py-0.5 text-xs"
                   style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}
                 >
                   {formatDate(exp.start_date)} - {formatDate(exp.end_date)}
@@ -71,7 +72,7 @@ export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
               {user.skills.map((skill, i) => (
                 <span
                   key={i}
-                  className="rounded-full px-2 py-1 text-xs font-semibold"
+                  className="px-2 py-1 text-xs font-semibold"
                   style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}
                 >
                   {skill}
@@ -90,7 +91,7 @@ export const CreativeResume = ({ user, theme, fontFamily }: ResumeProps) => (
               Education
             </h2>
             {user.education.map((edu) => (
-              <div key={edu.id} className="mb-2 rounded-lg p-2" style={{ backgroundColor: theme.colors.borderColor }}>
+              <div key={edu.id} className="mb-2 p-2" style={{ backgroundColor: theme.colors.borderColor }}>
                 <h3 className="text-xs font-bold" style={{ color: theme.colors.secondaryColor }}>
                   {edu.degree}
                 </h3>

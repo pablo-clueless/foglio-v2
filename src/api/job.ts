@@ -30,26 +30,6 @@ export const job = api.injectEndpoints({
         body: payload,
       }),
     }),
-    getJobs: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
-      query: (params) => ({
-        url: "/jobs",
-        method: "GET",
-        params: removeNullorUndefined(params),
-      }),
-    }),
-    getJobsByUser: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
-      query: (params) => ({
-        url: "/me/jobs",
-        method: "GET",
-        params: removeNullorUndefined(params),
-      }),
-    }),
-    getJob: builder.query<HttpResponse<JobProps>, string>({
-      query: (id) => ({
-        url: `/jobs/${id}`,
-        method: "GET",
-      }),
-    }),
     updateJob: builder.mutation<HttpResponse<JobProps>, { id: string; payload: UpdateJobDto }>({
       query: ({ id, payload }) => ({
         url: `/jobs/${id}`,
@@ -63,29 +43,120 @@ export const job = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getJobs: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
+      query: (params) => ({
+        url: "/jobs",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
+    getJob: builder.query<HttpResponse<JobProps>, string>({
+      query: (id) => ({
+        url: `/jobs/${id}`,
+        method: "GET",
+      }),
+    }),
+    getJobsByUser: builder.query<HttpResponse<PaginatedResponse<JobProps>>, PaginatedParams & JobPagination>({
+      query: (params) => ({
+        url: "/me/jobs",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
     applyToJob: builder.mutation<HttpResponse<null>, ApplyToJobDto>({
       query: () => ({
         url: "/jobs",
         method: "POST",
       }),
     }),
-    getApplications: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
+    addCommentOnJob: builder.mutation<HttpResponse<JobProps>, { content: string; id: string }>({
+      query: ({ content, id }) => ({
+        url: `/jobs/${id}/comment`,
+        method: "POST",
+        body: { content },
+      }),
+    }),
+    deleteCommentOnJob: builder.mutation<HttpResponse<JobProps>, string>({
+      query: (id) => ({
+        url: `/jobs/${id}/comment`,
+        method: "DELETE",
+      }),
+    }),
+    addReactionOnJob: builder.mutation<HttpResponse<JobProps>, { id: string; reaction: "DISLIKE" | "LIKE" }>({
+      query: ({ id, reaction }) => ({
+        url: `/jobs/${id}/reaction/${reaction}`,
+        method: "POST",
+      }),
+    }),
+    deleteReactionOnJob: builder.mutation<HttpResponse<JobProps>, string>({
+      query: (id) => ({
+        url: `/jobs/${id}/reaction`,
+        method: "DELETE",
+      }),
+    }),
+    getApplicationsForJob: builder.query<
+      HttpResponse<PaginatedResponse<JobApplicationProps>>,
+      { id: string; params: PaginatedParams }
+    >({
+      query: ({ id, params }) => ({
+        url: `/jobs/applications/job/${id}`,
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
+    getApplicationsForUser: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
       query: (params) => ({
         url: "/jobs/applications/user",
         method: "GET",
         params: removeNullorUndefined(params),
       }),
     }),
+    getApplications: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
+      query: (params) => ({
+        url: "/jobs/applications",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
+    getApplication: builder.query<HttpResponse<JobApplicationProps>, string>({
+      query: (id) => ({
+        url: `/jobs/applications/${id}`,
+        method: "GET",
+      }),
+    }),
+    acceptApplication: builder.mutation<HttpResponse<JobApplicationProps>, { id: string; reason: string }>({
+      query: ({ id, reason }) => ({
+        url: `/jobs/application/${id}/accept`,
+        method: "POST",
+        body: { reason },
+      }),
+    }),
+    rejectApplication: builder.mutation<HttpResponse<JobApplicationProps>, { id: string; reason: string }>({
+      query: ({ id, reason }) => ({
+        url: `/jobs/application/${id}/reject`,
+        method: "POST",
+        body: { reason },
+      }),
+    }),
   }),
 });
 
 export const {
+  useAcceptApplicationMutation,
+  useAddCommentOnJobMutation,
+  useAddReactionOnJobMutation,
   useApplyToJobMutation,
   useCreateJobMutation,
+  useDeleteCommentOnJobMutation,
   useDeleteJobMutation,
+  useDeleteReactionOnJobMutation,
+  useGetApplicationQuery,
+  useGetApplicationsForJobQuery,
+  useGetApplicationsForUserQuery,
   useGetApplicationsQuery,
   useGetJobQuery,
   useGetJobsByUserQuery,
   useGetJobsQuery,
+  useRejectApplicationMutation,
   useUpdateJobMutation,
 } = job;

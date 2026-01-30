@@ -30,7 +30,7 @@ export default function DashboardLayout({ children }: Props) {
     <WithAuth>
       <div className="flex h-screen w-screen overflow-hidden bg-black">
         <button
-          className="fixed top-4 left-4 z-50 grid size-10 place-items-center rounded-lg bg-black/80 md:hidden"
+          className="fixed top-4 left-4 z-50 grid size-10 place-items-center bg-black/80 md:hidden"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <RiCloseLine className="size-5" /> : <RiMenuLine className="size-5" />}
@@ -68,7 +68,7 @@ export default function DashboardLayout({ children }: Props) {
                     href={route.href}
                     onClick={() => setSidebarOpen(false)}
                     className={cn(
-                      "group flex items-center gap-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200",
+                      "group flex items-center gap-x-3 px-4 py-3 text-sm font-medium transition-all duration-200",
                       active ? "bg-primary-400/10 text-primary-400" : "text-gray-400 hover:bg-white/5 hover:text-white",
                     )}
                   >
@@ -79,20 +79,15 @@ export default function DashboardLayout({ children }: Props) {
                       )}
                     />
                     {route.label}
-                    {active && (
-                      <motion.div
-                        layoutId="activeIndicator"
-                        className="bg-primary-400 ml-auto h-1.5 w-1.5 rounded-full"
-                      />
-                    )}
+                    {active && <motion.div layoutId="activeIndicator" className="bg-primary-400 ml-auto h-1.5 w-1.5" />}
                   </Link>
                 );
               })}
             </div>
           </nav>
           <div className="border-primary-100/15 border-t p-4">
-            <div className="flex items-center gap-x-3 rounded-lg bg-white/5 p-3">
-              <div className="bg-primary-400 grid size-10 place-items-center rounded-lg text-sm font-bold text-black">
+            <div className="flex items-center gap-x-3 bg-white/5 p-3">
+              <div className="bg-primary-400 grid size-10 place-items-center text-sm font-bold text-black">
                 {user?.name?.charAt(0)?.toUpperCase() || "U"}
               </div>
               <div className="flex-1 overflow-hidden">

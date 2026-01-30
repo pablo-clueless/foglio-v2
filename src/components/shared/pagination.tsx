@@ -31,7 +31,7 @@ export const Pagination = ({ current, limit, onPageChange, total, buttonClassNam
       onClick={() => onPageChange(index)}
       disabled={current === index}
       className={cn(
-        "grid size-8 place-items-center rounded-md text-sm font-medium",
+        "grid size-8 place-items-center text-sm font-medium",
         current === index && "bg-primary-400 text-black",
         buttonClassName,
       )}
@@ -101,14 +101,14 @@ export const Pagination = ({ current, limit, onPageChange, total, buttonClassNam
       <div className="flex items-center gap-x-4">{renderButtons()}</div>
       <div className="flex items-center gap-x-4">
         <button
-          className="flex h-8 items-center gap-x-1 rounded-md border px-3 text-sm text-neutral-500 transition-colors duration-300 hover:bg-neutral-300 hover:text-neutral-500 disabled:bg-neutral-100"
+          className="flex h-8 items-center gap-x-1 border px-3 text-sm text-neutral-500 transition-colors duration-300 hover:bg-neutral-300 hover:text-neutral-500 disabled:bg-neutral-100"
           disabled={totalPages === 0 || current === 1}
           onClick={goToPrevious}
         >
           Previous
         </button>
         <button
-          className="flex h-8 items-center gap-x-1 rounded-md border px-3 text-sm text-neutral-500 transition-colors duration-300 hover:bg-neutral-300 hover:text-neutral-500 disabled:bg-neutral-100"
+          className="flex h-8 items-center gap-x-1 border px-3 text-sm text-neutral-500 transition-colors duration-300 hover:bg-neutral-300 hover:text-neutral-500 disabled:bg-neutral-100"
           disabled={totalPages === 0 || current === totalPages}
           onClick={goToNext}
         >

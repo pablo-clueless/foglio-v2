@@ -4,11 +4,13 @@ import {
   RiDashboardLine,
   RiFilePdf2Line,
   RiFileTextLine,
+  RiFunctionAiLine,
   RiGroup3Line,
   RiHome2Line,
   RiPieChart2Line,
   RiSettings4Line,
   RiUserSettingsLine,
+  RiWallet2Line,
 } from "@remixicon/react";
 
 export const DASHBOARD_ROUTES = (isRecruiter: boolean) => {
@@ -55,27 +57,37 @@ export const DASHBOARD_ROUTES = (isRecruiter: boolean) => {
 export const ADMIN_ROUTES = [
   {
     label: "Dashboard",
-    href: "/super-admin/dashboard",
+    href: "/admin/dashboard",
     icon: RiDashboardLine,
   },
   {
+    label: "Features",
+    href: "/admin/features",
+    icon: RiFunctionAiLine,
+  },
+  {
     label: "Users",
-    href: "/super-admin/users",
+    href: "/admin/users",
     icon: RiGroup3Line,
   },
   {
     label: "Recruiters",
-    href: "/super-admin/recruiters",
+    href: "/admin/recruiters",
     icon: RiUserSettingsLine,
   },
   {
     label: "Jobs",
-    href: "/super-admin/jobs",
+    href: "/admin/jobs",
     icon: RiBriefcase2Line,
   },
   {
+    label: "Billing",
+    href: "/admin/billing",
+    icon: RiWallet2Line,
+  },
+  {
     label: "Settings",
-    href: "/super-admin/settings",
+    href: "/admin/settings",
     icon: RiSettings4Line,
   },
 ];
@@ -95,6 +107,10 @@ export const FOOTER_ROUTES = [
       {
         name: "For Talents",
         href: "/talents",
+      },
+      {
+        name: "Talent Pool",
+        href: "/talent-pool",
       },
     ],
   },

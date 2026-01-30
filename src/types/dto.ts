@@ -1,4 +1,5 @@
 export interface UpdateUserDto {
+  name?: string;
   username?: string;
   phone?: string;
   headline?: string;
@@ -11,6 +12,15 @@ export interface UpdateUserDto {
   certifications?: CertificationDto[];
   languages?: LanguageDto[];
   company?: CompanyDto;
+  social_media?: {
+    linkedin?: string;
+    gitHub?: string;
+    twitter?: string;
+    instagram?: string;
+    facebook?: string;
+    youtube?: string;
+    blog?: string;
+  };
 }
 
 export interface CompanyDto {
@@ -29,8 +39,8 @@ export interface ProjectDto {
   image?: string;
   url?: string;
   stack?: string[];
-  start_date?: Date;
-  end_date?: Date;
+  start_date?: string;
+  end_date?: string;
   highlights?: string;
 }
 
@@ -39,8 +49,8 @@ export interface ExperienceDto {
   location?: string;
   role: string;
   description: string;
-  start_date: Date;
-  end_date?: Date;
+  start_date: string;
+  end_date?: string;
   highlights?: string;
   technologies?: string[];
 }
@@ -50,8 +60,8 @@ export interface EducationDto {
   degree: string;
   field: string;
   location?: string;
-  start_date: Date;
-  end_date?: Date;
+  start_date: string;
+  end_date?: string;
   gpa?: number;
   highlights?: string;
 }
@@ -59,8 +69,8 @@ export interface EducationDto {
 export interface CertificationDto {
   name: string;
   issuer: string;
-  issue_date: Date;
-  expiry_date?: Date;
+  issue_date: string;
+  expiry_date?: string;
   credential_id?: string;
   url?: string;
 }
@@ -77,7 +87,7 @@ export interface CreateJobDto {
   description: string;
   requirements: string[];
   salary?: number;
-  deadline?: Date;
+  deadline?: string;
   is_remote: boolean;
   employment_type: string;
 }
@@ -87,7 +97,7 @@ export interface UpdateJobDto {
   description: string;
   requirements: string[];
   salary?: number;
-  deadline?: Date;
+  deadline?: string;
   is_remote: boolean;
   employment_type: string;
 }
@@ -102,8 +112,8 @@ export interface JobApplicationDto {
   resume: string;
   coverLetter?: string;
   status: string;
-  submissionDate: Date;
-  lastUpdated: Date;
+  submissionDate: string;
+  lastUpdated: string;
   notes?: string;
 }
 
