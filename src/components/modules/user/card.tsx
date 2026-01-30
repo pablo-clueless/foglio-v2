@@ -52,7 +52,7 @@ export const Card = ({ user, index = 0 }: Props) => {
           <div className="flex w-full flex-1 flex-col items-center justify-center gap-2 text-center">
             <div>
               <p className="text-primary-400 line-clamp-1 text-sm">{user.name}</p>
-              <p className="line-clamp-1 text-xs text-gray-400">{user.role || "Professional"}</p>
+              <p className="line-clamp-1 text-xs text-gray-400">{user.role ?? "Professional"}</p>
             </div>
             <div className="flex items-center gap-1 text-xs text-gray-500">
               <MapPin className="size-3" />
