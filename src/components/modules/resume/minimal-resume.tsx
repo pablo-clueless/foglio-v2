@@ -24,6 +24,18 @@ export const MinimalResume = ({ user, theme, fontFamily, ref }: ResumeProps) => 
         <span>•</span>
         {user.location && <span>{user.location}</span>}
       </div>
+      {user.social_media && Object.values(user.social_media).some(Boolean) && (
+        <div className="mt-1 flex gap-2 text-xs font-light" style={{ color: theme.colors.textSecondary }}>
+          {user.social_media.linkedin && <a href={user.social_media.linkedin}>LinkedIn</a>}
+          {user.social_media.linkedin && user.social_media.gitHub && <span>•</span>}
+          {user.social_media.gitHub && <a href={user.social_media.gitHub}>GitHub</a>}
+          {(user.social_media.linkedin || user.social_media.gitHub) && user.social_media.twitter && <span>•</span>}
+          {user.social_media.twitter && <a href={user.social_media.twitter}>Twitter</a>}
+          {(user.social_media.linkedin || user.social_media.gitHub || user.social_media.twitter) &&
+            user.social_media.blog && <span>•</span>}
+          {user.social_media.blog && <a href={user.social_media.blog}>Blog</a>}
+        </div>
+      )}
     </div>
 
     {user.summary && (

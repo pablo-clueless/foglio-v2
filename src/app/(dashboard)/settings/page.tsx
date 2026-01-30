@@ -1,15 +1,16 @@
 "use client";
 
-import { RiUserLine, RiVipCrownLine, RiNotification3Line, RiShieldCheckLine } from "@remixicon/react";
+import { RiUserLine, RiVipCrownLine, RiNotification3Line, RiShieldCheckLine, RiGlobalLine } from "@remixicon/react";
 import { motion } from "framer-motion";
 import React from "react";
 
 import { ScrollArea, TabPanel } from "@/components/shared";
 import { cn } from "@/lib";
 import {
-  ProfileSettings,
   BillingSettings,
+  DomainSettings,
   NotificationSettings,
+  ProfileSettings,
   SecuritySettings,
 } from "@/components/modules/settings";
 
@@ -37,6 +38,7 @@ const tabs = [
   { id: "profile", label: "Profile", icon: RiUserLine },
   { id: "billing", label: "Billing", icon: RiVipCrownLine },
   { id: "notifications", label: "Notifications", icon: RiNotification3Line },
+  { id: "domain", label: "Domain", icon: RiGlobalLine },
   { id: "security", label: "Security", icon: RiShieldCheckLine },
 ] as const;
 
@@ -85,6 +87,9 @@ const Page = () => {
           </TabPanel>
           <TabPanel selected={activeTab} value="notifications">
             <NotificationSettings />
+          </TabPanel>
+          <TabPanel selected={activeTab} value="domain">
+            <DomainSettings />
           </TabPanel>
           <TabPanel selected={activeTab} value="security">
             <SecuritySettings />

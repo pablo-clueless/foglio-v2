@@ -84,3 +84,54 @@ export const toInputDate = (date: string | Date | undefined | null): string => {
   if (isNaN(d.getTime())) return "";
   return d.toISOString().split("T")[0];
 };
+
+export const fromKebabCase = (str: string) => {
+  return str.replace(/-/g, " ");
+};
+
+export const fromPascalCase = (str: string) => {
+  return str.replace(/([a-z])([A-Z])/g, "$1 $2");
+};
+
+export const fromCamelCase = (str: string) => {
+  return str.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+};
+
+export const fromSnakeCase = (str: string) => {
+  return str.replace(/_/g, " ");
+};
+
+export const toKebabCase = (str: string) => {
+  return str.toLowerCase().replace(/ /g, "-");
+};
+
+export const toPascalCase = (str: string) => {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/ /g, "")
+    .replace(/^./, (str) => str.toUpperCase());
+};
+
+export const toCamelCase = (str: string) => {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/ /g, "")
+    .replace(/^./, (str) => str.toLowerCase());
+};
+
+export const toSnakeCase = (str: string) => {
+  return str.toLowerCase().replace(/ /g, "_");
+};
+
+export const getTrueValue = (value: string | boolean | number | undefined) => {
+  if (!value) return "--";
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  if (typeof value === "string") return value;
+  return String(value);
+};
+
+export const mask = (value?: string, length?: number) => {
+  if (!value) return "";
+  const maskLength = length ?? value.length;
+  return value.slice(0, maskLength).replace(/./g, "*") + value.slice(maskLength);
+};
