@@ -52,6 +52,31 @@ export const CorporateResume = ({ user, theme, fontFamily, ref }: ResumeProps) =
         )}
       </div>
 
+      {user.social_media && Object.values(user.social_media).some(Boolean) && (
+        <div className="mb-4 flex gap-4 pb-3 text-xs" style={{ borderBottom: `1px solid ${theme.colors.borderColor}` }}>
+          {user.social_media.linkedin && (
+            <a href={user.social_media.linkedin} style={{ color: theme.colors.textSecondary }}>
+              LinkedIn
+            </a>
+          )}
+          {user.social_media.gitHub && (
+            <a href={user.social_media.gitHub} style={{ color: theme.colors.textSecondary }}>
+              GitHub
+            </a>
+          )}
+          {user.social_media.twitter && (
+            <a href={user.social_media.twitter} style={{ color: theme.colors.textSecondary }}>
+              Twitter
+            </a>
+          )}
+          {user.social_media.blog && (
+            <a href={user.social_media.blog} style={{ color: theme.colors.textSecondary }}>
+              Blog
+            </a>
+          )}
+        </div>
+      )}
+
       {user.summary && (
         <div className="mb-4">
           <h2
