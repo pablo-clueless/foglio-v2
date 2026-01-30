@@ -3,6 +3,7 @@ export * from "./corporate-resume";
 export * from "./creative-resume";
 export * from "./elegant-resume";
 export * from "./executive-resume";
+export * from "./form-section";
 export * from "./minimal-resume";
 export * from "./modern-resume";
 export * from "./professional-resume";

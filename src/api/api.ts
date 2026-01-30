@@ -16,12 +16,11 @@ export const api = createApi({
       if (token && !isPublic) {
       }
       headers.set("Authorization", `Bearer ${token}`);
-      headers.set("Content-Type", "application/json");
       return headers;
     },
   }),
   reducerPath: "api",
-  tagTypes: ["Auth", "User", "Job"],
+  tagTypes: ["Auth", "User", "Job", "Application", "Notification", "Subscription"],
   endpoints: (builder) => ({
     health: builder.query<HttpResponse<string>, null>({
       query: () => ({

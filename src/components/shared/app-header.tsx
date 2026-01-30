@@ -55,7 +55,7 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
               </div>
             </button>
           </PopoverTrigger>
-          <PopoverContent className="border-primary-100/15 mr-4 w-64 rounded-lg border bg-black/95 p-0" align="end">
+          <PopoverContent className="border-primary-100/15 w-64 rounded-lg border bg-black/95 p-0" align="end">
             <div className="border-primary-100/15 border-b p-4">
               <div className="flex items-center gap-x-3">
                 <Avatar className="size-10 rounded-lg">

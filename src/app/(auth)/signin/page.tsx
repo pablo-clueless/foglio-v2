@@ -1,8 +1,8 @@
 "use client";
 
 import { RiGithubFill, RiGoogleFill, RiLoaderLine } from "@remixicon/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import { toast } from "sonner";
 import Link from "next/link";

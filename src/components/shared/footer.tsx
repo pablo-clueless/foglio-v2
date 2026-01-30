@@ -18,7 +18,7 @@ export const Footer = () => {
           </div>
           <div className="col-span-1 flex flex-wrap items-start justify-between gap-10 md:col-span-2">
             {FOOTER_ROUTES.map((route, index) => (
-              <div className="min-w-[300px] flex-1 space-y-5" key={index}>
+              <div className="min-w-[300px] flex-1 space-y-5 sm:min-w-[200px]" key={index}>
                 <h4 className="text-lg font-medium">{route.label}</h4>
                 <div className="flex flex-col gap-y-2">
                   {route.links.map(({ href, name }, index) => (

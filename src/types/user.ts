@@ -1,7 +1,7 @@
 export type ProviderType = "EMAIL" | "GITHUB" | "GOOGLE";
 
 export interface UserProps {
-  created_at: Date;
+  created_at: string;
   email: string;
   id: string;
   headline: string;
@@ -12,13 +12,13 @@ export interface UserProps {
   provider: ProviderType;
   role: string; //job role e.g Frontend Developer
   summary: string;
-  updated_at: Date;
+  updated_at: string;
   username: string;
   verified: boolean;
   certifications?: CertificationProps[];
   company?: CompanyProps;
   company_id?: string;
-  deleted_at?: Date;
+  deleted_at?: string;
   education?: EducationProps[];
   experiences?: ExperienceProps[];
   image?: string;
@@ -28,6 +28,15 @@ export interface UserProps {
   projects?: ProjectProps[];
   provider_id?: string;
   skills?: string[];
+  social_media?: {
+    linkedin?: string;
+    gitHub?: string;
+    twitter?: string;
+    instagram?: string;
+    facebook?: string;
+    youtube?: string;
+    blog?: string;
+  };
   otp?: string;
 }
 
@@ -41,9 +50,9 @@ export interface CompanyProps {
   description?: string;
   location?: string;
   users?: UserProps[];
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface ProjectProps {
@@ -54,12 +63,12 @@ export interface ProjectProps {
   image?: string;
   url?: string;
   stack?: string[];
-  start_date?: Date;
-  end_date?: Date;
+  start_date?: string;
+  end_date?: string;
   highlights?: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface ExperienceProps {
@@ -69,13 +78,13 @@ export interface ExperienceProps {
   location?: string;
   role: string;
   description: string;
-  start_date: Date;
-  end_date?: Date;
+  start_date: string;
+  end_date?: string;
   highlights?: string;
   technologies?: string[];
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface EducationProps {
@@ -85,13 +94,13 @@ export interface EducationProps {
   degree: string;
   field: string;
   location?: string;
-  start_date: Date;
-  end_date?: Date;
+  start_date: string;
+  end_date?: string;
   gpa?: number;
   highlights?: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface CertificationProps {
@@ -99,13 +108,13 @@ export interface CertificationProps {
   user_id: string;
   name: string;
   issuer: string;
-  issue_date: Date;
-  expiry_date?: Date;
+  issue_date: string;
+  expiry_date?: string;
   credential_id?: string;
   url?: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface LanguageProps {
@@ -113,7 +122,7 @@ export interface LanguageProps {
   user_id: string;
   name: string;
   proficiency: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
