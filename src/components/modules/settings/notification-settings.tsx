@@ -142,9 +142,9 @@ export const NotificationSettings = () => {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+          <div className="flex size-10 items-center justify-center bg-white/5">
             <RiNotification3Line className="text-primary-100 size-5" />
           </div>
           <div>
@@ -162,9 +162,7 @@ export const NotificationSettings = () => {
               <div key={category.id}>
                 <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
-                      {category.icon}
-                    </div>
+                    <div className="flex size-10 items-center justify-center bg-white/5">{category.icon}</div>
                     <div>
                       <h4 className="font-medium text-white">{category.title}</h4>
                       <p className="text-sm text-gray-400">{category.description}</p>
@@ -182,7 +180,7 @@ export const NotificationSettings = () => {
                   {category.settings.map((setting) => (
                     <div
                       key={setting.id}
-                      className="flex items-center justify-between rounded-lg border border-white/5 bg-white/5 p-4"
+                      className="flex items-center justify-between border border-white/5 bg-white/5 p-4"
                     >
                       <div>
                         <p className="font-medium text-white">{setting.title}</p>

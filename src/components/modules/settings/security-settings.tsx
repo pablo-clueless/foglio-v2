@@ -96,9 +96,9 @@ export const SecuritySettings = () => {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+          <div className="flex size-10 items-center justify-center bg-white/5">
             <RiLockPasswordLine className="text-primary-100 size-5" />
           </div>
           <div>
@@ -130,9 +130,7 @@ export const SecuritySettings = () => {
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div
                     key={i}
-                    className={`h-1 flex-1 rounded-full ${
-                      i <= passwordStrength.score ? passwordStrength.color : "bg-white/10"
-                    }`}
+                    className={`h-1 flex-1 ${i <= passwordStrength.score ? passwordStrength.color : "bg-white/10"}`}
                   />
                 ))}
               </div>
@@ -176,10 +174,10 @@ export const SecuritySettings = () => {
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+            <div className="flex size-10 items-center justify-center bg-white/5">
               <RiSmartphoneLine className="text-primary-100 size-5" />
             </div>
             <div>
@@ -198,7 +196,7 @@ export const SecuritySettings = () => {
         </div>
 
         {twoFactorEnabled && (
-          <div className="mt-4 rounded-lg border border-green-500/20 bg-green-500/10 p-4">
+          <div className="mt-4 border border-green-500/20 bg-green-500/10 p-4">
             <div className="flex items-start gap-3">
               <RiShieldCheckLine className="mt-0.5 size-5 text-green-400" />
               <div>
@@ -213,9 +211,9 @@ export const SecuritySettings = () => {
         )}
       </div>
 
-      <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-6">
+      <div className="border border-red-500/20 bg-red-500/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-red-500/20">
+          <div className="flex size-10 items-center justify-center bg-red-500/20">
             <RiDeleteBinLine className="size-5 text-red-400" />
           </div>
           <div>
@@ -224,7 +222,7 @@ export const SecuritySettings = () => {
           </div>
         </div>
 
-        <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4">
+        <div className="border border-red-500/20 bg-red-500/10 p-4">
           <div className="flex items-start gap-3">
             <RiErrorWarningLine className="mt-0.5 size-5 text-red-400" />
             <div className="flex-1">

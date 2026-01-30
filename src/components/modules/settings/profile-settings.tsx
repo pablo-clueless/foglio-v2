@@ -100,9 +100,9 @@ export const ProfileSettings = () => {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+          <div className="flex size-10 items-center justify-center bg-white/5">
             <RiUserLine className="text-primary-100 size-5" />
           </div>
           <div>
@@ -145,9 +145,9 @@ export const ProfileSettings = () => {
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+          <div className="flex size-10 items-center justify-center bg-white/5">
             <RiExternalLinkLine className="text-primary-100 size-5" />
           </div>
           <div>

@@ -38,13 +38,14 @@ const FEATURE_FLAGS = [
   },
 ];
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     return NextResponse.json({
       flags: FEATURE_FLAGS,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
+    console.error({ error });
     return NextResponse.json({ error: "Failed to fetch feature flags" }, { status: 500 });
   }
 }
@@ -68,6 +69,7 @@ export async function POST(request: NextRequest) {
       message: "Flag updated successfully",
     });
   } catch (error) {
+    console.error({ error });
     return NextResponse.json({ error: "Failed to update feature flag" }, { status: 500 });
   }
 }

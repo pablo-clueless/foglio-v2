@@ -83,7 +83,7 @@ export const Avatar = ({ alt, className, editable = false, src }: Props) => {
       {editable && (
         <Dialog open={open} onOpenChange={(isOpen) => (isOpen ? setOpen(true) : handleClose())}>
           <DialogTrigger asChild>
-            <button className="border-primary-100/25 absolute -right-2 -bottom-2 grid size-5 place-items-center rounded-full border bg-white">
+            <button className="border-primary-100/25 absolute -right-2 -bottom-2 grid size-5 place-items-center border bg-white">
               <RiEdit2Line className="size-3" />
             </button>
           </DialogTrigger>
@@ -96,13 +96,13 @@ export const Avatar = ({ alt, className, editable = false, src }: Props) => {
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               className={cn(
-                "mt-4 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-white/20 p-8 transition-colors",
+                "mt-4 flex cursor-pointer flex-col items-center justify-center border-2 border-dashed border-white/20 p-8 transition-colors",
                 isDragging && "border-primary-400 bg-primary-400/10",
                 preview && "border-solid",
               )}
             >
               {preview ? (
-                <div className="relative size-32 overflow-hidden rounded-full">
+                <div className="relative size-32 overflow-hidden">
                   <Image alt="Preview" fill sizes="128px" src={preview} className="object-cover" />
                 </div>
               ) : (

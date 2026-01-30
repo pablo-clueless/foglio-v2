@@ -156,7 +156,7 @@ export const Navbar = () => {
                   <PopoverTrigger asChild>
                     <Button className="flex h-auto w-[192px] items-center gap-x-2" variant="outline">
                       <motion.div
-                        className="bg-primary-100 size-6 rounded-full"
+                        className="bg-primary-100 size-6"
                         whileHover={{ scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       />
@@ -283,8 +283,8 @@ export const Navbar = () => {
                 >
                   {user !== null ? (
                     <>
-                      <div className="flex items-center gap-x-3 rounded-lg border border-white/20 p-4">
-                        <div className="bg-primary-100 size-10 rounded-full" />
+                      <div className="flex items-center gap-x-3 border border-white/20 p-4">
+                        <div className="bg-primary-100 size-10" />
                         <p className="text-sm text-white">{user.name}</p>
                       </div>
                       <div className="space-y-2">

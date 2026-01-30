@@ -89,7 +89,7 @@ const Page = () => {
   return (
     <ScrollArea>
       <motion.div className="w-full space-y-6 pb-10" variants={containerVariants} initial="hidden" animate="visible">
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <Avatar
@@ -114,9 +114,9 @@ const Page = () => {
         </motion.div>
 
         <motion.div variants={itemVariants} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+          <div className="border border-white/10 bg-white/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-blue-500/20">
+              <div className="flex size-10 items-center justify-center bg-blue-500/20">
                 <RiBriefcaseLine className="size-5 text-blue-400" />
               </div>
               <div>
@@ -125,9 +125,9 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+          <div className="border border-white/10 bg-white/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-yellow-500/20">
+              <div className="flex size-10 items-center justify-center bg-yellow-500/20">
                 <RiTimeLine className="size-5 text-yellow-400" />
               </div>
               <div>
@@ -136,9 +136,9 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+          <div className="border border-white/10 bg-white/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-green-500/20">
+              <div className="flex size-10 items-center justify-center bg-green-500/20">
                 <RiCheckLine className="size-5 text-green-400" />
               </div>
               <div>
@@ -147,9 +147,9 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+          <div className="border border-white/10 bg-white/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-red-500/20">
+              <div className="flex size-10 items-center justify-center bg-red-500/20">
                 <RiCloseLine className="size-5 text-red-400" />
               </div>
               <div>
@@ -159,11 +159,10 @@ const Page = () => {
             </div>
           </div>
         </motion.div>
-
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+              <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiFileTextLine className="text-primary-100 size-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Recent Applications</h3>
@@ -175,11 +174,10 @@ const Page = () => {
               </Link>
             </Button>
           </div>
-
           {isLoading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-16 animate-pulse rounded-lg bg-white/5" />
+                <div key={i} className="h-16 animate-pulse bg-white/5" />
               ))}
             </div>
           ) : recentApplications.length > 0 ? (
@@ -188,7 +186,7 @@ const Page = () => {
                 <Link
                   key={application.id}
                   href={`/applications/${application.id}`}
-                  className="flex items-center justify-between rounded-lg border border-white/5 bg-white/5 p-4 transition-colors hover:bg-white/10"
+                  className="flex items-center justify-between border border-white/5 bg-white/5 p-4 transition-colors hover:bg-white/10"
                 >
                   <div className="flex-1">
                     <h4 className="font-medium text-white">{application.job.title}</h4>
@@ -210,7 +208,7 @@ const Page = () => {
               <RiBriefcaseLine className="mx-auto size-12 text-gray-600" />
               <p className="mt-2 text-gray-400">No applications yet</p>
               <Button asChild className="mt-4" size="sm">
-                <Link href="/talent-pool">Start Applying</Link>
+                <Link href="/jobs">Start Applying</Link>
               </Button>
             </div>
           )}

@@ -11,7 +11,7 @@ interface FeatureFlagsState {
   updateRollout: (id: string, percentage: number) => void;
 }
 
-const useFeatureFlagsAdmin = createReportableStore<FeatureFlagsState>((set, _get) => ({
+const useFeatureFlagsAdmin = createReportableStore<FeatureFlagsState>((set) => ({
   flags: [],
   loading: false,
 
@@ -50,7 +50,7 @@ const FeatureFlagsAdmin = () => {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin border-4 border-blue-500 border-t-transparent" />
       </div>
     );
   }
@@ -65,7 +65,7 @@ const FeatureFlagsAdmin = () => {
           </div>
           <button
             onClick={fetchFlags}
-            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+            className="bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
           >
             Refresh
           </button>
@@ -75,7 +75,7 @@ const FeatureFlagsAdmin = () => {
           {flags.map((flag) => (
             <div
               key={flag.id}
-              className="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-800/50 p-6 backdrop-blur-sm transition-all hover:border-gray-600 hover:shadow-xl"
+              className="group relative overflow-hidden border border-gray-700 bg-gray-800/50 p-6 backdrop-blur-sm transition-all hover:border-gray-600 hover:shadow-xl"
             >
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex-1">
@@ -85,12 +85,12 @@ const FeatureFlagsAdmin = () => {
                 </div>
                 <button
                   onClick={() => toggleFlag(flag.id)}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
+                  className={`relative inline-flex h-7 w-12 items-center transition-colors ${
                     flag.enabled ? "bg-green-500" : "bg-gray-600"
                   }`}
                 >
                   <span
-                    className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-5 w-5 transform bg-white transition-transform ${
                       flag.enabled ? "translate-x-6" : "translate-x-1"
                     }`}
                   />
@@ -102,10 +102,7 @@ const FeatureFlagsAdmin = () => {
                   <div className="flex flex-wrap gap-2">
                     <span className="text-xs text-gray-400">Environments:</span>
                     {flag.environment.map((env) => (
-                      <span
-                        key={env}
-                        className="rounded-full bg-blue-500/20 px-2 py-1 text-xs font-medium text-blue-300"
-                      >
+                      <span key={env} className="bg-blue-500/20 px-2 py-1 text-xs font-medium text-blue-300">
                         {env}
                       </span>
                     ))}
@@ -116,10 +113,7 @@ const FeatureFlagsAdmin = () => {
                   <div className="flex flex-wrap gap-2">
                     <span className="text-xs text-gray-400">Target Roles:</span>
                     {flag.targetRoles.map((role) => (
-                      <span
-                        key={role}
-                        className="rounded-full bg-purple-500/20 px-2 py-1 text-xs font-medium text-purple-300"
-                      >
+                      <span key={role} className="bg-purple-500/20 px-2 py-1 text-xs font-medium text-purple-300">
                         {role}
                       </span>
                     ))}
@@ -129,7 +123,7 @@ const FeatureFlagsAdmin = () => {
                 {flag.targetUsers && (
                   <div className="flex flex-wrap gap-2">
                     <span className="text-xs text-gray-400">Target Users:</span>
-                    <span className="rounded-full bg-orange-500/20 px-2 py-1 text-xs font-medium text-orange-300">
+                    <span className="bg-orange-500/20 px-2 py-1 text-xs font-medium text-orange-300">
                       {flag.targetUsers.length} users
                     </span>
                   </div>
@@ -149,7 +143,7 @@ const FeatureFlagsAdmin = () => {
                       onChange={(e) => updateRollout(flag.id, parseInt(e.target.value))}
                       className="w-full accent-blue-500"
                     />
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-700">
+                    <div className="h-2 w-full overflow-hidden bg-gray-700">
                       <div
                         className="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300"
                         style={{ width: `${flag.rolloutPercentage}%` }}
@@ -169,7 +163,7 @@ const FeatureFlagsAdmin = () => {
         </div>
 
         {flags.length === 0 && (
-          <div className="rounded-xl border border-gray-700 bg-gray-800/50 p-12 text-center">
+          <div className="border border-gray-700 bg-gray-800/50 p-12 text-center">
             <p className="text-gray-400">No feature flags found</p>
           </div>
         )}

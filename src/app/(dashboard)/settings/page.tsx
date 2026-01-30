@@ -63,7 +63,7 @@ const Page = () => {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all",
+                    "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all",
                     isActive
                       ? "bg-primary-400 text-black"
                       : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white",

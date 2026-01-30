@@ -129,7 +129,7 @@ const Page = () => {
                     {jobData.is_remote ? "Remote" : "On-site"}
                   </Badge>
                   <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${
+                    className={`px-3 py-1 text-xs font-medium ${
                       jobData.is_remote ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"
                     }`}
                   >
@@ -139,26 +139,20 @@ const Page = () => {
                 <h1 className="text-3xl font-semibold capitalize sm:text-5xl">{jobData.title}</h1>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                   <p className="text-primary-400 text-lg font-medium">{jobData.company}</p>
-                  <span className="bg-primary-400 hidden size-1.5 rounded-full sm:block"></span>
+                  <span className="bg-primary-400 hidden size-1.5 sm:block"></span>
                   <div className="flex items-center gap-x-1 text-gray-400">
                     <RiMapPinLine className="size-4" />
                     <span>{jobData.location}</span>
                   </div>
                 </div>
               </motion.div>
-              <motion.div
-                variants={itemVariants}
-                className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
-              >
+              <motion.div variants={itemVariants} className="border-primary-100/15 space-y-4 border bg-black/20 p-6">
                 <h2 className="text-xl font-semibold">Job Description</h2>
                 <div className="space-y-4 text-gray-300">
                   <p className="leading-relaxed">{jobData.description}</p>
                 </div>
               </motion.div>
-              <motion.div
-                variants={itemVariants}
-                className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
-              >
+              <motion.div variants={itemVariants} className="border-primary-100/15 space-y-4 border bg-black/20 p-6">
                 <h2 className="text-xl font-semibold">Requirements</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-300">
                   <li>Relevant experience in the field</li>
@@ -167,10 +161,7 @@ const Page = () => {
                   <li>Problem-solving mindset</li>
                 </ul>
               </motion.div>
-              <motion.div
-                variants={itemVariants}
-                className="border-primary-100/15 space-y-4 rounded-lg border bg-black/20 p-6"
-              >
+              <motion.div variants={itemVariants} className="border-primary-100/15 space-y-4 border bg-black/20 p-6">
                 <h2 className="text-xl font-semibold">Benefits</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-300">
                   <li>Competitive salary and benefits</li>
@@ -183,7 +174,7 @@ const Page = () => {
             <div className="space-y-6">
               <motion.div
                 variants={itemVariants}
-                className="border-primary-100/15 sticky top-24 space-y-6 rounded-lg border bg-black/30 p-6"
+                className="border-primary-100/15 sticky top-24 space-y-6 border bg-black/30 p-6"
               >
                 <div className="space-y-4">
                   <Button className="w-full" size="lg">
