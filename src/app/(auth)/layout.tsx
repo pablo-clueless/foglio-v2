@@ -11,10 +11,10 @@ export default function AuthLayout({ children }: Props) {
   return (
     <div className="grid h-screen w-screen grid-cols-1 bg-black lg:grid-cols-2">
       <div className="hidden h-full place-items-center py-10 lg:grid">
-        <div className="bg-primary-400 relative aspect-[4/5] h-full rounded-md">
+        <div className="bg-primary-400 relative aspect-[4/5] h-full">
           <Image
             alt="auth-image"
-            className="rounded-md object-cover object-center"
+            className="object-cover object-center"
             fill
             sizes="100%"
             src={

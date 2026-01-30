@@ -125,7 +125,7 @@ const Page = () => {
   const activeSocialLinks = React.useMemo(() => {
     if (!user?.social_media) return [];
     return socialLinks.filter((link) => user.social_media?.[link.key as keyof typeof user.social_media]);
-  }, [user?.social_media]);
+  }, [user]);
 
   const totalExperience = React.useMemo(() => {
     if (!user?.experiences?.length) return 0;
@@ -168,7 +168,7 @@ const Page = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full bg-white/5"
+              className="mx-auto mb-6 flex size-20 items-center justify-center bg-white/5"
             >
               <RiUserLine className="size-10 text-gray-500" />
             </motion.div>
@@ -228,7 +228,7 @@ const Page = () => {
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <motion.div
-                        className="from-primary-100/50 absolute -inset-1 rounded-full bg-gradient-to-r to-purple-500/50 opacity-75 blur-lg"
+                        className="from-primary-100/50 absolute -inset-1 bg-gradient-to-r to-purple-500/50 opacity-75 blur-lg"
                         animate={{ opacity: [0.5, 0.8, 0.5] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                       />
@@ -245,7 +245,7 @@ const Page = () => {
                           transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                           className="absolute -right-1 bottom-2"
                         >
-                          <div className="flex items-center justify-center rounded-full bg-blue-500 p-1.5 shadow-lg shadow-blue-500/50">
+                          <div className="flex items-center justify-center bg-blue-500 p-1.5 shadow-lg shadow-blue-500/50">
                             <RiCheckboxCircleLine className="size-5 text-white" />
                           </div>
                         </motion.div>
@@ -370,7 +370,7 @@ const Page = () => {
                                 transition={{ delay: 0.7 + i * 0.05 }}
                                 whileHover={{ scale: 1.1, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`rounded-lg bg-white/5 p-2.5 text-gray-400 transition-colors hover:bg-white/10 ${link.color}`}
+                                className={`bg-white/5 p-2.5 text-gray-400 transition-colors hover:bg-white/10 ${link.color}`}
                                 title={link.label}
                               >
                                 <Icon className="size-5" />
@@ -422,7 +422,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -459,7 +459,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -486,14 +486,14 @@ const Page = () => {
                           className="group relative pl-12"
                         >
                           <motion.div
-                            className="bg-primary-100 absolute top-2 left-3.5 size-3 rounded-full ring-4 ring-black"
+                            className="bg-primary-100 absolute top-2 left-3.5 size-3 ring-4 ring-black"
                             initial={{ scale: 0 }}
                             whileInView={{ scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 + 0.2, type: "spring" }}
                           />
                           <motion.div
-                            className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 rounded-xl border bg-gradient-to-br to-transparent p-5 transition-all hover:shadow-lg hover:shadow-purple-500/5"
+                            className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 border bg-gradient-to-br to-transparent p-5 transition-all hover:shadow-lg hover:shadow-purple-500/5"
                             whileHover={{ x: 4 }}
                           >
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -510,7 +510,7 @@ const Page = () => {
                                   )}
                                 </div>
                               </div>
-                              <div className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-xs text-gray-400">
+                              <div className="flex items-center gap-1.5 bg-white/5 px-3 py-1 text-xs text-gray-400">
                                 <RiCalendarLine className="size-3" />
                                 <span>
                                   {new Date(exp.start_date).toLocaleDateString("en-US", {
@@ -533,7 +533,7 @@ const Page = () => {
                             {exp.technologies && exp.technologies.length > 0 && (
                               <div className="mt-3 flex flex-wrap gap-1.5">
                                 {exp.technologies.map((tech) => (
-                                  <span key={tech} className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-gray-400">
+                                  <span key={tech} className="bg-white/5 px-2 py-0.5 text-xs text-gray-400">
                                     {tech}
                                   </span>
                                 ))}
@@ -549,7 +549,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -566,7 +566,7 @@ const Page = () => {
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.1, duration: 0.5 }}
                           whileHover={{ y: -2, x: 4 }}
-                          className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 rounded-xl border bg-gradient-to-br to-transparent p-5 transition-all"
+                          className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 border bg-gradient-to-br to-transparent p-5 transition-all"
                         >
                           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                             <div className="space-y-1">
@@ -574,7 +574,7 @@ const Page = () => {
                               <p className="text-primary-100 font-medium">{edu.institution}</p>
                               {edu.field && <p className="text-sm text-gray-400">{edu.field}</p>}
                             </div>
-                            <div className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-xs text-gray-400">
+                            <div className="flex items-center gap-1.5 bg-white/5 px-3 py-1 text-xs text-gray-400">
                               <RiCalendarLine className="size-3" />
                               <span>
                                 {new Date(edu.start_date).getFullYear()} -{" "}
@@ -591,7 +591,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -608,7 +608,7 @@ const Page = () => {
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.1, duration: 0.5 }}
                           whileHover={{ y: -4 }}
-                          className="group border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 overflow-hidden rounded-xl border bg-gradient-to-br to-transparent transition-all hover:shadow-lg hover:shadow-purple-500/10"
+                          className="group border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 overflow-hidden border bg-gradient-to-br to-transparent transition-all hover:shadow-lg hover:shadow-purple-500/10"
                         >
                           {project.image && (
                             <div className="aspect-video w-full overflow-hidden bg-white/5">
@@ -643,12 +643,12 @@ const Page = () => {
                             {project.stack && project.stack.length > 0 && (
                               <div className="mt-3 flex flex-wrap gap-1.5">
                                 {project.stack.slice(0, 4).map((tech) => (
-                                  <span key={tech} className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-gray-400">
+                                  <span key={tech} className="bg-white/5 px-2 py-0.5 text-xs text-gray-400">
                                     {tech}
                                   </span>
                                 ))}
                                 {project.stack.length > 4 && (
-                                  <span className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-gray-400">
+                                  <span className="bg-white/5 px-2 py-0.5 text-xs text-gray-400">
                                     +{project.stack.length - 4}
                                   </span>
                                 )}
@@ -664,7 +664,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -681,10 +681,10 @@ const Page = () => {
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.05, duration: 0.4 }}
                           whileHover={{ y: -2, scale: 1.02 }}
-                          className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 rounded-xl border bg-gradient-to-br to-transparent p-4 transition-all"
+                          className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 border bg-gradient-to-br to-transparent p-4 transition-all"
                         >
                           <div className="flex items-start gap-3">
-                            <motion.div className="shrink-0 rounded-lg bg-amber-500/10 p-2" whileHover={{ rotate: 10 }}>
+                            <motion.div className="shrink-0 bg-amber-500/10 p-2" whileHover={{ rotate: 10 }}>
                               <RiAwardLine className="size-5 text-amber-500" />
                             </motion.div>
                             <div className="min-w-0 flex-1">
@@ -709,7 +709,7 @@ const Page = () => {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center rounded-xl bg-gradient-to-br to-purple-500/20"
+                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
@@ -726,7 +726,7 @@ const Page = () => {
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.05, duration: 0.3 }}
                           whileHover={{ scale: 1.05 }}
-                          className="border-primary-100/20 flex items-center gap-2 rounded-full border bg-white/5 px-4 py-2"
+                          className="border-primary-100/20 flex items-center gap-2 border bg-white/5 px-4 py-2"
                         >
                           <span className="font-medium text-white">{lang.name}</span>
                           <span className="text-primary-100 text-sm">• {lang.proficiency}</span>
@@ -772,14 +772,14 @@ const Page = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="border-primary-100/10 rounded-xl border border-dashed py-12 text-center"
+                className="border-primary-100/10 border border-dashed py-12 text-center"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ type: "spring", stiffness: 200 }}
-                  className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-white/5"
+                  className="mx-auto mb-4 flex size-16 items-center justify-center bg-white/5"
                 >
                   <RiUserLine className="size-8 text-gray-600" />
                 </motion.div>

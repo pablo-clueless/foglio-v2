@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -143,7 +145,7 @@ export const FormSection = <T extends { id: string }>({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {icon && <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">{icon}</div>}
+          {icon && <div className="flex size-10 items-center justify-center bg-white/5">{icon}</div>}
           <div>
             <h3 className="text-lg font-semibold text-white">{title}</h3>
             {description && <p className="text-sm text-gray-400">{description}</p>}
@@ -198,7 +200,7 @@ export const FormSection = <T extends { id: string }>({
                 transition={{ duration: 0.2 }}
                 layout
               >
-                <AccordionItem value={item.id} className="rounded-lg border border-white/10 bg-white/5 px-4">
+                <AccordionItem value={item.id} className="border border-white/10 bg-white/5 px-4">
                   <div className="flex items-center gap-2">
                     {/* Drag Handle & Reorder Buttons */}
                     <div className="flex flex-col gap-0.5 py-2">
@@ -206,7 +208,7 @@ export const FormSection = <T extends { id: string }>({
                         type="button"
                         onClick={() => moveUp(index)}
                         disabled={!canMoveUp(index)}
-                        className="rounded p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
+                        className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
                       >
                         <RiArrowUpLine className="size-3.5" />
                       </button>
@@ -214,7 +216,7 @@ export const FormSection = <T extends { id: string }>({
                         type="button"
                         onClick={() => moveDown(index)}
                         disabled={!canMoveDown(index)}
-                        className="rounded p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
+                        className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
                       >
                         <RiArrowDownLine className="size-3.5" />
                       </button>
@@ -236,7 +238,7 @@ export const FormSection = <T extends { id: string }>({
                           e.stopPropagation();
                           handleStartEdit(item.id);
                         }}
-                        className="rounded p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+                        className="p-1.5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
                       >
                         <RiEditLine className="size-4" />
                       </button>
@@ -246,7 +248,7 @@ export const FormSection = <T extends { id: string }>({
                           e.stopPropagation();
                           handleDelete(item.id);
                         }}
-                        className="rounded p-1.5 text-gray-400 transition-colors hover:bg-red-500/20 hover:text-red-400"
+                        className="p-1.5 text-gray-400 transition-colors hover:bg-red-500/20 hover:text-red-400"
                       >
                         <RiDeleteBinLine className="size-4" />
                       </button>
@@ -278,7 +280,7 @@ export const FormSection = <T extends { id: string }>({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="rounded-lg border border-dashed border-white/10 py-12 text-center"
+            className="border border-dashed border-white/10 py-12 text-center"
           >
             {icon && <div className="mx-auto mb-4 w-fit text-gray-600">{icon}</div>}
             <p className="text-gray-400">{emptyState?.title || `No ${title.toLowerCase()} added yet`}</p>
@@ -339,7 +341,7 @@ const ItemForm = <T extends object>({
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="space-y-4 rounded-lg border border-white/10 bg-white/5 p-4">
+    <form onSubmit={formik.handleSubmit} className="space-y-4 border border-white/10 bg-white/5 p-4">
       <div className="grid gap-4 sm:grid-cols-2">
         {fields.map((field) => (
           <div key={field.name} className={cn(field.fullWidth && "sm:col-span-2")}>
@@ -443,7 +445,7 @@ const TagsInput = ({ label, value, onChange, placeholder, required, error }: Tag
       </label>
       <div className="focus-within:border-primary-400 flex min-h-9 flex-wrap items-center gap-1.5 border border-white/10 bg-transparent px-3 py-1.5 transition-colors">
         {value.map((tag) => (
-          <span key={tag} className="flex items-center gap-1 rounded bg-white/10 px-2 py-0.5 text-sm text-white">
+          <span key={tag} className="flex items-center gap-1 bg-white/10 px-2 py-0.5 text-sm text-white">
             {tag}
             <button type="button" onClick={() => removeTag(tag)} className="text-gray-400 hover:text-white">
               <RiCloseLine className="size-3" />
@@ -482,7 +484,7 @@ const ItemPreview = <T extends object>({ item, fields }: ItemPreviewProps<T>) =>
             {field.type === "tags" && Array.isArray(value) ? (
               <div className="mt-1 flex flex-wrap gap-1">
                 {value.map((tag: string) => (
-                  <span key={tag} className="rounded bg-white/10 px-2 py-0.5 text-xs text-white">
+                  <span key={tag} className="bg-white/10 px-2 py-0.5 text-xs text-white">
                     {tag}
                   </span>
                 ))}

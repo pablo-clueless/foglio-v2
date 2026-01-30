@@ -69,15 +69,15 @@ const getStatusBadge = (status: string) => {
 };
 
 const Page = () => {
-  const [page, setPage] = React.useState(1);
   const [statusFilter, setStatusFilter] = React.useState<StatusFilter>("all");
+  const [page, setPage] = React.useState(1);
 
   const { data, isLoading } = useGetApplicationsForUserQuery(
     { page, size: PAGE_SIZE },
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 
-  const applications = data?.data.data || [];
+  const applications = React.useMemo(() => data?.data.data || [], [data]);
   const total = data?.data.total_items || 0;
 
   const filteredApplications = React.useMemo(() => {
@@ -119,7 +119,7 @@ const Page = () => {
         {isLoading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-48 animate-pulse rounded-lg bg-white/5" />
+              <div key={i} className="h-48 animate-pulse bg-white/5" />
             ))}
           </div>
         ) : filteredApplications.length > 0 ? (
@@ -134,7 +134,7 @@ const Page = () => {
                 <motion.div key={application.id} variants={itemVariants}>
                   <Link
                     href={`/applications/${application.id}`}
-                    className="group block rounded-lg border border-white/10 bg-white/5 p-5 transition-all hover:border-white/20 hover:bg-white/10"
+                    className="group block border border-white/10 bg-white/5 p-5 transition-all hover:border-white/20 hover:bg-white/10"
                   >
                     <div className="mb-3 flex items-start justify-between">
                       <h3 className="group-hover:text-primary-400 line-clamp-1 font-semibold text-white transition-colors">

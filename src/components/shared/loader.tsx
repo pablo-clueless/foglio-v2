@@ -80,7 +80,7 @@ export const Loader = ({ variant = "dots", size = "md", fullScreen = true }: Loa
           {[0, 1, 2, 3].map((i) => (
             <motion.div
               key={i}
-              className={`${dotSizes[size]} bg-primary-400 rounded-full`}
+              className={`${dotSizes[size]} bg-primary-400`}
               custom={i}
               variants={dotVariants}
               animate="animate"
@@ -92,12 +92,12 @@ export const Loader = ({ variant = "dots", size = "md", fullScreen = true }: Loa
       {variant === "spinner" && (
         <div className="relative">
           <motion.div
-            className={`${spinnerSizes[size]} border-t-primary-400 rounded-full border-2 border-gray-200`}
+            className={`${spinnerSizes[size]} border-t-primary-400 border-2 border-gray-200`}
             variants={spinVariants}
             animate="animate"
           />
           <motion.div
-            className={`absolute inset-0 ${spinnerSizes[size]} border-primary-400/20 rounded-full border-2`}
+            className={`absolute inset-0 ${spinnerSizes[size]} border-primary-400/20 border-2`}
             variants={pulseVariants}
             animate="animate"
           />
@@ -107,12 +107,12 @@ export const Loader = ({ variant = "dots", size = "md", fullScreen = true }: Loa
       {variant === "pulse" && (
         <div className="relative flex items-center justify-center">
           <motion.div
-            className={`absolute ${spinnerSizes[size]} bg-primary-400 rounded-full`}
+            className={`absolute ${spinnerSizes[size]} bg-primary-400`}
             variants={pulseVariants}
             animate="animate"
           />
           <motion.div
-            className={`${dotSizes[size]} bg-primary-400 rounded-full`}
+            className={`${dotSizes[size]} bg-primary-400`}
             animate={{
               scale: [1, 0.8, 1],
             }}

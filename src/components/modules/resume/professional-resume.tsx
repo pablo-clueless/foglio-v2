@@ -1,11 +1,11 @@
 import type { ResumeProps } from "./types";
 import { cn, formatDate } from "@/lib";
 
-export const ProfessionalResume = ({ user, theme, fontFamily }: ResumeProps) => (
-  <div className={cn("flex min-h-full", fontFamily)}>
-    <div className="w-1/3 p-3" style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}>
+export const ProfessionalResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
+  <div className={cn("flex min-h-full", fontFamily)} ref={ref}>
+    <div className="w-1/3 p-2" style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}>
       <div className="mb-3">
-        <h1 className="mb-1 text-lg font-bold">{user.name}</h1>
+        <h1 className="mb-0.5 text-base font-bold">{user.name}</h1>
         <p className="text-xs opacity-90">{user.headline}</p>
       </div>
 
@@ -45,7 +45,7 @@ export const ProfessionalResume = ({ user, theme, fontFamily }: ResumeProps) => 
       )}
     </div>
 
-    <div className="w-2/3 p-4" style={{ backgroundColor: theme.colors.surfaceColor, color: theme.colors.textPrimary }}>
+    <div className="w-2/3 p-3" style={{ backgroundColor: theme.colors.surfaceColor, color: theme.colors.textPrimary }}>
       {user.summary && (
         <div className="mb-3">
           <h2

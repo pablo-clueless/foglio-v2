@@ -92,8 +92,8 @@ const Page = () => {
     return (
       <div className="space-y-6 pb-10">
         <div className="h-8 w-48 animate-pulse rounded bg-white/5" />
-        <div className="h-64 animate-pulse rounded-lg bg-white/5" />
-        <div className="h-96 animate-pulse rounded-lg bg-white/5" />
+        <div className="h-64 animate-pulse bg-white/5" />
+        <div className="h-96 animate-pulse bg-white/5" />
       </div>
     );
   }
@@ -103,7 +103,9 @@ const Page = () => {
       <div className="flex h-full flex-col items-center justify-center py-16">
         <RiBriefcaseLine className="size-16 text-gray-600" />
         <h2 className="mt-4 text-xl font-semibold text-white">Application not found</h2>
-        <p className="mt-2 text-gray-400">The application you're looking for doesn't exist or has been removed.</p>
+        <p className="mt-2 text-gray-400">
+          The application you&apos;re looking for doesn&apos;t exist or has been removed.
+        </p>
         <Button asChild className="mt-6">
           <Link href="/applications">Back to Applications</Link>
         </Button>
@@ -122,7 +124,7 @@ const Page = () => {
             Back
           </Button>
         </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div className="mb-2 flex items-center gap-3">
@@ -145,7 +147,7 @@ const Page = () => {
               </div>
             </div>
             {job.salary && (
-              <div className="bg-primary-400/10 flex items-center gap-2 rounded-lg px-4 py-2">
+              <div className="bg-primary-400/10 flex items-center gap-2 px-4 py-2">
                 <RiMoneyDollarCircleLine className="text-primary-400 size-5" />
                 <span className="text-primary-400 font-semibold">
                   {job.salary.currency} {job.salary.min.toLocaleString()} - {job.salary.max.toLocaleString()}
@@ -154,7 +156,7 @@ const Page = () => {
             )}
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-lg bg-white/5 p-4">
+            <div className="bg-white/5 p-4">
               <div className="flex items-center gap-2 text-gray-400">
                 <RiCalendarLine className="size-4" />
                 <span className="text-sm">Applied On</span>
@@ -167,7 +169,7 @@ const Page = () => {
                 })}
               </p>
             </div>
-            <div className="rounded-lg bg-white/5 p-4">
+            <div className="bg-white/5 p-4">
               <div className="flex items-center gap-2 text-gray-400">
                 <RiTimeLine className="size-4" />
                 <span className="text-sm">Last Updated</span>
@@ -180,7 +182,7 @@ const Page = () => {
                 })}
               </p>
             </div>
-            <div className="rounded-lg bg-white/5 p-4">
+            <div className="bg-white/5 p-4">
               <div className="flex items-center gap-2 text-gray-400">
                 <RiGlobalLine className="size-4" />
                 <span className="text-sm">Job Deadline</span>
@@ -196,9 +198,9 @@ const Page = () => {
           </div>
         </motion.div>
         {application.notes && (
-          <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+          <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+              <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiFileTextLine className="text-primary-100 size-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Recruiter Notes</h3>
@@ -206,9 +208,9 @@ const Page = () => {
             <p className="whitespace-pre-wrap text-gray-300">{application.notes}</p>
           </motion.div>
         )}
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="mb-4 flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+            <div className="flex size-10 items-center justify-center bg-white/5">
               <RiBriefcaseLine className="text-primary-100 size-5" />
             </div>
             <h3 className="text-lg font-semibold text-white">Job Description</h3>
@@ -216,9 +218,9 @@ const Page = () => {
           <p className="whitespace-pre-wrap text-gray-300">{job.description}</p>
         </motion.div>
         {job.requirements && job.requirements.length > 0 && (
-          <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+          <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+              <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiCheckLine className="text-primary-100 size-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Requirements</h3>
@@ -226,7 +228,7 @@ const Page = () => {
             <ul className="space-y-2">
               {job.requirements.map((req, index) => (
                 <li key={index} className="flex items-start gap-2 text-gray-300">
-                  <span className="bg-primary-400 mt-1.5 size-1.5 shrink-0 rounded-full" />
+                  <span className="bg-primary-400 mt-1.5 size-1.5 shrink-0" />
                   {req}
                 </li>
               ))}
@@ -234,9 +236,9 @@ const Page = () => {
           </motion.div>
         )}
         {application.cover_letter && (
-          <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+          <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+              <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiFileTextLine className="text-primary-100 size-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Your Cover Letter</h3>
@@ -245,10 +247,10 @@ const Page = () => {
           </motion.div>
         )}
         {application.resume && (
-          <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+          <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+                <div className="flex size-10 items-center justify-center bg-white/5">
                   <RiFileTextLine className="text-primary-100 size-5" />
                 </div>
                 <div>

@@ -62,10 +62,10 @@ export const BillingSettings = () => {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+            <div className="flex size-10 items-center justify-center bg-white/5">
               <RiVipCrownLine className="text-primary-100 size-5" />
             </div>
             <div>
@@ -86,7 +86,7 @@ export const BillingSettings = () => {
             <div
               key={plan.id}
               className={cn(
-                "relative rounded-lg border p-5 transition-all",
+                "relative border p-5 transition-all",
                 currentPlan === plan.id
                   ? "border-primary-400 bg-primary-400/10"
                   : "border-white/10 bg-white/5 hover:border-white/20",
@@ -120,9 +120,9 @@ export const BillingSettings = () => {
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+          <div className="flex size-10 items-center justify-center bg-white/5">
             <RiBankCardLine className="text-primary-100 size-5" />
           </div>
           <div>
@@ -131,9 +131,9 @@ export const BillingSettings = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-4">
+        <div className="flex items-center justify-between border border-white/10 bg-white/5 p-4">
           <div className="flex items-center gap-4">
-            <div className="flex size-12 items-center justify-center rounded-lg bg-blue-500/20">
+            <div className="flex size-12 items-center justify-center bg-blue-500/20">
               <RiBankCardLine className="size-6 text-blue-400" />
             </div>
             <div>
@@ -151,10 +151,10 @@ export const BillingSettings = () => {
         </Button>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-white/5 p-6">
+      <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+            <div className="flex size-10 items-center justify-center bg-white/5">
               <RiFileList3Line className="text-primary-100 size-5" />
             </div>
             <div>
@@ -169,10 +169,7 @@ export const BillingSettings = () => {
 
         <div className="space-y-2">
           {invoices.map((invoice) => (
-            <div
-              key={invoice.id}
-              className="flex items-center justify-between rounded-lg border border-white/5 bg-white/5 p-4"
-            >
+            <div key={invoice.id} className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
               <div className="flex items-center gap-4">
                 <div>
                   <p className="font-medium text-white">{invoice.id}</p>

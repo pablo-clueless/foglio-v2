@@ -381,10 +381,10 @@ const Page = () => {
             <Link href="/resume/export">Export Resume</Link>
           </Button>
         </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+              <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiUserLine className="text-primary-100 size-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Profile</h3>
@@ -472,9 +472,9 @@ const Page = () => {
             </div>
           </div>
         </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg border border-white/10 bg-white/5 p-6">
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="mb-4 flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-white/5">
+            <div className="flex size-10 items-center justify-center bg-white/5">
               <RiToolsLine className="text-primary-100 size-5" />
             </div>
             <div>
@@ -482,12 +482,9 @@ const Page = () => {
               <p className="text-sm text-gray-400">Add your technical and soft skills</p>
             </div>
           </div>
-          <div className="focus-within:border-primary-400 mb-4 flex min-h-[42px] flex-wrap items-center gap-2 rounded-lg border border-white/10 bg-transparent px-3 py-2 transition-colors">
+          <div className="focus-within:border-primary-400 mb-4 flex min-h-[42px] flex-wrap items-center gap-2 border border-white/10 bg-transparent px-3 py-2 transition-colors">
             {skills.map((skill) => (
-              <span
-                key={skill}
-                className="flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 text-sm text-white"
-              >
+              <span key={skill} className="flex items-center gap-1.5 bg-white/10 px-2.5 py-1 text-sm text-white">
                 {skill}
                 <button
                   type="button"

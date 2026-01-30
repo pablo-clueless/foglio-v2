@@ -1,19 +1,20 @@
 import type { ResumeProps } from "./types";
 import { cn, formatDate } from "@/lib";
 
-export const MinimalResume = ({ user, theme, fontFamily }: ResumeProps) => (
+export const MinimalResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
   <div
     style={{
       backgroundColor: theme.colors.surfaceColor,
       color: theme.colors.textPrimary,
     }}
-    className={cn("mx-auto min-h-full max-w-4xl p-6", fontFamily)}
+    className={cn("mx-auto min-h-full max-w-4xl p-4", fontFamily)}
+    ref={ref}
   >
     <div className="mb-4">
-      <h1 className="mb-2 text-2xl font-light" style={{ color: theme.colors.primaryColor }}>
+      <h1 className="mb-1 text-xl font-light" style={{ color: theme.colors.primaryColor }}>
         {user.name}
       </h1>
-      <p className="mb-3 text-sm font-light" style={{ color: theme.colors.secondaryColor }}>
+      <p className="mb-2 text-xs font-light" style={{ color: theme.colors.secondaryColor }}>
         {user.headline}
       </p>
       <div className="flex gap-2 text-xs font-light" style={{ color: theme.colors.textSecondary }}>
