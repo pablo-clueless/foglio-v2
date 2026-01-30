@@ -1,16 +1,17 @@
 import type { ResumeProps } from "./types";
 import { cn, formatDate } from "@/lib";
 
-export const ExecutiveResume = ({ user, theme, fontFamily }: ResumeProps) => (
+export const ExecutiveResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
   <div
     style={{
       backgroundColor: theme.colors.surfaceColor,
       color: theme.colors.textPrimary,
     }}
-    className={cn("min-h-full w-full p-6", fontFamily)}
+    className={cn("min-h-full w-full p-4", fontFamily)}
+    ref={ref}
   >
     <div className="mb-4">
-      <h1 className="mb-1.5 text-2xl font-light" style={{ color: theme.colors.primaryColor }}>
+      <h1 className="mb-1 text-xl font-light" style={{ color: theme.colors.primaryColor }}>
         {user.name}
       </h1>
       <p className="mb-2 text-sm" style={{ color: theme.colors.secondaryColor }}>

@@ -130,7 +130,7 @@ const Page = () => {
                   </div>
                   <div className={cn("border-primary-100/15 flex-1 p-10", isReversed ? "border-r" : "border-l")}>
                     <motion.div
-                      className="relative aspect-square rounded-md"
+                      className="relative aspect-square"
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.3 }}
                     >
@@ -164,7 +164,7 @@ const Page = () => {
           </motion.div>
           <div className="w-full px-4 sm:px-0">
             <motion.div
-              className="border-primary-100/15 grid w-full place-items-center items-center overflow-x-hidden rounded-xl border border-dashed p-5 sm:p-20"
+              className="border-primary-100/15 grid w-full place-items-center items-center overflow-x-hidden border border-dashed p-5 sm:p-20"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5 }}

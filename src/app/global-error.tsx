@@ -7,9 +7,9 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
     <html>
       <body>
         <div className="flex min-h-screen items-center justify-center bg-black px-4">
-          <div className="w-full max-w-md rounded-lg border border-gray-200 bg-black p-8 text-center shadow-lg">
+          <div className="w-full max-w-md border border-gray-200 bg-black p-8 text-center shadow-lg">
             {/* Error Icon */}
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-red-100">
               <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -31,19 +31,19 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
             <div className="flex gap-3">
               <button
                 onClick={() => (window.location.href = "/")}
-                className="flex-1 rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-900 transition-colors hover:bg-gray-300"
+                className="flex-1 bg-gray-200 px-4 py-2 font-medium text-gray-900 transition-colors hover:bg-gray-300"
               >
                 Go Home
               </button>
               <button
                 onClick={() => reset()}
-                className="bg-primary-600 hover:bg-primary-700 flex-1 rounded-md px-4 py-2 font-medium text-white transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 flex-1 px-4 py-2 font-medium text-white transition-colors"
               >
                 Try Again
               </button>
             </div>
 
-            <div className="mt-6 rounded-md border border-yellow-200 bg-yellow-50 p-3">
+            <div className="mt-6 border border-yellow-200 bg-yellow-50 p-3">
               <p className="text-xs text-yellow-800">
                 <strong>Critical Error:</strong> This error affected the root of the application. If reloading
                 doesn&apos;t help, please clear your browser cache.

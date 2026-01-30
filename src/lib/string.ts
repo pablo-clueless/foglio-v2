@@ -38,42 +38,49 @@ export const normalize = (path: string): string => {
   const end =
     qIndex === -1 ? (hIndex === -1 ? path.length : hIndex) : hIndex === -1 ? qIndex : Math.min(qIndex, hIndex);
   const cleanPath = path.slice(0, end);
-  if (cleanPath.length <= 3) return cleanPath;
+  if (cleanPath.length <= 1) return cleanPath;
 
-  let firstPart = "";
-  let secondPart = "";
-  let partCount = 0;
   const start = cleanPath.startsWith("/") ? 1 : 0;
+  const nextSlash = cleanPath.indexOf("/", start);
 
-  for (let i = start; i < cleanPath.length; i++) {
-    if (cleanPath[i] === "/") {
-      if (partCount === 0 && firstPart) {
-        partCount++;
-        continue;
-      }
-      if (partCount === 1 && secondPart) {
-        break;
-      }
-      continue;
-    }
-
-    if (partCount === 0) {
-      firstPart += cleanPath[i];
-    } else if (partCount === 1) {
-      secondPart += cleanPath[i];
-    }
+  if (nextSlash === -1) {
+    return cleanPath;
   }
 
-  if (!firstPart) return "";
-  if (!secondPart) return `/${firstPart}`;
-  return `/${firstPart}/${secondPart}`;
+  return cleanPath.slice(0, nextSlash);
 };
 
-export const formatDate = (date: Date | undefined) => {
+export const formatDate = (date: string | undefined) => {
   if (!date) return "";
-  return new Date(date).toLocaleDateString("en-NG", {
+  const d = typeof date === "string" ? new Date(date) : date;
+  return new Date(d).toLocaleDateString("en-NG", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+};
+
+/**
+ * Converts a date string or Date object to ISO 8601 format (RFC3339).
+ * Used for API requests that expect dates in "2006-01-02T15:04:05Z07:00" format.
+ * @param date - A date string (e.g., "2023-01-02" from input[type="date"]) or Date object
+ * @returns ISO 8601 formatted string or empty string if invalid
+ */
+export const toISODate = (date: string | Date | undefined | null): string => {
+  if (!date) return "";
+  const d = typeof date === "string" ? new Date(date) : date;
+  if (isNaN(d.getTime())) return "";
+  return d.toISOString();
+};
+
+/**
+ * Converts a date to YYYY-MM-DD format for HTML date inputs.
+ * @param date - An ISO date string, Date object, or any date string
+ * @returns Date string in YYYY-MM-DD format or empty string if invalid
+ */
+export const toInputDate = (date: string | Date | undefined | null): string => {
+  if (!date) return "";
+  const d = typeof date === "string" ? new Date(date) : date;
+  if (isNaN(d.getTime())) return "";
+  return d.toISOString().split("T")[0];
 };

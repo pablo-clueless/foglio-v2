@@ -72,7 +72,7 @@ export const OtpInput = ({ onChange, value, error, helperText, length = 4 }: Pro
             key={index}
             type="text"
             value={value}
-            className="focus:border-primary-400 flex size-10 items-center justify-center rounded-md border bg-white px-3 py-2 text-center text-sm font-medium uppercase outline-none select-none focus:border-2"
+            className="focus:border-primary-400 flex size-10 items-center justify-center border bg-white px-3 py-2 text-center text-sm font-medium uppercase outline-none select-none focus:border-2"
             onChange={(e) => handleChange(e, index)}
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}

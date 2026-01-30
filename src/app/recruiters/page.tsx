@@ -180,13 +180,13 @@ const Page = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="border-primary-100/15 hover:border-primary-400/30 group space-y-4 rounded-lg border bg-black/20 p-6 transition-all duration-300 hover:bg-black/40"
+                className="border-primary-100/15 hover:border-primary-400/30 group space-y-4 border bg-black/20 p-6 transition-all duration-300 hover:bg-black/40"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="bg-primary-400/10 group-hover:bg-primary-400/20 inline-flex rounded-lg p-3 transition-colors">
+                <div className="bg-primary-400/10 group-hover:bg-primary-400/20 inline-flex p-3 transition-colors">
                   <feature.icon className="text-primary-400 size-6" />
                 </div>
                 <h3 className="text-lg font-semibold">{feature.title}</h3>
@@ -229,7 +229,7 @@ const Page = () => {
         </section>
         <section className="container mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <motion.div
-            className="border-primary-100/15 rounded-2xl border bg-gradient-to-br from-black/40 to-black/20 p-8 sm:p-12"
+            className="border-primary-100/15 border bg-gradient-to-br from-black/40 to-black/20 p-8 sm:p-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

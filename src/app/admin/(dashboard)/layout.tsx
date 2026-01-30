@@ -29,7 +29,7 @@ export default function AdminDashboardLayout({ children }: Props) {
       <div className="flex h-screen w-screen overflow-hidden bg-black">
         {/* Mobile Menu Button */}
         <button
-          className="fixed top-4 left-4 z-50 grid size-10 place-items-center rounded-lg bg-black/80 md:hidden"
+          className="fixed top-4 left-4 z-50 grid size-10 place-items-center bg-black/80 md:hidden"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <RiCloseLine className="size-5" /> : <RiMenuLine className="size-5" />}
@@ -60,13 +60,13 @@ export default function AdminDashboardLayout({ children }: Props) {
             <Link href="/" className="flex items-center gap-x-2">
               <Logo mode="light" />
             </Link>
-            <span className="rounded-md bg-red-500/20 px-2 py-1 text-xs font-semibold text-red-400">Admin</span>
+            <span className="bg-red-500/20 px-2 py-1 text-xs font-semibold text-red-400">Admin</span>
           </div>
 
           {/* Admin Badge */}
           <div className="border-b border-red-500/20 p-4">
-            <div className="flex items-center gap-x-3 rounded-lg bg-red-500/10 p-3">
-              <div className="grid size-10 place-items-center rounded-lg bg-red-500/20">
+            <div className="flex items-center gap-x-3 bg-red-500/10 p-3">
+              <div className="grid size-10 place-items-center bg-red-500/20">
                 <RiShieldLine className="size-5 text-red-400" />
               </div>
               <div>
@@ -88,7 +88,7 @@ export default function AdminDashboardLayout({ children }: Props) {
                     href={route.href}
                     onClick={() => setSidebarOpen(false)}
                     className={cn(
-                      "group flex items-center gap-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200",
+                      "group flex items-center gap-x-3 px-4 py-3 text-sm font-medium transition-all duration-200",
                       active ? "bg-red-500/20 text-red-400" : "text-gray-400 hover:bg-white/5 hover:text-white",
                     )}
                   >
@@ -100,10 +100,7 @@ export default function AdminDashboardLayout({ children }: Props) {
                     />
                     {route.label}
                     {active && (
-                      <motion.div
-                        layoutId="adminActiveIndicator"
-                        className="ml-auto h-1.5 w-1.5 rounded-full bg-red-400"
-                      />
+                      <motion.div layoutId="adminActiveIndicator" className="ml-auto h-1.5 w-1.5 bg-red-400" />
                     )}
                   </Link>
                 );
@@ -113,8 +110,8 @@ export default function AdminDashboardLayout({ children }: Props) {
 
           {/* Admin User Info */}
           <div className="border-t border-red-500/20 p-4">
-            <div className="flex items-center gap-x-3 rounded-lg bg-white/5 p-3">
-              <div className="grid size-10 place-items-center rounded-lg bg-red-500 text-sm font-bold text-white">
+            <div className="flex items-center gap-x-3 bg-white/5 p-3">
+              <div className="grid size-10 place-items-center bg-red-500 text-sm font-bold text-white">
                 {user?.name?.charAt(0)?.toUpperCase() || "A"}
               </div>
               <div className="flex-1 overflow-hidden">

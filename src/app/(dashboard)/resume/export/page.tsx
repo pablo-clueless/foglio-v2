@@ -4,13 +4,14 @@ import { RiPrinterLine, RiShareLine } from "@remixicon/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useRef } from "react";
 
 import type { ResumeProps } from "@/components/modules/resume/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FONTFACES, THEMES } from "@/config/theme";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user";
+import { usePrint } from "@/hooks";
 import {
   ClassicResume,
   CorporateResume,
@@ -76,6 +77,8 @@ const Page = () => {
   const { user } = useUserStore();
   const router = useRouter();
 
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const { setFieldValue, values } = useFormik({
     initialValues,
     onSubmit: () => {},
@@ -91,6 +94,13 @@ const Page = () => {
   const selectedTheme = React.useMemo(() => {
     return THEMES.find((t) => t.id === values.theme)!;
   }, [values.theme]);
+
+  const { handlePrint } = usePrint({
+    contentRef,
+    preserveAfterPrint: true,
+    nonce: "1234567890",
+    documentTitle: `${user?.name} - Resume Export`,
+  });
 
   const Resume = resumes[selectedTheme.id];
 
@@ -146,7 +156,7 @@ const Page = () => {
             </motion.div>
           </div>
           <div className="grid w-full grid-cols-2 gap-x-4">
-            <Button size="sm">
+            <Button onClick={handlePrint} size="sm">
               <RiPrinterLine /> Print
             </Button>
             <Button size="sm" variant="default-outline">
@@ -164,7 +174,7 @@ const Page = () => {
           animate="visible"
           exit="exit"
         >
-          {user && <Resume fontFamily={selectedFontFamily} theme={selectedTheme} user={user} />}
+          {user && <Resume fontFamily={selectedFontFamily} theme={selectedTheme} user={user} ref={contentRef} />}
         </motion.div>
       </AnimatePresence>
     </div>

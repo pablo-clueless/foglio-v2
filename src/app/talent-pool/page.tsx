@@ -134,18 +134,21 @@ const Page = () => {
                   ) : (
                     <motion.div
                       key={page + q}
-                      className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+                      className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5"
                       variants={staggerContainer}
                       initial="hidden"
                       animate="visible"
                       exit={{ opacity: 0 }}
                     >
                       {(users?.data.total_items || 0) > 0 ? (
-                        users?.data.data.map((user) => (
-                          <motion.div key={user.id} variants={cardVariants}>
-                            <Card key={user.id} user={user} />
-                          </motion.div>
-                        ))
+                        users?.data.data.map((user, idx) => {
+                          const index = idx + (page - 1) * PAGE_SIZE;
+                          return (
+                            <motion.div key={user.id} variants={cardVariants}>
+                              <Card index={index} key={user.id} user={user} />
+                            </motion.div>
+                          );
+                        })
                       ) : (
                         <motion.div
                           className="col-span-full flex flex-col items-center justify-center py-20 text-center"
@@ -171,7 +174,7 @@ const Page = () => {
                       limit={PAGE_SIZE}
                       onPageChange={handlePageChange}
                       total={users?.data.total_items || 0}
-                      className="border-primary-100/15 rounded-lg border bg-black/20 p-4"
+                      className="border-primary-100/15 border bg-black/20 p-4"
                       buttonClassName="hover:bg-primary-400/20"
                     />
                   </motion.div>

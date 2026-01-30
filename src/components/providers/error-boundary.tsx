@@ -94,10 +94,10 @@ function ErrorFallback({ error, reset }: { error: Error | null; reset: () => voi
     <div className="fixed top-0 left-0 z-50 grid h-screen w-screen place-items-center bg-black backdrop-blur-sm">
       <div
         role="alert"
-        className="flex w-full max-w-lg flex-col items-center justify-center gap-4 rounded-lg border border-neutral-300 bg-black p-8 shadow-2xl"
+        className="flex w-full max-w-lg flex-col items-center justify-center gap-4 border border-neutral-300 bg-black p-8 shadow-2xl"
       >
         {/* Error Icon */}
-        <div className="rounded-full bg-red-100 p-3">
+        <div className="bg-red-100 p-3">
           <svg
             className="h-12 w-12 text-red-600"
             fill="none"
@@ -137,7 +137,7 @@ function ErrorFallback({ error, reset }: { error: Error | null; reset: () => voi
           <div className="w-full">
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="flex w-full items-center justify-between rounded-md bg-gray-950 px-4 py-2 text-left text-sm text-gray-500 transition-colors hover:bg-gray-800"
+              className="flex w-full items-center justify-between bg-gray-950 px-4 py-2 text-left text-sm text-gray-500 transition-colors hover:bg-gray-800"
             >
               <span className="font-medium">{showDetails ? "Hide" : "Show"} error details</span>
               <svg
@@ -151,7 +151,7 @@ function ErrorFallback({ error, reset }: { error: Error | null; reset: () => voi
             </button>
 
             {showDetails && (
-              <div className="mt-2 max-h-32 overflow-y-auto rounded-md bg-gray-500 p-3">
+              <div className="mt-2 max-h-32 overflow-y-auto bg-gray-500 p-3">
                 <code className="block text-xs wrap-break-word whitespace-pre-wrap text-red-600">{error.message}</code>
               </div>
             )}
@@ -161,13 +161,13 @@ function ErrorFallback({ error, reset }: { error: Error | null; reset: () => voi
         {/* Action Buttons */}
         <div className="mt-4 flex w-full gap-3">
           <button
-            className="flex-1 rounded-md bg-gray-200 px-4 py-2.5 font-medium text-gray-900 transition-colors hover:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:outline-none"
+            className="flex-1 bg-gray-200 px-4 py-2.5 font-medium text-gray-900 transition-colors hover:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:outline-none"
             onClick={() => router.push("/")}
           >
             Go Home
           </button>
           <button
-            className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 flex-1 rounded-md px-4 py-2.5 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+            className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 flex-1 px-4 py-2.5 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
             onClick={handleReset}
           >
             Try Again

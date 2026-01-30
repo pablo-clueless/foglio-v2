@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -9,16 +10,19 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { NAVBAR_LINKS } from "@/config/routes";
 import { useUserStore } from "@/store/user";
+import { cn, normalize } from "@/lib";
 import { Logo } from "./logo";
-import { cn } from "@/lib";
 
 export const Navbar = () => {
-  const [scrolled, setScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const { user } = useUserStore();
+  const pathname = usePathname();
+
+  const isOnPathname = (href: string) => normalize(pathname) === href;
 
   React.useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 200);
+    const handleScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -121,11 +125,16 @@ export const Navbar = () => {
               <Logo mode="light" />
             </Link>
           </motion.div>
-
           <div className="hidden items-center gap-x-6 md:flex">
             {NAVBAR_LINKS.map(({ href, label }, i) => (
               <motion.div key={label} custom={i} variants={linkVariants} initial="hidden" animate="visible">
-                <Link className="link group hover:text-primary-100 relative text-sm transition-colors" href={href}>
+                <Link
+                  className={cn(
+                    "link group hover:text-primary-100 relative text-sm transition-colors",
+                    isOnPathname(href) && "text-primary-400",
+                  )}
+                  href={href}
+                >
                   {label}
                   <motion.span
                     className="bg-primary-100 absolute -bottom-1 left-0 h-0.5 w-0"
@@ -136,7 +145,6 @@ export const Navbar = () => {
               </motion.div>
             ))}
           </div>
-
           <div className="hidden items-center gap-x-4 md:flex">
             {user !== null ? (
               <motion.div
@@ -148,7 +156,7 @@ export const Navbar = () => {
                   <PopoverTrigger asChild>
                     <Button className="flex h-auto w-[192px] items-center gap-x-2" variant="outline">
                       <motion.div
-                        className="bg-primary-100 size-6 rounded-full"
+                        className="bg-primary-100 size-6"
                         whileHover={{ scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       />
@@ -192,7 +200,6 @@ export const Navbar = () => {
               </motion.div>
             )}
           </div>
-
           <motion.button
             className="flex items-center justify-center p-2 text-white md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -225,7 +232,6 @@ export const Navbar = () => {
           </motion.button>
         </div>
       </motion.nav>
-
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
@@ -255,7 +261,6 @@ export const Navbar = () => {
                     <X size={24} />
                   </motion.button>
                 </div>
-
                 <div className="flex flex-col gap-y-6">
                   {NAVBAR_LINKS.map(({ href, label }, i) => (
                     <motion.div key={label} custom={i} variants={mobileLinkVariants} initial="closed" animate="open">
@@ -269,7 +274,6 @@ export const Navbar = () => {
                     </motion.div>
                   ))}
                 </div>
-
                 <motion.div
                   className="mt-auto space-y-4"
                   custom={NAVBAR_LINKS.length}
@@ -279,8 +283,8 @@ export const Navbar = () => {
                 >
                   {user !== null ? (
                     <>
-                      <div className="flex items-center gap-x-3 rounded-lg border border-white/20 p-4">
-                        <div className="bg-primary-100 size-10 rounded-full" />
+                      <div className="flex items-center gap-x-3 border border-white/20 p-4">
+                        <div className="bg-primary-100 size-10" />
                         <p className="text-sm text-white">{user.name}</p>
                       </div>
                       <div className="space-y-2">

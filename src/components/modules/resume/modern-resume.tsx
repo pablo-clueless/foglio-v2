@@ -1,19 +1,20 @@
 import type { ResumeProps } from "./types";
 import { cn, formatDate } from "@/lib";
 
-export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
+export const ModernResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
   <div
     style={{
       backgroundColor: theme.colors.surfaceColor,
       color: theme.colors.textPrimary,
     }}
     className={cn("min-h-full w-full p-4", fontFamily)}
+    ref={ref}
   >
     <div className="mb-3 pb-3" style={{ borderBottom: `3px solid ${theme.colors.primaryColor}` }}>
-      <h1 className="mb-1 text-xl font-bold" style={{ color: theme.colors.primaryColor }}>
+      <h1 className="mb-0.5 text-lg font-bold" style={{ color: theme.colors.primaryColor }}>
         {user.name}
       </h1>
-      <p className="mb-1.5 text-sm" style={{ color: theme.colors.secondaryColor }}>
+      <p className="mb-1 text-xs" style={{ color: theme.colors.secondaryColor }}>
         {user.headline}
       </p>
       <div className="flex gap-3 text-xs" style={{ color: theme.colors.textSecondary }}>
@@ -22,13 +23,12 @@ export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
         {user.location && <span>{user.location}</span>}
       </div>
     </div>
-
     <div className="grid grid-cols-3 gap-4">
       <div className="col-span-2">
         {user.summary && (
           <div className="mb-3">
             <div className="mb-1.5 flex items-center gap-2">
-              <div className="h-4 w-1 rounded" style={{ backgroundColor: theme.colors.primaryColor }}></div>
+              <div className="h-4 w-1" style={{ backgroundColor: theme.colors.primaryColor }}></div>
               <h2 className="text-sm font-bold" style={{ color: theme.colors.primaryColor }}>
                 About
               </h2>
@@ -42,7 +42,7 @@ export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
         {user.experiences && user.experiences.length > 0 && (
           <div className="mb-3">
             <div className="mb-2 flex items-center gap-2">
-              <div className="h-4 w-1 rounded" style={{ backgroundColor: theme.colors.primaryColor }}></div>
+              <div className="h-4 w-1" style={{ backgroundColor: theme.colors.primaryColor }}></div>
               <h2 className="text-sm font-bold" style={{ color: theme.colors.primaryColor }}>
                 Experience
               </h2>
@@ -63,7 +63,7 @@ export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
                     {exp.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="rounded-full px-1.5 py-0.5 text-xs"
+                        className="px-1.5 py-0.5 text-xs"
                         style={{ backgroundColor: theme.colors.primaryColor, color: "#ffffff" }}
                       >
                         {tech}
@@ -79,7 +79,7 @@ export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
         {user.projects && user.projects.length > 0 && (
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <div className="h-4 w-1 rounded" style={{ backgroundColor: theme.colors.primaryColor }}></div>
+              <div className="h-4 w-1" style={{ backgroundColor: theme.colors.primaryColor }}></div>
               <h2 className="text-sm font-bold" style={{ color: theme.colors.primaryColor }}>
                 Projects
               </h2>
@@ -112,7 +112,7 @@ export const ModernResume = ({ user, theme, fontFamily }: ResumeProps) => (
               {user.skills.map((skill, i) => (
                 <div
                   key={i}
-                  className="rounded px-2 py-1 text-xs"
+                  className="px-2 py-1 text-xs"
                   style={{ backgroundColor: theme.colors.borderColor, color: theme.colors.textPrimary }}
                 >
                   {skill}

@@ -20,7 +20,7 @@ export const Card = ({ job }: Props) => {
             {job.title}
           </h3>
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
+            className={`shrink-0 px-2 py-0.5 text-xs font-medium ${
               job.is_remote ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"
             }`}
           >

@@ -101,7 +101,7 @@ export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({ children, id
       disabled={disabled}
       onClick={handleToggle}
       className={cn(
-        "flex w-full items-center justify-between rounded-md border px-3 py-3 text-sm",
+        "flex w-full items-center justify-between border px-3 py-3 text-sm",
         disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
       )}
     >

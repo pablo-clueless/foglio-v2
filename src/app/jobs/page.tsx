@@ -151,7 +151,7 @@ const Page = () => {
                 limit={PAGE_SIZE}
                 onPageChange={handlePageChange}
                 total={jobs?.data.total_items || 0}
-                className="border-primary-100/15 rounded-lg border bg-black/20 p-4"
+                className="border-primary-100/15 border bg-black/20 p-4"
                 buttonClassName="hover:bg-primary-400/20"
               />
             </motion.div>

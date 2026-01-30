@@ -36,16 +36,16 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
         )}
       </div>
       <div className="flex items-center gap-x-3">
-        <button className="border-primary-100/15 hover:bg-primary-100/10 relative grid size-10 place-items-center rounded-lg border transition-colors">
+        <button className="border-primary-100/15 hover:bg-primary-100/10 relative grid size-10 place-items-center border transition-colors">
           <RiNotification3Line className="size-5 text-gray-400" />
-          <span className="bg-primary-400 absolute top-2 right-2 size-2 rounded-full"></span>
+          <span className="bg-primary-400 absolute top-2 right-2 size-2"></span>
         </button>
         <Popover>
           <PopoverTrigger asChild>
-            <button className="border-primary-100/15 hover:border-primary-400/50 flex h-10 items-center gap-x-3 rounded-lg border bg-black/30 p-2 transition-colors">
-              <Avatar className="size-7 rounded-lg">
+            <button className="border-primary-100/15 hover:border-primary-400/50 flex h-10 items-center gap-x-3 border bg-black/30 p-2 transition-colors">
+              <Avatar className="size-7">
                 <AvatarImage src={user?.image || ""} />
-                <AvatarFallback className="bg-primary-400 rounded-lg text-xs font-bold text-black">
+                <AvatarFallback className="bg-primary-400 text-xs font-bold text-black">
                   {getInitials(user?.name)}
                 </AvatarFallback>
               </Avatar>
@@ -55,12 +55,12 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
               </div>
             </button>
           </PopoverTrigger>
-          <PopoverContent className="border-primary-100/15 mr-4 w-64 rounded-lg border bg-black/95 p-0" align="end">
+          <PopoverContent className="border-primary-100/15 w-64 border bg-black/95 p-0" align="end">
             <div className="border-primary-100/15 border-b p-4">
               <div className="flex items-center gap-x-3">
-                <Avatar className="size-10 rounded-lg">
+                <Avatar className="size-10">
                   <AvatarImage src={user?.image || ""} />
-                  <AvatarFallback className="bg-primary-400 rounded-lg text-sm font-bold text-black">
+                  <AvatarFallback className="bg-primary-400 text-sm font-bold text-black">
                     {getInitials(user?.name)}
                   </AvatarFallback>
                 </Avatar>
@@ -73,14 +73,14 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
             <div className="p-2">
               <Link
                 href="/settings"
-                className="hover:bg-primary-100/10 flex items-center gap-x-3 rounded-md px-3 py-2 text-sm text-gray-300 transition-colors"
+                className="hover:bg-primary-100/10 flex items-center gap-x-3 px-3 py-2 text-sm text-gray-300 transition-colors"
               >
                 <RiUserLine className="size-4" />
                 Profile
               </Link>
               <Link
                 href="/settings"
-                className="hover:bg-primary-100/10 flex items-center gap-x-3 rounded-md px-3 py-2 text-sm text-gray-300 transition-colors"
+                className="hover:bg-primary-100/10 flex items-center gap-x-3 px-3 py-2 text-sm text-gray-300 transition-colors"
               >
                 <RiSettings4Line className="size-4" />
                 Settings
@@ -89,7 +89,7 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
             <div className="border-primary-100/15 border-t p-2">
               <button
                 onClick={() => signout()}
-                className="flex w-full items-center gap-x-3 rounded-md px-3 py-2 text-sm text-red-400 transition-colors hover:bg-red-500/10"
+                className="flex w-full items-center gap-x-3 px-3 py-2 text-sm text-red-400 transition-colors hover:bg-red-500/10"
               >
                 <RiLogoutBoxRLine className="size-4" />
                 Sign Out

@@ -191,13 +191,13 @@ const Page = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="border-primary-100/15 hover:border-primary-400/30 group space-y-4 rounded-lg border bg-black/20 p-6 transition-all duration-300 hover:bg-black/40"
+                className="border-primary-100/15 hover:border-primary-400/30 group space-y-4 border bg-black/20 p-6 transition-all duration-300 hover:bg-black/40"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="bg-primary-400/10 group-hover:bg-primary-400/20 inline-flex rounded-lg p-3 transition-colors">
+                <div className="bg-primary-400/10 group-hover:bg-primary-400/20 inline-flex p-3 transition-colors">
                   <feature.icon className="text-primary-400 size-6" />
                 </div>
                 <h3 className="text-lg font-semibold">{feature.title}</h3>
@@ -281,7 +281,7 @@ const Page = () => {
               </Button>
             </motion.div>
             <motion.div
-              className="border-primary-100/15 relative aspect-[4/3] overflow-hidden rounded-lg border bg-black/30"
+              className="border-primary-100/15 relative aspect-[4/3] overflow-hidden border bg-black/30"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -299,7 +299,7 @@ const Page = () => {
         <section className="border-primary-100/15 border-y bg-black/20">
           <div className="container mx-auto max-w-6xl px-4 py-16 sm:py-24">
             <motion.div
-              className="border-primary-100/15 rounded-2xl border bg-gradient-to-br from-black/40 to-black/20 p-8 sm:p-12"
+              className="border-primary-100/15 border bg-gradient-to-br from-black/40 to-black/20 p-8 sm:p-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -326,7 +326,7 @@ const Page = () => {
                   </ul>
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                  <div className="bg-primary-400/10 rounded-full p-6">
+                  <div className="bg-primary-400/10 p-6">
                     <RiRocketLine className="text-primary-400 size-16" />
                   </div>
                   <p className="text-2xl font-semibold">Ready to launch your career?</p>

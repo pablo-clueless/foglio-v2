@@ -1,5 +1,8 @@
-import type { HttpResponse, PaginatedParams, PaginatedResponse, UpdateUserDto, UserProps } from "@/types";
+import { toast } from "sonner";
+
+import type { HttpError, HttpResponse, PaginatedParams, PaginatedResponse, UpdateUserDto, UserProps } from "@/types";
 import { removeNullorUndefined } from "@/lib";
+import { useUserStore } from "@/store/user";
 import { api } from "./api";
 
 export interface UserPagination {
@@ -27,6 +30,7 @@ export const user = api.injectEndpoints({
         url: "/me",
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
     updateUser: builder.mutation<HttpResponse<UserProps>, { id: string; payload: Partial<UpdateUserDto> }>({
       query: ({ id, payload }) => ({
@@ -34,6 +38,40 @@ export const user = api.injectEndpoints({
         method: "PUT",
         body: payload,
       }),
+      invalidatesTags: ["User"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          useUserStore.getState().setUser(data.data);
+        } catch (error) {
+          console.error({ error });
+          const message = (error as HttpError).data.message || "Error updating user";
+          toast.error(message);
+        }
+      },
+    }),
+    updateUserImage: builder.mutation<HttpResponse<UserProps>, { id: string; avatar: File }>({
+      query: ({ id, avatar }) => {
+        const formData = new FormData();
+        formData.append("avatar", avatar);
+
+        return {
+          url: `/users/${id}/avatar`,
+          method: "PUT",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["User"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          useUserStore.getState().setUser(data.data);
+        } catch (error) {
+          console.error({ error });
+          const message = (error as HttpError).data.message || "Error updating user";
+          toast.error(message);
+        }
+      },
     }),
     deleteUser: builder.mutation<HttpResponse<null>, string>({
       query: (id) => ({
@@ -44,4 +82,11 @@ export const user = api.injectEndpoints({
   }),
 });
 
-export const { useDeleteUserMutation, useGetMeQuery, useGetUserQuery, useGetUsersQuery, useUpdateUserMutation } = user;
+export const {
+  useDeleteUserMutation,
+  useGetMeQuery,
+  useGetUserQuery,
+  useGetUsersQuery,
+  useUpdateUserImageMutation,
+  useUpdateUserMutation,
+} = user;
