@@ -77,3 +77,28 @@ export const formatDate = (date: Date | undefined) => {
     day: "numeric",
   });
 };
+
+/**
+ * Converts a date string or Date object to ISO 8601 format (RFC3339).
+ * Used for API requests that expect dates in "2006-01-02T15:04:05Z07:00" format.
+ * @param date - A date string (e.g., "2023-01-02" from input[type="date"]) or Date object
+ * @returns ISO 8601 formatted string or empty string if invalid
+ */
+export const toISODate = (date: string | Date | undefined | null): string => {
+  if (!date) return "";
+  const d = typeof date === "string" ? new Date(date) : date;
+  if (isNaN(d.getTime())) return "";
+  return d.toISOString();
+};
+
+/**
+ * Converts a date to YYYY-MM-DD format for HTML date inputs.
+ * @param date - An ISO date string, Date object, or any date string
+ * @returns Date string in YYYY-MM-DD format or empty string if invalid
+ */
+export const toInputDate = (date: string | Date | undefined | null): string => {
+  if (!date) return "";
+  const d = typeof date === "string" ? new Date(date) : date;
+  if (isNaN(d.getTime())) return "";
+  return d.toISOString().split("T")[0];
+};

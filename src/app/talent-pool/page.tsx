@@ -141,11 +141,14 @@ const Page = () => {
                       exit={{ opacity: 0 }}
                     >
                       {(users?.data.total_items || 0) > 0 ? (
-                        users?.data.data.map((user) => (
-                          <motion.div key={user.id} variants={cardVariants}>
-                            <Card key={user.id} user={user} />
-                          </motion.div>
-                        ))
+                        users?.data.data.map((user, idx) => {
+                          const index = idx + (page - 1) * PAGE_SIZE;
+                          return (
+                            <motion.div key={user.id} variants={cardVariants}>
+                              <Card index={index} key={user.id} user={user} />
+                            </motion.div>
+                          );
+                        })
                       ) : (
                         <motion.div
                           className="col-span-full flex flex-col items-center justify-center py-20 text-center"
