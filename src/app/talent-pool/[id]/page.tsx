@@ -434,7 +434,7 @@ const Page = () => {
                       variants={staggerContainer}
                       initial="hidden"
                       whileInView="visible"
-                      viewport={{ once: true }}
+                      viewport={{ once: false }}
                       className="flex flex-wrap gap-2"
                     >
                       {user.skills.map((skill) => (
@@ -472,7 +472,7 @@ const Page = () => {
                         className="from-primary-100/50 absolute top-0 bottom-0 left-5 w-px bg-gradient-to-b to-transparent"
                         initial={{ scaleY: 0 }}
                         whileInView={{ scaleY: 1 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         style={{ originY: 0 }}
                       />
@@ -481,7 +481,7 @@ const Page = () => {
                           key={exp.id}
                           initial={{ opacity: 0, x: -20 }}
                           whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
+                          viewport={{ once: false }}
                           transition={{ delay: i * 0.1, duration: 0.5 }}
                           className="group relative pl-12"
                         >
@@ -489,7 +489,7 @@ const Page = () => {
                             className="bg-primary-100 absolute top-2 left-3.5 size-3 ring-4 ring-black"
                             initial={{ scale: 0 }}
                             whileInView={{ scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                             transition={{ delay: i * 0.1 + 0.2, type: "spring" }}
                           />
                           <motion.div
@@ -563,9 +563,9 @@ const Page = () => {
                           key={edu.id}
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
+                          viewport={{ once: false }}
                           transition={{ delay: i * 0.1, duration: 0.5 }}
-                          whileHover={{ y: -2, x: 4 }}
+                          whileHover={{ x: 4 }}
                           className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 border bg-gradient-to-br to-transparent p-5 transition-all"
                         >
                           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -605,7 +605,7 @@ const Page = () => {
                           key={project.id}
                           initial={{ opacity: 0, scale: 0.95 }}
                           whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
+                          viewport={{ once: false }}
                           transition={{ delay: i * 0.1, duration: 0.5 }}
                           whileHover={{ y: -4 }}
                           className="group border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 overflow-hidden border bg-gradient-to-br to-transparent transition-all hover:shadow-lg hover:shadow-purple-500/10"
@@ -678,7 +678,7 @@ const Page = () => {
                           key={cert.id}
                           initial={{ opacity: 0, scale: 0.9 }}
                           whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
+                          viewport={{ once: false }}
                           transition={{ delay: i * 0.05, duration: 0.4 }}
                           whileHover={{ y: -2, scale: 1.02 }}
                           className="border-primary-100/10 hover:border-primary-100/30 from-primary-100/5 border bg-gradient-to-br to-transparent p-4 transition-all"
@@ -723,7 +723,7 @@ const Page = () => {
                           key={lang.id}
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
+                          viewport={{ once: false }}
                           transition={{ delay: i * 0.05, duration: 0.3 }}
                           whileHover={{ scale: 1.05 }}
                           className="border-primary-100/20 flex items-center gap-2 border bg-white/5 px-4 py-2"
@@ -744,7 +744,7 @@ const Page = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.5 }}
               className="mb-8 flex items-center justify-between"
             >
@@ -762,7 +762,7 @@ const Page = () => {
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
               >
                 {/* Similar talents cards will be rendered here when API is ready */}
@@ -771,13 +771,13 @@ const Page = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="border-primary-100/10 border border-dashed py-12 text-center"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ type: "spring", stiffness: 200 }}
                   className="mx-auto mb-4 flex size-16 items-center justify-center bg-white/5"
                 >
@@ -793,7 +793,7 @@ const Page = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6 }}
             className="container mx-auto max-w-4xl px-4 text-center"
           >
@@ -801,7 +801,7 @@ const Page = () => {
               className="mb-4 text-3xl font-bold text-white"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: 0.1 }}
             >
               Interested in {user.name.split(" ")[0]}?
@@ -810,7 +810,7 @@ const Page = () => {
               className="mb-8 text-gray-400"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: 0.2 }}
             >
               Reach out to discuss potential opportunities and collaborations
@@ -819,7 +819,7 @@ const Page = () => {
               className="flex flex-col items-center justify-center gap-4 sm:flex-row"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: 0.3 }}
             >
               <Button asChild className="gap-2" size="lg">
