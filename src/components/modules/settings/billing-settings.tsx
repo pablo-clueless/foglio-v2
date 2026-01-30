@@ -1,64 +1,31 @@
 "use client";
 
+import { RiVipCrownLine, RiBankCardLine, RiFileList3Line, RiArrowRightLine, RiStarFill } from "@remixicon/react";
 import React from "react";
-import {
-  RiVipCrownLine,
-  RiBankCardLine,
-  RiFileList3Line,
-  RiCheckLine,
-  RiArrowRightLine,
-  RiStarFill,
-} from "@remixicon/react";
 
 import { useGetSubscriptionsQuery, useGetUserSubscriptionsQuery } from "@/api/subscription";
+import { useGetInvoicesQuery, useGetPaymentMethodsQuery } from "@/api/payment";
+import { cn, formatCurrency, fromSnakeCase, getTrueValue } from "@/lib";
+import { AddPaymentMethod } from "./add-payment-method";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useUserStore } from "@/store/user";
-import { cn } from "@/lib";
 
-const plans = [
-  {
-    id: "free",
-    name: "Free",
-    price: 0,
-    interval: "month",
-    features: ["Basic profile", "Apply to 10 jobs/month", "Standard support"],
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: 9.99,
-    interval: "month",
-    popular: true,
-    features: [
-      "Everything in Free",
-      "Unlimited job applications",
-      "Priority in search results",
-      "Resume analytics",
-      "Priority support",
-    ],
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: 29.99,
-    interval: "month",
-    features: ["Everything in Pro", "Custom branding", "API access", "Dedicated account manager", "24/7 phone support"],
-  },
-];
-
-const invoices = [
-  { id: "INV-001", date: "2024-01-15", amount: 9.99, status: "paid" },
-  { id: "INV-002", date: "2023-12-15", amount: 9.99, status: "paid" },
-  { id: "INV-003", date: "2023-11-15", amount: 9.99, status: "paid" },
-];
+const invoices: {
+  id: string;
+  date: string;
+  amount: number;
+  status: string;
+}[] = [];
 
 export const BillingSettings = () => {
   const { user } = useUserStore();
   const currentPlan = user?.is_premium ? "pro" : "free";
 
-  const {} = useGetSubscriptionsQuery({ page: 1, size: 10 });
+  const { data: subscriptions } = useGetSubscriptionsQuery({ page: 1, size: 10 });
   const {} = useGetUserSubscriptionsQuery({ page: 1, size: 10 });
+  const {} = useGetInvoicesQuery({ page: 1, size: 10 });
+  const { data: paymentMethods } = useGetPaymentMethodsQuery(null);
 
   return (
     <div className="space-y-8">
@@ -80,46 +47,35 @@ export const BillingSettings = () => {
             </Badge>
           )}
         </div>
-
         <div className="grid gap-4 md:grid-cols-3">
-          {plans.map((plan) => (
+          {subscriptions?.data.data.map((subscription) => (
             <div
-              key={plan.id}
+              key={subscription.id}
               className={cn(
-                "relative border p-5 transition-all",
-                currentPlan === plan.id
+                "relative space-y-4 border p-5 transition-all",
+                currentPlan === subscription.id
                   ? "border-primary-400 bg-primary-400/10"
                   : "border-white/10 bg-white/5 hover:border-white/20",
               )}
             >
-              {plan.popular && (
-                <Badge className="bg-primary-400 absolute -top-2 right-4 text-black">Most Popular</Badge>
-              )}
-              <h4 className="text-lg font-semibold text-white">{plan.name}</h4>
-              <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-white">${plan.price}</span>
-                <span className="text-gray-400">/{plan.interval}</span>
+              <Button className="w-full" size="sm" variant="default-outline"></Button>
+              <div>
+                <p className="">{subscription.name}</p>
+                <p className="text-primary-400 text-4xl">{formatCurrency(subscription.price, subscription.currency)}</p>
+                {subscription.features && (
+                  <div className="space-y-2">
+                    {Object.entries(subscription.features).map(([key, value]) => (
+                      <p className="capitalize" key={key}>
+                        {fromSnakeCase(key)}: {getTrueValue(value)}
+                      </p>
+                    ))}
+                  </div>
+                )}
               </div>
-              <ul className="mt-4 space-y-2">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-gray-300">
-                    <RiCheckLine className="size-4 text-green-400" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Button
-                className="mt-4 w-full"
-                variant={currentPlan === plan.id ? "outline" : "default"}
-                disabled={currentPlan === plan.id}
-              >
-                {currentPlan === plan.id ? "Current Plan" : "Upgrade"}
-              </Button>
             </div>
           ))}
         </div>
       </div>
-
       <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center gap-3">
           <div className="flex size-10 items-center justify-center bg-white/5">
@@ -130,27 +86,28 @@ export const BillingSettings = () => {
             <p className="text-sm text-gray-400">Manage your payment details</p>
           </div>
         </div>
-
-        <div className="flex items-center justify-between border border-white/10 bg-white/5 p-4">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 items-center justify-center bg-blue-500/20">
-              <RiBankCardLine className="size-6 text-blue-400" />
+        <div className="w-full space-y-2">
+          {paymentMethods?.data.map((method) => (
+            <div className="flex items-center justify-between border border-white/10 bg-white/5 p-4" key={method.id}>
+              <div className="flex items-center gap-4">
+                <div className="flex size-12 items-center justify-center bg-blue-500/20">
+                  <RiBankCardLine className="size-6 text-blue-400" />
+                </div>
+                <div>
+                  <p className="font-medium text-white">•••• •••• •••• {method.last4}</p>
+                  <p className="text-sm text-gray-400">
+                    Expires {method.exp_month}/{method.exp_year}
+                  </p>
+                </div>
+              </div>
+              <Button variant="outline" size="sm">
+                Update
+              </Button>
             </div>
-            <div>
-              <p className="font-medium text-white">•••• •••• •••• 4242</p>
-              <p className="text-sm text-gray-400">Expires 12/25</p>
-            </div>
-          </div>
-          <Button variant="outline" size="sm">
-            Update
-          </Button>
+          ))}
         </div>
-
-        <Button variant="ghost" size="sm" className="mt-4">
-          + Add Payment Method
-        </Button>
+        <AddPaymentMethod />
       </div>
-
       <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -166,7 +123,6 @@ export const BillingSettings = () => {
             Download All
           </Button>
         </div>
-
         <div className="space-y-2">
           {invoices.map((invoice) => (
             <div key={invoice.id} className="flex items-center justify-between border border-white/5 bg-white/5 p-4">

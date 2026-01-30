@@ -13,11 +13,19 @@ export const CreativeResume = ({ user, theme, fontFamily, ref }: ResumeProps) =>
     </div>
 
     <div className="p-4" style={{ color: theme.colors.textPrimary }}>
-      <div className="mb-3 flex gap-3 text-xs" style={{ color: theme.colors.textSecondary }}>
+      <div className="mb-1 flex gap-3 text-xs" style={{ color: theme.colors.textSecondary }}>
         {user.email && <span>✉ {user.email}</span>}
         {user.phone && <span>☎ {user.phone}</span>}
         {user.location && <span>📍 {user.location}</span>}
       </div>
+      {user.social_media && Object.values(user.social_media).some(Boolean) && (
+        <div className="mb-3 flex gap-3 text-xs" style={{ color: theme.colors.textSecondary }}>
+          {user.social_media.linkedin && <a href={user.social_media.linkedin}>🔗 LinkedIn</a>}
+          {user.social_media.gitHub && <a href={user.social_media.gitHub}>💻 GitHub</a>}
+          {user.social_media.twitter && <a href={user.social_media.twitter}>🐦 Twitter</a>}
+          {user.social_media.blog && <a href={user.social_media.blog}>📝 Blog</a>}
+        </div>
+      )}
 
       {user.summary && (
         <div className="mb-3 p-3" style={{ backgroundColor: theme.colors.borderColor }}>

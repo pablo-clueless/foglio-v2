@@ -18,6 +18,34 @@ export const ProfessionalResume = ({ user, theme, fontFamily, ref }: ResumeProps
         </div>
       </div>
 
+      {user.social_media && Object.values(user.social_media).some(Boolean) && (
+        <div className="mb-3">
+          <h2 className="mb-1.5 text-xs font-semibold tracking-wide uppercase opacity-90">Links</h2>
+          <div className="space-y-1 text-xs">
+            {user.social_media.linkedin && (
+              <a href={user.social_media.linkedin} className="block">
+                LinkedIn
+              </a>
+            )}
+            {user.social_media.gitHub && (
+              <a href={user.social_media.gitHub} className="block">
+                GitHub
+              </a>
+            )}
+            {user.social_media.twitter && (
+              <a href={user.social_media.twitter} className="block">
+                Twitter
+              </a>
+            )}
+            {user.social_media.blog && (
+              <a href={user.social_media.blog} className="block">
+                Blog
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+
       {user.skills && user.skills.length > 0 && (
         <div className="mb-3">
           <h2 className="mb-1.5 text-xs font-semibold tracking-wide uppercase opacity-90">Skills</h2>

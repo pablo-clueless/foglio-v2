@@ -22,6 +22,14 @@ export const ModernResume = ({ user, theme, fontFamily, ref }: ResumeProps) => (
         {user.phone && <span>{user.phone}</span>}
         {user.location && <span>{user.location}</span>}
       </div>
+      {user.social_media && Object.values(user.social_media).some(Boolean) && (
+        <div className="mt-1 flex gap-3 text-xs" style={{ color: theme.colors.textSecondary }}>
+          {user.social_media.linkedin && <a href={user.social_media.linkedin}>LinkedIn</a>}
+          {user.social_media.gitHub && <a href={user.social_media.gitHub}>GitHub</a>}
+          {user.social_media.twitter && <a href={user.social_media.twitter}>Twitter</a>}
+          {user.social_media.blog && <a href={user.social_media.blog}>Blog</a>}
+        </div>
+      )}
     </div>
     <div className="grid grid-cols-3 gap-4">
       <div className="col-span-2">

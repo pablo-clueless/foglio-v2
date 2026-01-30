@@ -13,6 +13,7 @@ import {
   RiGlobalLine,
   RiToolsLine,
   RiUserLine,
+  RiLinksLine,
 } from "@remixicon/react";
 
 import { FormSection } from "@/components/modules/resume";
@@ -202,6 +203,18 @@ const Page = () => {
   const [skills, setSkills] = React.useState<string[]>(user?.skills || []);
   const [skillInput, setSkillInput] = React.useState("");
 
+  const [editingSocial, setEditingSocial] = React.useState(false);
+  const [socialForm, setSocialForm] = React.useState({
+    linkedin: user?.social_media?.linkedin || "",
+    gitHub: user?.social_media?.gitHub || "",
+    twitter: user?.social_media?.twitter || "",
+    instagram: user?.social_media?.instagram || "",
+    facebook: user?.social_media?.facebook || "",
+    medium: user?.social_media?.medium || "",
+    youtube: user?.social_media?.youtube || "",
+    blog: user?.social_media?.blog || "",
+  });
+
   React.useEffect(() => {
     if (user) {
       setProfileForm({
@@ -212,6 +225,16 @@ const Page = () => {
         phone: user.phone || "",
       });
       setSkills(user.skills || []);
+      setSocialForm({
+        linkedin: user.social_media?.linkedin || "",
+        gitHub: user.social_media?.gitHub || "",
+        twitter: user.social_media?.twitter || "",
+        instagram: user.social_media?.instagram || "",
+        facebook: user.social_media?.facebook || "",
+        medium: user.social_media?.medium || "",
+        youtube: user.social_media?.youtube || "",
+        blog: user.social_media?.blog || "",
+      });
     }
   }, [user]);
 
@@ -232,6 +255,11 @@ const Page = () => {
   const handleSaveProfile = async () => {
     await handleUpdateUser(profileForm);
     setEditingProfile(false);
+  };
+
+  const handleSaveSocial = async () => {
+    await handleUpdateUser({ social_media: socialForm });
+    setEditingSocial(false);
   };
 
   const handleAddSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -505,6 +533,181 @@ const Page = () => {
             />
           </div>
           <p className="text-xs text-gray-500">{skills.length} skills added</p>
+        </motion.div>
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center bg-white/5">
+                <RiLinksLine className="text-primary-100 size-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Social Media</h3>
+                <p className="text-sm text-gray-400">Add your social media and portfolio links</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-x-4">
+              {editingSocial && (
+                <Button size="sm" variant="outline" onClick={() => setEditingSocial(false)} disabled={isLoading}>
+                  Cancel
+                </Button>
+              )}
+              <Button
+                size="sm"
+                variant={editingSocial ? "default" : "outline"}
+                onClick={() => (editingSocial ? handleSaveSocial() : setEditingSocial(true))}
+                disabled={isLoading}
+              >
+                {editingSocial ? "Save" : "Edit"}
+              </Button>
+            </div>
+          </div>
+          {editingSocial ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Input
+                label="LinkedIn"
+                name="linkedin"
+                type="url"
+                value={socialForm.linkedin}
+                onChange={(e) => setSocialForm({ ...socialForm, linkedin: e.target.value })}
+                placeholder="https://linkedin.com/in/username"
+              />
+              <Input
+                label="GitHub"
+                name="gitHub"
+                type="url"
+                value={socialForm.gitHub}
+                onChange={(e) => setSocialForm({ ...socialForm, gitHub: e.target.value })}
+                placeholder="https://github.com/username"
+              />
+              <Input
+                label="Twitter / X"
+                name="twitter"
+                type="url"
+                value={socialForm.twitter}
+                onChange={(e) => setSocialForm({ ...socialForm, twitter: e.target.value })}
+                placeholder="https://twitter.com/username"
+              />
+              <Input
+                label="Instagram"
+                name="instagram"
+                type="url"
+                value={socialForm.instagram}
+                onChange={(e) => setSocialForm({ ...socialForm, instagram: e.target.value })}
+                placeholder="https://instagram.com/username"
+              />
+              <Input
+                label="Facebook"
+                name="facebook"
+                type="url"
+                value={socialForm.facebook}
+                onChange={(e) => setSocialForm({ ...socialForm, facebook: e.target.value })}
+                placeholder="https://facebook.com/username"
+              />
+              <Input
+                label="Medium"
+                name="medium"
+                type="url"
+                value={socialForm.medium}
+                onChange={(e) => setSocialForm({ ...socialForm, medium: e.target.value })}
+                placeholder="https://medium.com/yourblog.com"
+              />
+              <Input
+                label="YouTube"
+                name="youtube"
+                type="url"
+                value={socialForm.youtube}
+                onChange={(e) => setSocialForm({ ...socialForm, youtube: e.target.value })}
+                placeholder="https://youtube.com/@channel"
+              />
+              <Input
+                label="Blog / Portfolio"
+                name="blog"
+                type="url"
+                value={socialForm.blog}
+                onChange={(e) => setSocialForm({ ...socialForm, blog: e.target.value })}
+                placeholder="https://yourblog.com"
+                className="sm:col-span-2"
+              />
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {user.social_media?.linkedin && (
+                <a
+                  href={user.social_media.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">LinkedIn:</span> {user.social_media.linkedin}
+                </a>
+              )}
+              {user.social_media?.gitHub && (
+                <a
+                  href={user.social_media.gitHub}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">GitHub:</span> {user.social_media.gitHub}
+                </a>
+              )}
+              {user.social_media?.twitter && (
+                <a
+                  href={user.social_media.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">Twitter:</span> {user.social_media.twitter}
+                </a>
+              )}
+              {user.social_media?.instagram && (
+                <a
+                  href={user.social_media.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">Instagram:</span> {user.social_media.instagram}
+                </a>
+              )}
+              {user.social_media?.facebook && (
+                <a
+                  href={user.social_media.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">Facebook:</span> {user.social_media.facebook}
+                </a>
+              )}
+              {user.social_media?.youtube && (
+                <a
+                  href={user.social_media.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+                >
+                  <span className="text-primary-100">YouTube:</span> {user.social_media.youtube}
+                </a>
+              )}
+              {user.social_media?.blog && (
+                <a
+                  href={user.social_media.blog}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-gray-400 hover:text-white sm:col-span-2"
+                >
+                  <span className="text-primary-100">Blog:</span> {user.social_media.blog}
+                </a>
+              )}
+              {!user.social_media || !Object.values(user.social_media).some(Boolean) ? (
+                <p className="text-sm text-gray-500 sm:col-span-2">
+                  No social media links added yet. Click Edit to add your links.
+                </p>
+              ) : null}
+            </div>
+          )}
         </motion.div>
         <motion.div variants={itemVariants}>
           <FormSection<ExperienceProps>
