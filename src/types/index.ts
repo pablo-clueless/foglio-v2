@@ -3,5 +3,6 @@ export * from "./auth";
 export * from "./dto";
 export * from "./job";
 export * from "./notification";
+export * from "./payment";
 export * from "./subscription";
 export * from "./user";

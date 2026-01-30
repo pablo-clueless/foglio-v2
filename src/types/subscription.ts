@@ -18,7 +18,7 @@ export interface SubscriptionProps {
   currency: string;
   billing_cycle_days: number;
   trial_period_days: number;
-  features?: Record<string, unknown>;
+  features?: Record<string, string | boolean | number>;
   max_projects: number;
   max_skills: number;
   max_experiences: number;

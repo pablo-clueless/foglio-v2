@@ -34,6 +34,7 @@ export interface UserProps {
     twitter?: string;
     instagram?: string;
     facebook?: string;
+    medium?: string;
     youtube?: string;
     blog?: string;
   };
