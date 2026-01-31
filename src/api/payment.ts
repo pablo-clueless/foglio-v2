@@ -40,18 +40,20 @@ export const payment = api.injectEndpoints({
         },
       }),
     }),
-    addPaymentMethod: builder.mutation<HttpResponse<PaymentMethodProps>, string>({
+    addPaymentMethod: builder.mutation<HttpResponse<InitializePaymentResponse>, string>({
       query: (callback_url) => ({
         url: "/payments/methods",
         method: "POST",
         body: { callback_url },
       }),
+      invalidatesTags: ["Payment-Method"],
     }),
     getPaymentMethods: builder.query<HttpResponse<PaymentMethodProps[]>, null>({
       query: () => ({
         url: "/payments/methods",
         method: "GET",
       }),
+      providesTags: ["Payment-Method"],
     }),
     removePayment: builder.mutation<HttpResponse<PaymentMethodProps>, string>({
       query: (authCode) => ({

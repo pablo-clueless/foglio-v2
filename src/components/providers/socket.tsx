@@ -33,9 +33,9 @@ interface WebSocketProviderProps extends React.PropsWithChildren {
 }
 
 export const WebSocketProvider = ({ autoConnect, children, maxNotifications }: WebSocketProviderProps) => {
-  const [isConnected, setIsConnected] = React.useState(false);
   const [connectionState, setConnectionState] = React.useState<ConnectionState | null>(null);
   const [notifications, setNotifications] = React.useState<NotificationProps[]>([]);
+  const [isConnected, setIsConnected] = React.useState(false);
 
   const updateConnectionState = React.useCallback(() => {
     const state = WebsocketInstance.getConnectionState();
@@ -64,7 +64,7 @@ export const WebSocketProvider = ({ autoConnect, children, maxNotifications }: W
   }, [updateConnectionState]);
 
   const markAsRead = React.useCallback((notificationId: string) => {
-    WebsocketInstance.markAsRead(notificationId);
+    WebsocketInstance.markNotificationAsRead(notificationId);
     setNotifications((prev) =>
       prev.map((notif) => (notif.id?.toString() === notificationId ? { ...notif, isRead: true } : notif)),
     );
@@ -98,7 +98,6 @@ export const WebSocketProvider = ({ autoConnect, children, maxNotifications }: W
         await Notification.requestPermission();
       }
     };
-
     requestNotificationPermission();
   }, []);
 
