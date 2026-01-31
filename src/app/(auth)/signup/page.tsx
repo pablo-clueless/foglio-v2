@@ -8,9 +8,9 @@ import { toast } from "sonner";
 import Link from "next/link";
 import React from "react";
 
+import { useLazyGithubQuery, useLazyGoogleQuery, useSignupMutation } from "@/api/auth";
 import type { CreateUserDto, HttpError } from "@/types";
 import { Button } from "@/components/ui/button";
-import { useSignupMutation } from "@/api/auth";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/shared";
 
@@ -44,6 +44,23 @@ const itemVariants = {
 const Page = () => {
   const [signupMutation, { isLoading }] = useSignupMutation();
   const router = useRouter();
+
+  const [triggerGithub, { isLoading: isLoadingGithub }] = useLazyGithubQuery();
+  const [triggerGoogle, { isLoading: isLoadingGoogle }] = useLazyGoogleQuery();
+
+  const handleGithubLogin = async () => {
+    const result = await triggerGithub(null);
+    if (result.data?.data) {
+      window.open(result.data.data, "_blank");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const result = await triggerGoogle(null);
+    if (result.data?.data) {
+      window.open(result.data.data, "_blank");
+    }
+  };
 
   const { handleChange, handleSubmit } = useFormik({
     initialValues,
@@ -90,11 +107,25 @@ const Page = () => {
         </Link>
       </motion.p>
       <motion.div className="flex w-full flex-col gap-5" variants={itemVariants}>
-        <Button disabled={isLoading} variant="default-outline">
-          <RiGoogleFill /> Continue with Google
+        <Button
+          // aria-disabled={isLoadingGoogle}
+          // disabled={isLoadingGoogle}
+          aria-disabled={true}
+          disabled={true}
+          variant="default-outline"
+          onClick={handleGoogleLogin}
+        >
+          {isLoadingGoogle ? <RiLoaderLine className="animate-spin" /> : <RiGoogleFill />} Continue with Google
         </Button>
-        <Button disabled={isLoading} variant="default-outline">
-          <RiGithubFill /> Continue with Github
+        <Button
+          // aria-disabled={isLoadingGithub}
+          // disabled={isLoadingGithub}
+          aria-disabled={true}
+          disabled={true}
+          variant="default-outline"
+          onClick={handleGithubLogin}
+        >
+          {isLoadingGithub ? <RiLoaderLine className="animate-spin" /> : <RiGithubFill />} Continue with Github
         </Button>
       </motion.div>
     </motion.div>

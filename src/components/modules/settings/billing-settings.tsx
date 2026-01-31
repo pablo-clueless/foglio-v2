@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+import React from "react";
 import {
   RiVipCrownLine,
   RiBankCardLine,
@@ -11,24 +13,15 @@ import {
   RiSparklingLine,
   RiLoader4Line,
 } from "@remixicon/react";
-import { toast } from "sonner";
-import React from "react";
 
 import { useAddPaymentMethodMutation, useGetInvoicesQuery, useGetPaymentMethodsQuery } from "@/api/payment";
 import { useGetUserSubscriptionsQuery, useSubscribeMutation } from "@/api/subscription";
 import type { SubscriptionProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { cn, formatCurrency } from "@/lib";
+import { cn, formatCurrency, formatDate } from "@/lib";
 import { useUserStore } from "@/store/user";
 import { SUBSCRIPTIONS } from "@/constants";
-
-const invoices: {
-  id: string;
-  date: string;
-  amount: number;
-  status: string;
-}[] = [];
 
 const FeatureItem = ({ feature, value }: { feature: string; value: string | boolean | number }) => {
   const isEnabled =
@@ -167,8 +160,10 @@ export const BillingSettings = () => {
   const [addPaymentMethod] = useAddPaymentMethodMutation();
 
   const { data: userSubscriptions } = useGetUserSubscriptionsQuery({ page: 1, size: 10 });
+  const { data: invoices } = useGetInvoicesQuery({ page: 1, size: 10 });
   const { data: paymentMethods } = useGetPaymentMethodsQuery(null);
-  const {} = useGetInvoicesQuery({ page: 1, size: 10 });
+
+  const userInvoices = invoices?.data.data || [];
 
   const currentSubscription = userSubscriptions?.data?.data?.find((sub) => sub.is_active);
 
@@ -260,24 +255,34 @@ export const BillingSettings = () => {
           </div>
         </div>
         <div className="w-full space-y-2">
-          {paymentMethods?.data.map((method) => (
-            <div className="flex items-center justify-between border border-white/10 bg-white/5 p-4" key={method.id}>
-              <div className="flex items-center gap-4">
-                <div className="flex size-12 items-center justify-center bg-blue-500/20">
-                  <RiBankCardLine className="size-6 text-blue-400" />
-                </div>
-                <div>
-                  <p className="font-medium text-white">•••• •••• •••• {method.last4}</p>
-                  <p className="text-sm text-gray-400">
-                    Expires {method.exp_month}/{method.exp_year}
-                  </p>
-                </div>
+          {!paymentMethods?.data?.length ? (
+            <div className="border-primary-100/15 grid place-items-center border border-dashed py-10">
+              <div className="flex flex-col items-center gap-2 text-center">
+                <RiBankCardLine className="size-10 text-gray-500" />
+                <p className="text-sm font-medium text-gray-400">No payment methods</p>
+                <p className="text-xs text-gray-500">Add a payment method to subscribe to premium plans</p>
               </div>
-              <Button variant="outline" size="sm">
-                Update
-              </Button>
             </div>
-          ))}
+          ) : (
+            paymentMethods.data.map((method) => (
+              <div className="flex items-center justify-between border border-white/10 bg-white/5 p-4" key={method.id}>
+                <div className="flex items-center gap-4">
+                  <div className="flex size-12 items-center justify-center bg-blue-500/20">
+                    <RiBankCardLine className="size-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">•••• •••• •••• {method.last4}</p>
+                    <p className="text-sm text-gray-400">
+                      Expires {method.exp_month}/{method.exp_year}
+                    </p>
+                  </div>
+                </div>
+                <Button variant="outline" size="sm">
+                  Update
+                </Button>
+              </div>
+            ))
+          )}
         </div>
         <Button variant="ghost" size="sm" onClick={handleAddPaymentMethod} className="mt-4">
           + Add Payment Method
@@ -298,24 +303,41 @@ export const BillingSettings = () => {
             Download All
           </Button>
         </div>
-        <div className="space-y-2">
-          {invoices.map((invoice) => (
-            <div key={invoice.id} className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
-              <div className="flex items-center gap-4">
-                <div>
-                  <p className="font-medium text-white">{invoice.id}</p>
-                  <p className="text-sm text-gray-400">{new Date(invoice.date).toLocaleDateString()}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="font-medium text-white">${invoice.amount}</span>
-                <Badge className="border-green-500/30 bg-green-500/20 text-green-400">Paid</Badge>
-                <Button variant="ghost" size="sm">
-                  <RiArrowRightLine className="size-4" />
-                </Button>
+        <div className="w-full">
+          {!userInvoices.length ? (
+            <div className="border-primary-100/15 grid place-items-center border border-dashed py-10">
+              <div className="flex flex-col items-center gap-2 text-center">
+                <RiFileList3Line className="size-10 text-gray-500" />
+                <p className="text-sm font-medium text-gray-400">No invoices yet</p>
+                <p className="text-xs text-gray-500">Your billing history will appear here after your first payment</p>
               </div>
             </div>
-          ))}
+          ) : (
+            <div className="space-y-2">
+              {userInvoices.map((invoice) => (
+                <div
+                  key={invoice.id}
+                  className="flex items-center justify-between border border-white/5 bg-white/5 p-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <p className="font-medium text-white">{invoice.id}</p>
+                      <p className="text-sm text-gray-400">{formatDate(invoice.created_at)}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="font-medium text-white">
+                      {formatCurrency(invoice.amount_paid, invoice.currency)}
+                    </span>
+                    <Badge className="border-green-500/30 bg-green-500/20 text-green-400">Paid</Badge>
+                    <Button variant="ghost" size="sm">
+                      <RiArrowRightLine className="size-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

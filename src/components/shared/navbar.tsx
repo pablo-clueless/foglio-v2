@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { BadgeCheck, Crown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -161,6 +161,8 @@ export const Navbar = () => {
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       />
                       <p className="text-sm">{user.name}</p>
+                      {user.verified && <BadgeCheck className="size-4 text-blue-500" />}
+                      {user.is_premium && <Crown className="size-4 text-yellow-500" />}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent align="end" className="w-48 p-2 text-black">
@@ -174,8 +176,12 @@ export const Navbar = () => {
                       <Link href="/settings">Settings</Link>
                     </Button>
                     <hr className="my-2" />
-                    <Button variant="ghost" className="w-full justify-start text-red-600" asChild>
-                      <Link href="/signout">Sign Out</Link>
+                    <Button
+                      className="w-full justify-start"
+                      onClick={() => signout({ redirectUrl: "/signin" })}
+                      variant="destructive"
+                    >
+                      Sign Out
                     </Button>
                   </PopoverContent>
                 </Popover>
@@ -286,6 +292,8 @@ export const Navbar = () => {
                       <div className="flex items-center gap-x-3 border border-white/20 p-4">
                         <div className="bg-primary-100 size-10" />
                         <p className="text-sm text-white">{user.name}</p>
+                        {user.verified && <BadgeCheck className="size-4 text-blue-500" />}
+                        {user.is_premium && <Crown className="size-4 text-yellow-500" />}
                       </div>
                       <div className="space-y-2">
                         <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/10" asChild>
