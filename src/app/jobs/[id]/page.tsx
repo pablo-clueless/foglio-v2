@@ -1,5 +1,9 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import React from "react";
 import {
   RiArrowLeftLine,
   RiBriefcase4Line,
@@ -11,15 +15,17 @@ import {
   RiMoneyDollarCircleLine,
   RiShareLine,
 } from "@remixicon/react";
-import { motion } from "framer-motion";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import React from "react";
 
 import { Footer, Navbar } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useGetJobQuery } from "@/api/job";
+import {
+  useGetJobQuery,
+  useAddCommentOnJobMutation,
+  useAddReactionOnJobMutation,
+  useDeleteCommentOnJobMutation,
+  useDeleteReactionOnJobMutation,
+} from "@/api/job";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -44,6 +50,11 @@ const itemVariants = {
 const Page = () => {
   const id = useParams().id as string;
   const router = useRouter();
+
+  const [] = useDeleteReactionOnJobMutation();
+  const [] = useDeleteCommentOnJobMutation();
+  const [] = useAddReactionOnJobMutation();
+  const [] = useAddCommentOnJobMutation();
 
   const { data: job, isFetching } = useGetJobQuery(id, {
     refetchOnFocus: true,

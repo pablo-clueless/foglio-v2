@@ -1,4 +1,4 @@
-import type { NotificationProps } from "@/types";
+import type { NotificationProps, WebSocketMessageEvent, WebSocketSendMessageDto } from "@/types";
 
 const WS_URL = process.env.NEXT_PUBLIC_WSS_URI as string;
 
@@ -16,6 +16,7 @@ interface WebSocketMessage {
 }
 
 type NotificationCallback = (data: NotificationProps) => void;
+type ChatCallback = (event: WebSocketMessageEvent) => void;
 type CleanupFunction = () => void;
 
 class WebSocketService {
@@ -23,7 +24,8 @@ class WebSocketService {
   private reconnectAttempts = 0;
   private reconnectTimeout: NodeJS.Timeout | null = null;
   private heartbeatInterval: NodeJS.Timeout | null = null;
-  private callbacks = new Set<NotificationCallback>();
+  private notificationCallbacks = new Set<NotificationCallback>();
+  private chatCallbacks = new Set<ChatCallback>();
   private messageQueue: WebSocketMessage[] = [];
   private isIntentionallyClosed = false;
 
@@ -75,12 +77,25 @@ class WebSocketService {
 
   private handleMessage(event: MessageEvent): void {
     try {
-      const notification: NotificationProps = JSON.parse(event.data);
-      this.notifyCallbacks(notification);
-      this.showBrowserNotification(notification);
+      const data = JSON.parse(event.data);
+      if (this.isChatEvent(data)) {
+        this.notifyChatCallbacks(data as WebSocketMessageEvent);
+        return;
+      }
+      const notification: NotificationProps = data;
+      this.notifyNotificationCallbacks(notification);
+      if (notification.type !== "pong") {
+        this.showBrowserNotification(notification);
+      }
     } catch (error) {
       console.error("Failed to parse WebSocket message:", error);
     }
+  }
+
+  private isChatEvent(data: unknown): boolean {
+    if (typeof data !== "object" || data === null) return false;
+    const eventTypes = ["new_message", "message_read", "message_delivered", "typing", "stop_typing"];
+    return "type" in data && eventTypes.includes((data as { type: string }).type);
   }
 
   private handleClose(event: CloseEvent): void {
@@ -96,8 +111,8 @@ class WebSocketService {
     console.error("WebSocket error:", error);
   }
 
-  private notifyCallbacks(notification: NotificationProps): void {
-    this.callbacks.forEach((callback) => {
+  private notifyNotificationCallbacks(notification: NotificationProps): void {
+    this.notificationCallbacks.forEach((callback) => {
       try {
         callback(notification);
       } catch (error) {
@@ -106,7 +121,18 @@ class WebSocketService {
     });
   }
 
+  private notifyChatCallbacks(event: WebSocketMessageEvent): void {
+    this.chatCallbacks.forEach((callback) => {
+      try {
+        callback(event);
+      } catch (error) {
+        console.error("Error in chat callback:", error);
+      }
+    });
+  }
+
   private showBrowserNotification(notification: NotificationProps): void {
+    if (typeof window === "undefined") return;
     if (Notification.permission === "granted") {
       new Notification(notification.title, {
         body: notification.content,
@@ -118,8 +144,13 @@ class WebSocketService {
   }
 
   onNotification(callback: NotificationCallback): CleanupFunction {
-    this.callbacks.add(callback);
-    return () => this.callbacks.delete(callback);
+    this.notificationCallbacks.add(callback);
+    return () => this.notificationCallbacks.delete(callback);
+  }
+
+  onChatEvent(callback: ChatCallback): CleanupFunction {
+    this.chatCallbacks.add(callback);
+    return () => this.chatCallbacks.delete(callback);
   }
 
   send(message: WebSocketMessage): void {
@@ -135,10 +166,47 @@ class WebSocketService {
     }
   }
 
-  markAsRead(notificationId: string): void {
+  markNotificationAsRead(notificationId: string): void {
     this.send({
       action: "mark_read",
       notification_id: notificationId,
+    });
+  }
+
+  sendChatMessage(dto: WebSocketSendMessageDto): void {
+    this.send({
+      action: "send_message",
+      recipient_id: dto.recipient_id,
+      content: dto.content,
+      media: dto.media,
+    });
+  }
+
+  sendTyping(recipientId: string): void {
+    this.send({
+      action: "typing",
+      recipient_id: recipientId,
+    });
+  }
+
+  sendStopTyping(recipientId: string): void {
+    this.send({
+      action: "stop_typing",
+      recipient_id: recipientId,
+    });
+  }
+
+  markMessageAsRead(messageId: string): void {
+    this.send({
+      action: "mark_read",
+      message_id: messageId,
+    });
+  }
+
+  markMessageAsDelivered(messageId: string): void {
+    this.send({
+      action: "mark_delivered",
+      message_id: messageId,
     });
   }
 
@@ -199,7 +267,8 @@ class WebSocketService {
       this.socket = null;
     }
 
-    this.callbacks.clear();
+    this.notificationCallbacks.clear();
+    this.chatCallbacks.clear();
     this.messageQueue = [];
     this.reconnectAttempts = 0;
   }

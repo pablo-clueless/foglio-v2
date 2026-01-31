@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { RiLogoutBoxRLine, RiSearchLine, RiVerifiedBadgeFill, RiVipCrownFill } from "@remixicon/react";
+import React from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -15,7 +15,7 @@ interface AppHeaderProps {
   showSearch?: boolean;
 }
 
-export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
+export const AppHeader = ({ title, showSearch = false }: AppHeaderProps) => {
   const { user, signout } = useUserStore();
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -49,7 +49,7 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
               <div className="hidden text-left md:block">
                 <p className="flex items-center gap-x-1 text-xs font-medium">
                   {user?.name}
-                  {user?.verified && <RiVerifiedBadgeFill className="size-3 text-blue-500" />}
+                  {user?.verified && <RiVerifiedBadgeFill className="size-3 text-green-500" />}
                   {user?.is_premium && <RiVipCrownFill className="size-3 text-yellow-500" />}
                 </p>
                 <p className="text-[10px] text-gray-500">{user?.is_recruiter ? "Recruiter" : "Job Seeker"}</p>
@@ -68,7 +68,7 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
                 <div>
                   <p className="flex items-center gap-x-1 font-medium">
                     {user?.name}
-                    {user?.verified && <RiVerifiedBadgeFill className="size-4 text-blue-500" />}
+                    {user?.verified && <RiVerifiedBadgeFill className="size-4 text-green-500" />}
                     {user?.is_premium && <RiVipCrownFill className="size-4 text-yellow-500" />}
                   </p>
                   <p className="text-xs text-gray-400">{user?.email}</p>
