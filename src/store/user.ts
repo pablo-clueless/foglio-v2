@@ -2,8 +2,7 @@ import Cookies from "js-cookie";
 
 import type { Maybe, SigninResponse, UserProps } from "@/types";
 import { createPersistMiddleware } from "./middleware";
-
-export const COOKIE_NAME = "FOGLIO_TOKEN";
+import { COOKIE_NAME } from "@/api/store/auth";
 export const STORAGE_KEY = "foglio_user";
 const COOKIE_OPTIONS = {
   path: "/",
@@ -50,7 +49,7 @@ class UserManager {
   }
 }
 
-const useUserStore = createPersistMiddleware<UserStore>("", (set) => ({
+const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set) => ({
   user: null,
   signin: async (payload, options = {}) => {
     try {
