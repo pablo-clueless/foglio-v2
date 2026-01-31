@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import React from "react";
 import {
@@ -16,10 +17,10 @@ import {
 
 import { useAddPaymentMethodMutation, useGetInvoicesQuery, useGetPaymentMethodsQuery } from "@/api/payment";
 import { useGetUserSubscriptionsQuery, useSubscribeMutation } from "@/api/subscription";
-import type { SubscriptionProps } from "@/types";
+import type { HttpError, SubscriptionProps } from "@/types";
+import { cn, formatCurrency, formatDate } from "@/lib";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { cn, formatCurrency, formatDate } from "@/lib";
 import { useUserStore } from "@/store/user";
 import { SUBSCRIPTIONS } from "@/constants";
 
@@ -154,10 +155,12 @@ const SubscriptionCard = ({
 export const BillingSettings = () => {
   const [, setSelectedPlan] = React.useState<string | null>(null);
   const { user } = useUserStore();
+  const pathname = usePathname();
+
   const currentTier = user?.is_premium ? "premium" : "free";
 
+  const [addPaymentMethod, { isLoading: isAddingPayment }] = useAddPaymentMethodMutation();
   const [subscribe, { isLoading }] = useSubscribeMutation();
-  const [addPaymentMethod] = useAddPaymentMethodMutation();
 
   const { data: userSubscriptions } = useGetUserSubscriptionsQuery({ page: 1, size: 10 });
   const { data: invoices } = useGetInvoicesQuery({ page: 1, size: 10 });
@@ -167,8 +170,19 @@ export const BillingSettings = () => {
 
   const currentSubscription = userSubscriptions?.data?.data?.find((sub) => sub.is_active);
 
-  const handleAddPaymentMethod = async () => {
-    await addPaymentMethod("").unwrap();
+  const host = window.location.host;
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const url = new URL(pathname, `${protocol}://${host}`);
+  const handleAddPaymentMethod = () => {
+    addPaymentMethod(url.href)
+      .unwrap()
+      .then((response) => {
+        window.open(response.data.authorization_url, "_blank");
+      })
+      .catch((error) => {
+        const message = (error as HttpError).data.message || "Unable to add payment method at this time";
+        toast.error(message);
+      });
   };
 
   const handleSelectPlan = async (subscription: SubscriptionProps) => {
@@ -284,8 +298,8 @@ export const BillingSettings = () => {
             ))
           )}
         </div>
-        <Button variant="ghost" size="sm" onClick={handleAddPaymentMethod} className="mt-4">
-          + Add Payment Method
+        <Button disabled={isAddingPayment} variant="ghost" size="sm" onClick={handleAddPaymentMethod} className="mt-4">
+          {isAddingPayment ? "Loading..." : "+ Add Payment Method"}
         </Button>
       </div>
       <div className="border border-white/10 bg-white/5 p-6">

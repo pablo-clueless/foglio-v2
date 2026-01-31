@@ -20,7 +20,20 @@ export const api = createApi({
     },
   }),
   reducerPath: "api",
-  tagTypes: ["Auth", "User", "Job", "Application", "Notification", "Subscription", "Domain", "Portfolio"],
+  tagTypes: [
+    "Auth",
+    "User",
+    "Job",
+    "Application",
+    "Notification",
+    "Subscription",
+    "Domain",
+    "Portfolio",
+    "Conversation",
+    "Analytics",
+    "Payment",
+    "Payment-Method",
+  ],
   endpoints: (builder) => ({
     health: builder.query<HttpResponse<string>, null>({
       query: () => ({

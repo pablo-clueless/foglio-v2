@@ -7,6 +7,7 @@ import {
   RiFunctionAiLine,
   RiGroup3Line,
   RiHome2Line,
+  RiMessage3Line,
   RiPieChart2Line,
   RiSettings4Line,
   RiUserSettingsLine,
@@ -44,6 +45,12 @@ export const DASHBOARD_ROUTES = (isRecruiter: boolean) => {
       href: "/company",
       icon: RiBuilding2Line,
       show: isRecruiter,
+    },
+    {
+      label: "Chats",
+      href: "/chats",
+      icon: RiMessage3Line,
+      show: true,
     },
     {
       label: "Settings",

@@ -115,7 +115,7 @@ export const Navbar = () => {
           scrolled ? "fixed bg-black/50 backdrop-blur-md backdrop-filter" : "fixed bg-transparent",
         )}
       >
-        <div className="container mx-auto flex max-w-6xl items-center justify-between px-4">
+        <div className="container mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-0">
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -161,11 +161,11 @@ export const Navbar = () => {
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       />
                       <p className="text-sm">{user.name}</p>
-                      {user.verified && <BadgeCheck className="size-4 text-blue-500" />}
+                      {user.verified && <BadgeCheck className="size-4 text-green-500" />}
                       {user.is_premium && <Crown className="size-4 text-yellow-500" />}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent align="end" className="w-48 p-2 text-black">
+                  <PopoverContent align="end" className="w-48 bg-black p-2 text-white">
                     <Button variant="ghost" className="w-full justify-start" asChild>
                       <Link href="/home">Profile</Link>
                     </Button>

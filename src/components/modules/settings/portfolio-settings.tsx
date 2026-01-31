@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+import React from "react";
 import {
   RiPaletteLine,
   RiLayoutGridLine,
@@ -9,14 +11,18 @@ import {
   RiEyeLine,
   RiAddLine,
   RiFileTextLine,
+  RiSeoLine,
+  RiSearchEyeLine,
+  RiSettings3Line,
+  RiExternalLinkLine,
 } from "@remixicon/react";
-import { toast } from "sonner";
-import React from "react";
 
 import { useGetPortfolioQuery, useUpdatePortfolioMutation, useCreatePortfolioMutation } from "@/api/portfolio";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { useUserStore } from "@/store/user";
 import { cn } from "@/lib";
 
@@ -164,6 +170,8 @@ export const PortfolioSettings = () => {
     tagline: "",
     bio: "",
   });
+  const [seo, setSeo] = React.useState(DEFAULT_SEO);
+  const [settings, setSettings] = React.useState(DEFAULT_SETTINGS);
 
   const portfolioSettings = portfolioData?.data || user?.portfolio;
   const hasPortfolio = !!portfolioSettings?.id;
@@ -183,6 +191,18 @@ export const PortfolioSettings = () => {
         tagline: portfolioSettings.tagline || "",
         bio: portfolioSettings.bio || "",
       });
+      if (portfolioSettings.seo) {
+        setSeo({
+          ...DEFAULT_SEO,
+          ...portfolioSettings.seo,
+        });
+      }
+      if (portfolioSettings.settings) {
+        setSettings({
+          ...DEFAULT_SETTINGS,
+          ...portfolioSettings.settings,
+        });
+      }
     }
   }, [portfolioSettings]);
 
@@ -226,11 +246,16 @@ export const PortfolioSettings = () => {
 
   const handleUpdate = async () => {
     if (!user) return;
-
     try {
       const result = await updatePortfolio({
+        title: portfolioInfo.title,
+        slug: portfolioInfo.slug,
+        tagline: portfolioInfo.tagline,
+        bio: portfolioInfo.bio,
         template: selectedTemplate,
         theme,
+        seo,
+        settings,
         is_public: portfolioSettings?.is_public ?? false,
       }).unwrap();
 
@@ -244,6 +269,8 @@ export const PortfolioSettings = () => {
   const handleReset = () => {
     setSelectedTemplate("minimal");
     setTheme(DEFAULT_THEME);
+    setSeo(DEFAULT_SEO);
+    setSettings(DEFAULT_SETTINGS);
     toast.success("Settings reset to default. Click Save to apply.");
   };
 
@@ -253,7 +280,6 @@ export const PortfolioSettings = () => {
 
   if (!user) return null;
 
-  // Loading state
   if (isPremium && isLoadingPortfolio) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -262,7 +288,6 @@ export const PortfolioSettings = () => {
     );
   }
 
-  // Non-premium users
   if (!isPremium) {
     return (
       <div className="space-y-8">
@@ -295,11 +320,9 @@ export const PortfolioSettings = () => {
     );
   }
 
-  // No portfolio - show creation form
   if (!hasPortfolio) {
     return (
       <div className="space-y-8">
-        {/* Portfolio Info */}
         <div className="border border-white/10 bg-white/5 p-6">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex size-10 items-center justify-center bg-white/5">
@@ -310,7 +333,6 @@ export const PortfolioSettings = () => {
               <p className="text-sm text-gray-400">Set up your portfolio to get started</p>
             </div>
           </div>
-
           <div className="grid gap-4 sm:grid-cols-2">
             <Input
               label="Portfolio Title"
@@ -346,8 +368,6 @@ export const PortfolioSettings = () => {
             />
           </div>
         </div>
-
-        {/* Template Selection */}
         <div className="border border-white/10 bg-white/5 p-6">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex size-10 items-center justify-center bg-white/5">
@@ -358,7 +378,6 @@ export const PortfolioSettings = () => {
               <p className="text-sm text-gray-400">Select a template for your portfolio</p>
             </div>
           </div>
-
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TEMPLATES.map((template) => {
               const isSelected = selectedTemplate === template.id;
@@ -380,7 +399,6 @@ export const PortfolioSettings = () => {
                       <div className="mx-auto h-1.5 w-14 rounded bg-gray-200" />
                     </div>
                   </div>
-
                   <div className="flex items-start justify-between">
                     <div>
                       <h4 className="font-medium text-white">{template.name}</h4>
@@ -397,8 +415,6 @@ export const PortfolioSettings = () => {
             })}
           </div>
         </div>
-
-        {/* Color Customization */}
         <div className="border border-white/10 bg-white/5 p-6">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex size-10 items-center justify-center bg-white/5">
@@ -409,7 +425,6 @@ export const PortfolioSettings = () => {
               <p className="text-sm text-gray-400">Personalize your portfolio colors</p>
             </div>
           </div>
-
           <div className="space-y-6">
             <ColorPicker
               label="Primary Color"
@@ -431,8 +446,6 @@ export const PortfolioSettings = () => {
             />
           </div>
         </div>
-
-        {/* Create Button */}
         <div className="flex justify-end border border-white/10 bg-white/5 p-6">
           <Button onClick={handleCreate} disabled={isCreating || !portfolioInfo.title.trim()}>
             <RiAddLine className="mr-2 size-4" />
@@ -443,9 +456,64 @@ export const PortfolioSettings = () => {
     );
   }
 
-  // Has portfolio - show update form
   return (
     <div className="space-y-8">
+      {/* Portfolio Info */}
+      <div className="border border-white/10 bg-white/5 p-6">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex size-10 items-center justify-center bg-white/5">
+              <RiFileTextLine className="text-primary-100 size-5" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Portfolio Information</h3>
+              <p className="text-sm text-gray-400">Update your portfolio details</p>
+            </div>
+          </div>
+          <a
+            href={`/portfolio/${portfolioInfo.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-400 hover:text-primary-300 flex items-center gap-1.5 text-sm transition-colors"
+          >
+            <RiExternalLinkLine className="size-4" />
+            View Portfolio
+          </a>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Input
+            label="Portfolio Title"
+            value={portfolioInfo.title}
+            onChange={(e) => setPortfolioInfo((prev) => ({ ...prev, title: e.target.value }))}
+            placeholder="My Portfolio"
+          />
+          <Input
+            label="URL Slug"
+            value={portfolioInfo.slug}
+            onChange={(e) =>
+              setPortfolioInfo((prev) => ({
+                ...prev,
+                slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
+              }))
+            }
+            placeholder="my-portfolio"
+            helperText={`Your portfolio URL: /portfolio/${portfolioInfo.slug || "your-slug"}`}
+          />
+          <Input
+            label="Tagline"
+            value={portfolioInfo.tagline}
+            onChange={(e) => setPortfolioInfo((prev) => ({ ...prev, tagline: e.target.value }))}
+            placeholder="Full-Stack Developer & Designer"
+          />
+          <Input
+            label="Bio"
+            value={portfolioInfo.bio}
+            onChange={(e) => setPortfolioInfo((prev) => ({ ...prev, bio: e.target.value }))}
+            placeholder="A brief introduction about yourself"
+          />
+        </div>
+      </div>
+
       {/* Template Selection */}
       <div className="border border-white/10 bg-white/5 p-6">
         <div className="mb-6 flex items-center justify-between">
@@ -463,7 +531,6 @@ export const PortfolioSettings = () => {
             Active
           </Badge>
         </div>
-
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TEMPLATES.map((template) => {
             const isSelected = selectedTemplate === template.id;
@@ -490,7 +557,6 @@ export const PortfolioSettings = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="flex items-start justify-between">
                   <div>
                     <h4 className="font-medium text-white">{template.name}</h4>
@@ -502,7 +568,6 @@ export const PortfolioSettings = () => {
                     </div>
                   )}
                 </div>
-
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
                   <div className="flex items-center gap-2 text-sm text-white">
                     <RiEyeLine className="size-4" />
@@ -512,6 +577,174 @@ export const PortfolioSettings = () => {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* SEO Optimization */}
+      <div className="border border-white/10 bg-white/5 p-6">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="flex size-10 items-center justify-center bg-white/5">
+            <RiSeoLine className="text-primary-100 size-5" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">SEO Optimization</h3>
+            <p className="text-sm text-gray-400">Improve your portfolio&apos;s visibility in search engines</p>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <Input
+            label="Meta Title"
+            value={seo.meta_title}
+            onChange={(e) => setSeo((prev) => ({ ...prev, meta_title: e.target.value }))}
+            placeholder="John Doe - Full-Stack Developer Portfolio"
+            helperText="Recommended: 50-60 characters"
+          />
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-400">Meta Description</label>
+            <Textarea
+              value={seo.meta_description}
+              onChange={(e) => setSeo((prev) => ({ ...prev, meta_description: e.target.value }))}
+              placeholder="A passionate full-stack developer with expertise in React, Node.js, and cloud technologies. View my projects and experience."
+              className="min-h-[100px] border-white/10 bg-white/5"
+            />
+            <p className="text-xs text-gray-500">Recommended: 150-160 characters</p>
+          </div>
+          <Input
+            label="Meta Keywords"
+            value={seo.meta_keywords}
+            onChange={(e) => setSeo((prev) => ({ ...prev, meta_keywords: e.target.value }))}
+            placeholder="developer, portfolio, react, nodejs, web development"
+            helperText="Separate keywords with commas"
+          />
+          <Input
+            label="Social Share Image URL"
+            value={seo.og_image}
+            onChange={(e) => setSeo((prev) => ({ ...prev, og_image: e.target.value }))}
+            placeholder="https://example.com/og-image.png"
+            helperText="Image shown when sharing on social media (recommended: 1200x630px)"
+          />
+        </div>
+      </div>
+
+      {/* Visibility Settings */}
+      <div className="border border-white/10 bg-white/5 p-6">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="flex size-10 items-center justify-center bg-white/5">
+            <RiSearchEyeLine className="text-primary-100 size-5" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">Visibility Settings</h3>
+            <p className="text-sm text-gray-400">Control what visitors can see on your portfolio</p>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Projects</p>
+                <p className="text-sm text-gray-400">Display your projects section</p>
+              </div>
+              <Switch
+                checked={settings.show_projects}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_projects: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Experience</p>
+                <p className="text-sm text-gray-400">Display your work experience</p>
+              </div>
+              <Switch
+                checked={settings.show_experiences}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_experiences: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Education</p>
+                <p className="text-sm text-gray-400">Display your education history</p>
+              </div>
+              <Switch
+                checked={settings.show_education}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_education: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Skills</p>
+                <p className="text-sm text-gray-400">Display your skills section</p>
+              </div>
+              <Switch
+                checked={settings.show_skills}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_skills: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Certifications</p>
+                <p className="text-sm text-gray-400">Display your certifications</p>
+              </div>
+              <Switch
+                checked={settings.show_certifications}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_certifications: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Contact Info</p>
+                <p className="text-sm text-gray-400">Display contact information</p>
+              </div>
+              <Switch
+                checked={settings.show_contact}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_contact: checked }))}
+              />
+            </div>
+            <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+              <div>
+                <p className="font-medium text-white">Social Links</p>
+                <p className="text-sm text-gray-400">Display social media links</p>
+              </div>
+              <Switch
+                checked={settings.show_social_links}
+                onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, show_social_links: checked }))}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Advanced Settings */}
+      <div className="border border-white/10 bg-white/5 p-6">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="flex size-10 items-center justify-center bg-white/5">
+            <RiSettings3Line className="text-primary-100 size-5" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">Advanced Settings</h3>
+            <p className="text-sm text-gray-400">Additional features for your portfolio</p>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+            <div>
+              <p className="font-medium text-white">Analytics</p>
+              <p className="text-sm text-gray-400">Track visitor statistics for your portfolio</p>
+            </div>
+            <Switch
+              checked={settings.enable_analytics}
+              onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, enable_analytics: checked }))}
+            />
+          </div>
+          <div className="flex items-center justify-between border border-white/5 bg-white/5 p-4">
+            <div>
+              <p className="font-medium text-white">Comments</p>
+              <p className="text-sm text-gray-400">Allow visitors to leave comments on your portfolio</p>
+            </div>
+            <Switch
+              checked={settings.enable_comments}
+              onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, enable_comments: checked }))}
+            />
+          </div>
         </div>
       </div>
 
@@ -526,7 +759,6 @@ export const PortfolioSettings = () => {
             <p className="text-sm text-gray-400">Personalize your portfolio colors</p>
           </div>
         </div>
-
         <div className="space-y-6">
           <ColorPicker
             label="Primary Color"
@@ -547,8 +779,6 @@ export const PortfolioSettings = () => {
             presets={PRESET_COLORS.text}
           />
         </div>
-
-        {/* Color Preview */}
         <div className="mt-6">
           <label className="mb-2 block text-sm font-medium text-gray-400">Preview</label>
           <div className="rounded border border-white/10 p-6" style={{ backgroundColor: theme.background_color }}>
@@ -578,7 +808,7 @@ export const PortfolioSettings = () => {
         </div>
       </div>
 
-      {/* Save Actions */}
+      {/* Actions */}
       <div className="flex items-center justify-between border border-white/10 bg-white/5 p-6">
         <div className="flex items-center gap-3">
           <Button variant="outline" onClick={handleReset}>
