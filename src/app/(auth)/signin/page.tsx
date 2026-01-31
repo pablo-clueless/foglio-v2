@@ -56,7 +56,15 @@ const Page = () => {
           const message = response.message || "";
           toast.success(message);
           signin(response.data, { remember });
-          router.push("/home");
+          if (Boolean(response.data.requires_two_factor)) {
+            // implement 2fa
+          } else {
+            if (response.data.user.is_admin) {
+              router.push("/admin");
+            } else {
+              router.push("/home");
+            }
+          }
         })
         .catch((error) => {
           const message = (error as HttpError).data.message || "";
@@ -67,7 +75,7 @@ const Page = () => {
 
   return (
     <motion.div
-      className="flex w-[400px] flex-col items-center gap-y-20"
+      className="flex w-[300px] flex-col items-center gap-y-20 sm:w-[400px]"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
