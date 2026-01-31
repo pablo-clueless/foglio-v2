@@ -250,7 +250,7 @@ export const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 z-50 h-screen w-[80%] max-w-sm bg-black/95 backdrop-blur-lg md:hidden"
+              className="fixed top-0 right-0 z-50 h-[100dvh] w-[80%] max-w-sm bg-black/95 backdrop-blur-lg md:hidden"
               variants={mobileMenuVariants}
               initial="closed"
               animate="open"
