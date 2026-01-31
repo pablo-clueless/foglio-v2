@@ -118,7 +118,6 @@ const Page = () => {
   // TODO: Replace with actual API call when endpoint is ready
   const similarTalents = React.useMemo(() => {
     if (!user) return [];
-    // Placeholder data - will be replaced with actual API data
     return [];
   }, [user]);
 

@@ -18,22 +18,14 @@ export const config = {
   ],
 };
 
-const publicEntries = [
-  "/",
-  "/forgot-password",
-  "/jobs",
-  "/reset-password",
-  "/recruiters",
-  "/privacy-policy",
-  "/signin",
-  "/signup",
-  "/talents",
-  "/terms-of-service",
-  "/talent-pool",
-  "/help-center",
-];
+// Protected route prefixes that require authentication
+const protectedPrefixes = ["/admin", "/home", "/applications", "/settings", "/resume"];
 
-const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_DOMAIN || "foglio.app";
+const isProtectedPath = (pathname: string): boolean => {
+  return protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+};
+
+const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_DOMAIN || "foglio-v2.vercel.app";
 
 const getSubdomain = (host: string): string | null => {
   const hostWithoutPort = host.split(":")[0];
@@ -94,12 +86,8 @@ export function middleware(req: NextRequest) {
 
   const hasToken = req.cookies.has(COOKIE_NAME);
 
-  // if (hasToken && publicEntries.includes(url.pathname)) {
-  //   url.pathname = "/home";
-  //   return redirectResponse(url);
-  // }
-
-  if (!hasToken && !publicEntries.includes(url.pathname)) {
+  // Only require auth for protected routes (admin and dashboard)
+  if (!hasToken && isProtectedPath(url.pathname)) {
     url.pathname = "/signin";
     return redirectResponse(url);
   }
