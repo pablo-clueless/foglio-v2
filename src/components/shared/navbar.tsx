@@ -16,7 +16,7 @@ import { Logo } from "./logo";
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const { user } = useUserStore();
+  const { user, signout } = useUserStore();
   const pathname = usePathname();
 
   const isOnPathname = (href: string) => normalize(pathname) === href;
@@ -304,13 +304,11 @@ export const Navbar = () => {
                           </Link>
                         </Button>
                         <Button
-                          variant="ghost"
-                          className="w-full justify-start text-red-400 hover:bg-red-500/10"
-                          asChild
+                          className="w-full justify-start"
+                          onClick={() => signout({ redirectUrl: "/signin" })}
+                          variant="destructive"
                         >
-                          <Link href="/signout" onClick={() => setMobileMenuOpen(false)}>
-                            Sign Out
-                          </Link>
+                          Sign Out
                         </Button>
                       </div>
                     </>

@@ -12,6 +12,7 @@ import {
   RiCloseLine,
 } from "@remixicon/react";
 
+import { useUpdatePasswordMutation } from "@/api/auth";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,36 +26,41 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { HttpError } from "@/types";
 
 export const SecuritySettings = () => {
   const { user, signout } = useUserStore();
-  const [isChangingPassword, setIsChangingPassword] = React.useState(false);
   const [twoFactorEnabled, setTwoFactorEnabled] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = React.useState("");
 
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
+
   const [passwordForm, setPasswordForm] = React.useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    current_password: "",
+    new_password: "",
+    confirm_password: "",
   });
 
   const handleChangePassword = async () => {
-    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+    if (passwordForm.new_password !== passwordForm.confirm_password) {
       toast.error("Passwords do not match");
       return;
     }
-    if (passwordForm.newPassword.length < 8) {
+    if (passwordForm.new_password.length < 8) {
       toast.error("Password must be at least 8 characters");
       return;
     }
 
-    // Simulate API call
-    setIsChangingPassword(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsChangingPassword(false);
-    setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-    toast.success("Password changed successfully");
+    const { current_password, new_password } = passwordForm;
+    try {
+      await updatePassword({ current_password, new_password }).unwrap();
+      toast.success("Password changed successfully");
+      setPasswordForm({ current_password: "", new_password: "", confirm_password: "" });
+    } catch (error) {
+      const message = (error as HttpError).data.message || "";
+      toast.error(message);
+    }
   };
 
   const handleToggle2FA = async (enabled: boolean) => {
@@ -78,7 +84,7 @@ export const SecuritySettings = () => {
   };
 
   const passwordStrength = React.useMemo(() => {
-    const password = passwordForm.newPassword;
+    const password = passwordForm.new_password;
     if (!password) return { score: 0, label: "", color: "" };
 
     let score = 0;
@@ -92,7 +98,7 @@ export const SecuritySettings = () => {
     if (score <= 3) return { score, label: "Medium", color: "bg-yellow-500" };
     if (score <= 4) return { score, label: "Strong", color: "bg-green-500" };
     return { score, label: "Very Strong", color: "bg-green-400" };
-  }, [passwordForm.newPassword]);
+  }, [passwordForm.new_password]);
 
   return (
     <div className="space-y-8">
@@ -110,21 +116,21 @@ export const SecuritySettings = () => {
         <div className="space-y-4">
           <Input
             label="Current Password"
-            name="currentPassword"
+            name="current_password"
             type="password"
-            value={passwordForm.currentPassword}
-            onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+            value={passwordForm.current_password}
+            onChange={(e) => setPasswordForm({ ...passwordForm, current_password: e.target.value })}
             placeholder="Enter current password"
           />
           <Input
             label="New Password"
-            name="newPassword"
+            name="new_password"
             type="password"
-            value={passwordForm.newPassword}
-            onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+            value={passwordForm.new_password}
+            onChange={(e) => setPasswordForm({ ...passwordForm, new_password: e.target.value })}
             placeholder="Enter new password"
           />
-          {passwordForm.newPassword && (
+          {passwordForm.new_password && (
             <div className="space-y-2">
               <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -139,19 +145,19 @@ export const SecuritySettings = () => {
           )}
           <Input
             label="Confirm New Password"
-            name="confirmPassword"
+            name="confirm_password"
             type="password"
-            value={passwordForm.confirmPassword}
-            onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+            value={passwordForm.confirm_password}
+            onChange={(e) => setPasswordForm({ ...passwordForm, confirm_password: e.target.value })}
             placeholder="Confirm new password"
           />
-          {passwordForm.confirmPassword && passwordForm.newPassword !== passwordForm.confirmPassword && (
+          {passwordForm.confirm_password && passwordForm.new_password !== passwordForm.confirm_password && (
             <p className="flex items-center gap-1 text-xs text-red-400">
               <RiCloseLine className="size-3" />
               Passwords do not match
             </p>
           )}
-          {passwordForm.confirmPassword && passwordForm.newPassword === passwordForm.confirmPassword && (
+          {passwordForm.confirm_password && passwordForm.new_password === passwordForm.confirm_password && (
             <p className="flex items-center gap-1 text-xs text-green-400">
               <RiCheckLine className="size-3" />
               Passwords match
@@ -163,13 +169,13 @@ export const SecuritySettings = () => {
           <Button
             onClick={handleChangePassword}
             disabled={
-              isChangingPassword ||
-              !passwordForm.currentPassword ||
-              !passwordForm.newPassword ||
-              passwordForm.newPassword !== passwordForm.confirmPassword
+              isLoading ||
+              !passwordForm.current_password ||
+              !passwordForm.new_password ||
+              passwordForm.new_password !== passwordForm.confirm_password
             }
           >
-            {isChangingPassword ? "Changing..." : "Change Password"}
+            {isLoading ? "Changing..." : "Change Password"}
           </Button>
         </div>
       </div>

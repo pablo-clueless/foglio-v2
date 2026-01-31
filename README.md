@@ -1,40 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Foglio v2
+
+**The next generation portfolio and resume builder**
+
+Foglio is a modern, AI-powered platform that helps professionals create ATS-friendly resumes and stunning portfolios. Build, customize, and deploy your professional presence with ease.
+
+## Features
+
+- **AI-Powered Resume Building** - Create ATS-friendly, keyword-rich resumes with intelligent optimization and scoring
+- **8 Professional Templates** - Choose from Classic, Corporate, Creative, Elegant, Executive, Minimal, Modern, and Professional designs
+- **Rich Text Editing** - Full-featured editor with drag-and-drop functionality
+- **Instant Deploy** - Global CDN hosting with SSL certificates
+- **Real-time Notifications** - WebSocket-powered live updates
+- **Job Management** - Browse, apply, and track job applications
+- **Recruiter Tools** - Post jobs, discover talent, and manage applications
+- **Analytics & SEO** - Track performance with built-in analytics
+
+## Tech Stack
+
+| Category         | Technologies                               |
+| ---------------- | ------------------------------------------ |
+| Framework        | Next.js 15, React 19, TypeScript 5         |
+| State Management | Redux Toolkit (RTK Query), Zustand, XState |
+| Styling          | Tailwind CSS 4, Radix UI, shadcn/ui        |
+| Animation        | Framer Motion                              |
+| Forms            | Formik, Yup                                |
+| Rich Text        | Tiptap                                     |
+| Real-time        | Socket.io                                  |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, or pnpm
+
+### Installation
 
 ```bash
-npm run dev
+# Clone the repository
+git clone https://github.com/pablo-clueless/foglio-v2.git
+cd foglio-v2
+
+# Install dependencies
+pnpm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+
+# Set up environment variables
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file in the root directory:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```env
+NEXT_PUBLIC_SERVER_URI="https://foglio-v2-go.onrender.com/api/v2"
+NEXT_PUBLIC_WSS_URI="wss://foglio-v2-go.onrender.com/api/v2/ws"
+SERVER_URI="https://foglio-v2-go.onrender.com/api/v2"
+WSS_URI="wss://foglio-v2-go.onrender.com/api/v2/ws"
+NODE_ENV="development"
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Development
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Start development server with Turbopack
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+### Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```bash
+# Build for production
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start production server
+npm start
+```
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Command                  | Description                             |
+| ------------------------ | --------------------------------------- |
+| `npm run dev`            | Start development server with Turbopack |
+| `npm run build`          | Build for production                    |
+| `npm start`              | Start production server                 |
+| `npm run lint`           | Run ESLint                              |
+| `npm run prettier:check` | Check code formatting                   |
+| `npm run prettier:write` | Format source files                     |
+| `npm run check`          | Run lint and format check               |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Authentication routes
+│   ├── (dashboard)/       # Protected dashboard routes
+│   ├── admin/             # Admin panel
+│   ├── jobs/              # Public job listings
+│   └── ...
+├── api/                    # RTK Query API definitions
+├── components/
+│   ├── ui/                # Base UI components
+│   ├── shared/            # Shared components
+│   ├── modules/           # Feature modules
+│   └── providers/         # React context providers
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility functions
+├── store/                  # State management
+├── types/                  # TypeScript types
+└── config/                 # Configuration files
+```
+
+## Resume Templates
+
+Foglio includes 8 professionally designed resume templates:
+
+- **Classic** - Traditional, timeless design
+- **Corporate** - Business-focused professional look
+- **Creative** - Bold design for creative professionals
+- **Elegant** - Refined, sophisticated styling
+- **Executive** - Premium design for senior roles
+- **Minimal** - Clean, distraction-free layout
+- **Modern** - Contemporary, fresh aesthetic
+- **Professional** - Balanced, versatile design
+
+## Authentication
+
+- Email/password authentication
+- GitHub OAuth integration
+- OTP verification
+- Role-based access (Talent/Recruiter)
+- Secure token-based sessions
+
+## License
+
+This project is private and proprietary.
+
+## Contributing
+
+Contributions are welcome. Please open an issue or submit a pull request.
+
+## Links
+
+- [Live Demo](https://foglio-v2.vercel.app)
+- [Backend API](https://foglio-v2-go.onrender.com)

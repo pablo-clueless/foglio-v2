@@ -1,5 +1,5 @@
 {
   "permissions": {
-    "allow": ["Bash(npx tsc:*)", "Bash(ls:*)"]
+    "allow": ["Bash(npx tsc:*)", "Bash(ls:*)", "Bash(find:*)", "Bash(npm run lint:*)", "Bash(npm run build:*)"]
   }
 }
