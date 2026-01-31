@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import type { UserProps } from "@/types";
 import { getInitials } from "@/lib";
 
@@ -64,12 +63,8 @@ export const Card = ({ user, index = 0 }: Props) => {
             </div>
           </div>
           {skills.length > 0 ? (
-            <div className="flex w-full flex-wrap justify-center gap-1">
-              {skills.map((skill) => (
-                <Badge key={skill} variant="secondary" className="px-1.5 py-0.5 text-[10px]">
-                  {skill}
-                </Badge>
-              ))}
+            <div className="flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap">
+              <p className="truncate px-1 py-0.5 text-[10px] sm:px-1.5">{skills.join(", ")}</p>
             </div>
           ) : (
             <div className="text-[10px]">No skills added</div>
