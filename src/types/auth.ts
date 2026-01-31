@@ -19,8 +19,8 @@ export interface SigninDto {
 }
 
 export interface ChangePasswordDto {
-  currentPassword: string;
-  newPassword: string;
+  current_password: string;
+  new_password: string;
 }
 
 export interface ResetPasswordDto {
@@ -37,6 +37,43 @@ export interface CreateUserDto {
 }
 
 export interface SigninResponse {
-  user: UserProps;
+  requires_two_factor: boolean | null;
   token: string;
+  user: UserProps;
+  user_id: string;
+}
+
+export interface Verify2FASetupRequestDto {
+  code: string;
+}
+
+export interface Verify2FALoginRequestDto {
+  user_id: string;
+  code: string;
+}
+
+export interface Disable2FARequestDto {
+  password: string;
+}
+
+export interface Enable2FAResponseDto {
+  secret: string;
+  qr_code_url: string;
+  backup_codes: string[];
+}
+
+export interface TwoFactorRequiredResponseDto {
+  requires_two_factor: boolean;
+  user_id: string;
+  message: string;
+}
+
+export interface TwoFactorStatusResponseDto {
+  enabled: string;
+  backup_codes_left: number;
+}
+
+export interface BackupCodesResponseDto {
+  backup_codes: string[];
+  message: string;
 }

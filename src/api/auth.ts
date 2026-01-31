@@ -1,4 +1,18 @@
-import type { CreateUserDto, HttpResponse, ResetPasswordDto, SigninDto, SigninResponse, UserProps } from "@/types";
+import type {
+  BackupCodesResponseDto,
+  ChangePasswordDto,
+  CreateUserDto,
+  Disable2FARequestDto,
+  Enable2FAResponseDto,
+  HttpResponse,
+  ResetPasswordDto,
+  SigninDto,
+  SigninResponse,
+  TwoFactorStatusResponseDto,
+  UserProps,
+  Verify2FALoginRequestDto,
+  Verify2FASetupRequestDto,
+} from "@/types";
 import { api } from "./api";
 
 const auth = api.injectEndpoints({
@@ -38,6 +52,13 @@ const auth = api.injectEndpoints({
         body: payload,
       }),
     }),
+    updatePassword: builder.mutation<HttpResponse<string>, ChangePasswordDto>({
+      query: (payload) => ({
+        url: "/auth/update-password",
+        method: "POST",
+        body: payload,
+      }),
+    }),
     github: builder.query<HttpResponse<string>, undefined>({
       query: () => ({
         url: "/auth/github",
@@ -62,6 +83,46 @@ const auth = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    setupTwoFactor: builder.mutation<HttpResponse<Enable2FAResponseDto>, null>({
+      query: () => ({
+        url: `/auth/2fa/setup`,
+        method: "POST",
+      }),
+    }),
+    verifySetupTwoFactor: builder.mutation<HttpResponse<unknown>, Verify2FASetupRequestDto>({
+      query: (payload) => ({
+        url: `/auth/2fa/verify-setup`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    verifyTwoFactor: builder.mutation<HttpResponse<SigninResponse>, Verify2FALoginRequestDto>({
+      query: (payload) => ({
+        url: `/auth/2fa/verify`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    disableTwoFactor: builder.mutation<HttpResponse<unknown>, Disable2FARequestDto>({
+      query: (payload) => ({
+        url: `/auth/2fa/disable`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    getTwoFactorBackupCodes: builder.mutation<HttpResponse<BackupCodesResponseDto>, string>({
+      query: (password) => ({
+        url: `/auth/2fa/backup-codes`,
+        method: "POST",
+        body: { password },
+      }),
+    }),
+    getTwoFactorStatus: builder.query<HttpResponse<TwoFactorStatusResponseDto>, null>({
+      query: () => ({
+        url: `/auth/2fa/status`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -74,5 +135,6 @@ export const {
   useResetPasswordMutation,
   useSigninMutation,
   useSignupMutation,
+  useUpdatePasswordMutation,
   useVerificationMutation,
 } = auth;

@@ -94,9 +94,15 @@ importers:
       react:
         specifier: 19.1.0
         version: 19.1.0
+      react-color:
+        specifier: ^2.19.3
+        version: 2.19.3(react@19.1.0)
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      react-qr-code:
+        specifier: ^2.0.18
+        version: 2.0.18(react@19.1.0)
       react-redux:
         specifier: ^9.2.0
         version: 9.2.0(@types/react@19.1.13)(react@19.1.0)(redux@5.0.1)
@@ -140,6 +146,9 @@ importers:
       "@types/react":
         specifier: ^19
         version: 19.1.13
+      "@types/react-color":
+        specifier: ^3.0.13
+        version: 3.0.13(@types/react@19.1.13)
       "@types/react-dom":
         specifier: ^19
         version: 19.1.9(@types/react@19.1.13)
@@ -273,6 +282,12 @@ packages:
     resolution:
       { integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ== }
     engines: { node: ">=18.18" }
+
+  "@icons/material@0.2.4":
+    resolution:
+      { integrity: sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw== }
+    peerDependencies:
+      react: "*"
 
   "@img/colour@1.0.0":
     resolution:
@@ -1409,6 +1424,12 @@ packages:
     resolution:
       { integrity: sha512-gfehUI8N1z92kygssiuWvLiwcbOB3IRktR6hTDgJlXMYh5OvkPSRmgfoBUmfZt+vhwJtX7v1Yw4KvvAf7c5QKQ== }
 
+  "@types/react-color@3.0.13":
+    resolution:
+      { integrity: sha512-2c/9FZ4ixC5T3JzN0LP5Cke2Mf0MKOP2Eh0NPDPWmuVH3NjPyhEjqNMQpN1Phr5m74egAy+p2lYNAFrX1z9Yrg== }
+    peerDependencies:
+      "@types/react": "*"
+
   "@types/react-dom@19.1.9":
     resolution:
       { integrity: sha512-qXRuZaOsAdXKFyOhRBg6Lqqc0yay13vN7KrIg4L7N4aaHN68ma9OK3NE1BoDFgFOTfM7zg+3/8+2n8rLUH3OKQ== }
@@ -1418,6 +1439,12 @@ packages:
   "@types/react@19.1.13":
     resolution:
       { integrity: sha512-hHkbU/eoO3EG5/MZkuFSKmYqPbSVk5byPFa3e7y/8TybHiLMACgI8seVYlicwk7H5K/rI2px9xrQp/C+AUDTiQ== }
+
+  "@types/reactcss@1.2.13":
+    resolution:
+      { integrity: sha512-gi3S+aUi6kpkF5vdhUsnkwbiSEIU/BEJyD7kBy2SudWBUuKmJk8AQKE0OVcQQeEy40Azh0lV6uynxlikYIJuwg== }
+    peerDependencies:
+      "@types/react": "*"
 
   "@types/use-sync-external-store@0.0.6":
     resolution:
@@ -2635,6 +2662,10 @@ packages:
       { integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg== }
     hasBin: true
 
+  material-colors@1.2.6:
+    resolution:
+      { integrity: sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg== }
+
   math-intrinsics@1.1.0:
     resolution:
       { integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g== }
@@ -3013,9 +3044,19 @@ packages:
       { integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg== }
     engines: { node: ">=6" }
 
+  qr.js@0.0.0:
+    resolution:
+      { integrity: sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ== }
+
   queue-microtask@1.2.3:
     resolution:
       { integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A== }
+
+  react-color@2.19.3:
+    resolution:
+      { integrity: sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA== }
+    peerDependencies:
+      react: "*"
 
   react-dom@19.1.0:
     resolution:
@@ -3030,6 +3071,12 @@ packages:
   react-is@16.13.1:
     resolution:
       { integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ== }
+
+  react-qr-code@2.0.18:
+    resolution:
+      { integrity: sha512-v1Jqz7urLMhkO6jkgJuBYhnqvXagzceg3qJUWayuCK/c6LTIonpWbwxR1f1APGd4xrW/QcQEovNrAojbUz65Tg== }
+    peerDependencies:
+      react: "*"
 
   react-redux@9.2.0:
     resolution:
@@ -3087,6 +3134,12 @@ packages:
     resolution:
       { integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg== }
     engines: { node: ">=0.10.0" }
+
+  reactcss@1.2.3:
+    resolution:
+      { integrity: sha512-KiwVUcFu1RErkI97ywr8nvx8dNOpT03rbnma0SSalTYjkrPYaEajR4a/MRt6DZ46K6arDRbWMNHF+xH7G7n/8A== }
+    peerDependencies:
+      react: "*"
 
   redux-thunk@3.1.0:
     resolution:
@@ -3344,6 +3397,10 @@ packages:
   tiny-warning@1.0.3:
     resolution:
       { integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA== }
+
+  tinycolor2@1.6.0:
+    resolution:
+      { integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw== }
 
   tinyglobby@0.2.15:
     resolution:
@@ -3645,6 +3702,10 @@ snapshots:
   "@humanwhocodes/module-importer@1.0.1": {}
 
   "@humanwhocodes/retry@0.4.3": {}
+
+  "@icons/material@0.2.4(react@19.1.0)":
+    dependencies:
+      react: 19.1.0
 
   "@img/colour@1.0.0":
     optional: true
@@ -4576,6 +4637,11 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  "@types/react-color@3.0.13(@types/react@19.1.13)":
+    dependencies:
+      "@types/react": 19.1.13
+      "@types/reactcss": 1.2.13(@types/react@19.1.13)
+
   "@types/react-dom@19.1.9(@types/react@19.1.13)":
     dependencies:
       "@types/react": 19.1.13
@@ -4583,6 +4649,10 @@ snapshots:
   "@types/react@19.1.13":
     dependencies:
       csstype: 3.1.3
+
+  "@types/reactcss@1.2.13(@types/react@19.1.13)":
+    dependencies:
+      "@types/react": 19.1.13
 
   "@types/use-sync-external-store@0.0.6": {}
 
@@ -5734,6 +5804,8 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
+  material-colors@1.2.6: {}
+
   math-intrinsics@1.1.0: {}
 
   mdurl@2.0.0: {}
@@ -6023,7 +6095,20 @@ snapshots:
 
   punycode@2.3.1: {}
 
+  qr.js@0.0.0: {}
+
   queue-microtask@1.2.3: {}
+
+  react-color@2.19.3(react@19.1.0):
+    dependencies:
+      "@icons/material": 0.2.4(react@19.1.0)
+      lodash: 4.17.21
+      lodash-es: 4.17.22
+      material-colors: 1.2.6
+      prop-types: 15.8.1
+      react: 19.1.0
+      reactcss: 1.2.3(react@19.1.0)
+      tinycolor2: 1.6.0
 
   react-dom@19.1.0(react@19.1.0):
     dependencies:
@@ -6033,6 +6118,12 @@ snapshots:
   react-fast-compare@2.0.4: {}
 
   react-is@16.13.1: {}
+
+  react-qr-code@2.0.18(react@19.1.0):
+    dependencies:
+      prop-types: 15.8.1
+      qr.js: 0.0.0
+      react: 19.1.0
 
   react-redux@9.2.0(@types/react@19.1.13)(react@19.1.0)(redux@5.0.1):
     dependencies:
@@ -6075,6 +6166,11 @@ snapshots:
       react: 19.1.0
 
   react@19.1.0: {}
+
+  reactcss@1.2.3(react@19.1.0):
+    dependencies:
+      lodash: 4.17.21
+      react: 19.1.0
 
   redux-thunk@3.1.0(redux@5.0.1):
     dependencies:
@@ -6353,6 +6449,8 @@ snapshots:
   tiny-case@1.0.3: {}
 
   tiny-warning@1.0.3: {}
+
+  tinycolor2@1.6.0: {}
 
   tinyglobby@0.2.15:
     dependencies:

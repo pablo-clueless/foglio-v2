@@ -1,10 +1,37 @@
+import type { PortfolioProps } from "./portfolio";
+
+export type { PortfolioProps };
+
 export type ProviderType = "EMAIL" | "GITHUB" | "GOOGLE";
+
+export type DomainStatus = "pending" | "active" | "failed" | "expired";
+
+export interface DomainProps {
+  subdomain?: string;
+  custom_domain?: string;
+  custom_domain_status?: DomainStatus;
+  custom_domain_verified_at?: string;
+  dns_records?: {
+    type: string;
+    name: string;
+    value: string;
+    status: "pending" | "verified";
+  }[];
+}
+
+export interface SubdomainAvailabilityProps {
+  available: boolean;
+  subdomain: string;
+}
 
 export interface UserProps {
   created_at: string;
   email: string;
   id: string;
   headline: string;
+  is_two_factor_enabled: boolean;
+  two_factor_secret: string;
+  two_factor_backup_codes: string[];
   is_admin: boolean;
   is_premium: boolean;
   is_recruiter: boolean;
@@ -19,6 +46,8 @@ export interface UserProps {
   company?: CompanyProps;
   company_id?: string;
   deleted_at?: string;
+  domain?: DomainProps;
+  portfolio?: PortfolioProps;
   education?: EducationProps[];
   experiences?: ExperienceProps[];
   image?: string;

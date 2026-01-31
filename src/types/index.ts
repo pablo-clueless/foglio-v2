@@ -4,5 +4,6 @@ export * from "./dto";
 export * from "./job";
 export * from "./notification";
 export * from "./payment";
+export * from "./portfolio";
 export * from "./subscription";
 export * from "./user";
