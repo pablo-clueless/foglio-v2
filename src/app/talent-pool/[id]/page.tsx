@@ -1,7 +1,7 @@
 "use client";
 
 import { type Variants, motion } from "framer-motion";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import {
@@ -29,13 +29,17 @@ import {
   RiDownloadLine,
   RiExternalLinkLine,
   RiUserLine,
+  RiMessage3Line,
 } from "@remixicon/react";
+import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Footer, Navbar, Loader } from "@/components/shared";
+import { useLazyGetOrCreateConversationQuery } from "@/api/chat";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useGetUserQuery } from "@/api/user";
+import { useUserStore } from "@/store/user";
 import { getInitials } from "@/lib";
 
 const containerVariants: Variants = {
@@ -106,7 +110,12 @@ const socialLinks = [
 ] as const;
 
 const Page = () => {
+  const { user: currentUser } = useUserStore();
   const id = useParams().id as string;
+  const router = useRouter();
+
+  const [getOrCreateConversation, { isLoading: isCreatingConversation }] = useLazyGetOrCreateConversationQuery();
+
   const { data, isLoading, isError } = useGetUserQuery(id, {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -114,6 +123,20 @@ const Page = () => {
   });
 
   const user = data?.data;
+
+  const isSignedIn = !!currentUser;
+  const isOwnProfile = currentUser?.id === user?.id;
+
+  const handleSendMessage = async () => {
+    if (!user || !currentUser) return;
+
+    try {
+      await getOrCreateConversation(user.id).unwrap();
+      router.push("/chats");
+    } catch {
+      toast.error("Failed to start conversation");
+    }
+  };
 
   // TODO: Replace with actual API call when endpoint is ready
   const similarTalents = React.useMemo(() => {
@@ -203,7 +226,7 @@ const Page = () => {
             }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
-          <div className="relative z-10 container mx-auto max-w-7xl px-4 py-20 sm:py-32">
+          <div className="relative z-10 container mx-auto max-w-6xl px-4 py-20 sm:py-32">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -244,7 +267,7 @@ const Page = () => {
                           transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                           className="absolute -right-1 bottom-2"
                         >
-                          <div className="flex items-center justify-center bg-blue-500 p-1.5 shadow-lg shadow-blue-500/50">
+                          <div className="flex items-center justify-center bg-green-500 p-1.5 shadow-lg shadow-blue-500/50">
                             <RiCheckboxCircleLine className="size-5 text-white" />
                           </div>
                         </motion.div>
@@ -256,14 +279,14 @@ const Page = () => {
                       transition={{ delay: 0.3 }}
                       className="space-y-2"
                     >
+                      {user.is_premium && (
+                        <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 px-2 py-0.5 text-xs font-bold">
+                          <RiStarFill className="mr-1 size-3" />
+                          PRO
+                        </Badge>
+                      )}
                       <div className="flex items-center justify-center gap-2">
                         <h1 className="text-2xl font-bold text-white">{user.name}</h1>
-                        {user.is_premium && (
-                          <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 px-2 py-0.5 text-xs font-bold">
-                            <RiStarFill className="mr-1 size-3" />
-                            PRO
-                          </Badge>
-                        )}
                       </div>
                       <p className="text-primary-100 font-medium">{user.role}</p>
                       {user.headline && <p className="text-sm text-gray-400">{user.headline}</p>}
@@ -385,10 +408,20 @@ const Page = () => {
                       transition={{ delay: 0.7 }}
                       className="mt-6 flex w-full flex-col gap-2"
                     >
-                      <Button asChild className="w-full gap-2">
+                      {isSignedIn && !isOwnProfile && (
+                        <Button className="w-full gap-2" onClick={handleSendMessage} disabled={isCreatingConversation}>
+                          <RiMessage3Line className="size-4" />
+                          {isCreatingConversation ? "Starting..." : "Send Message"}
+                        </Button>
+                      )}
+                      <Button
+                        asChild
+                        className="w-full gap-2"
+                        variant={isSignedIn && !isOwnProfile ? "outline" : "default"}
+                      >
                         <a href={`mailto:${user.email}`}>
                           <RiMailLine className="size-4" />
-                          Contact
+                          Contact via Email
                         </a>
                       </Button>
                       <div className="grid grid-cols-2 gap-2">
@@ -411,24 +444,29 @@ const Page = () => {
                 animate="visible"
                 className="space-y-8 lg:col-span-2"
               >
-                {user.summary && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <h2 className="text-xl font-bold text-white">About</h2>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <h2 className="text-xl font-bold text-white">About</h2>
+                  {user.summary ? (
                     <p className="leading-relaxed text-gray-300">{user.summary}</p>
-                  </motion.div>
-                )}
-                {user.skills && user.skills.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiCodeLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Skills & Expertise</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiUserLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No summary added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiCodeLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Skills & Expertise</h2>
+                  </div>
+                  {user.skills && user.skills.length > 0 ? (
                     <motion.div
                       variants={staggerContainer}
                       initial="hidden"
@@ -452,20 +490,25 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </motion.div>
-                  </motion.div>
-                )}
-                {user.experiences && user.experiences.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiBriefcaseLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Experience</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiCodeLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No skills added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiBriefcaseLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Experience</h2>
+                  </div>
+                  {user.experiences && user.experiences.length > 0 ? (
                     <div className="relative space-y-4">
                       <motion.div
                         className="from-primary-100/50 absolute top-0 bottom-0 left-5 w-px bg-gradient-to-b to-transparent"
@@ -542,20 +585,25 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </motion.div>
-                )}
-                {user.education && user.education.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiGraduationCapLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Education</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiBriefcaseLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No experience added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiGraduationCapLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Education</h2>
+                  </div>
+                  {user.education && user.education.length > 0 ? (
                     <div className="grid gap-4">
                       {user.education.map((edu, i) => (
                         <motion.div
@@ -584,20 +632,25 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </motion.div>
-                )}
-                {user.projects && user.projects.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiCodeLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Projects</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiGraduationCapLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No education added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiCodeLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Projects</h2>
+                  </div>
+                  {user.projects && user.projects.length > 0 ? (
                     <div className="grid gap-4 sm:grid-cols-2">
                       {user.projects.map((project, i) => (
                         <motion.div
@@ -657,20 +710,25 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </motion.div>
-                )}
-                {user.certifications && user.certifications.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiAwardLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Certifications</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiCodeLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No projects added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiAwardLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Certifications</h2>
+                  </div>
+                  {user.certifications && user.certifications.length > 0 ? (
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {user.certifications.map((cert, i) => (
                         <motion.div
@@ -702,20 +760,25 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </motion.div>
-                )}
-                {user.languages && user.languages.length > 0 && (
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <RiGlobalLine className="text-primary-100 size-5" />
-                      </motion.div>
-                      <h2 className="text-xl font-bold text-white">Languages</h2>
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiAwardLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No certifications added yet</p>
                     </div>
+                  )}
+                </motion.div>
+                <motion.div variants={itemVariants} className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="from-primary-100/20 flex size-10 items-center justify-center bg-gradient-to-br to-purple-500/20"
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <RiGlobalLine className="text-primary-100 size-5" />
+                    </motion.div>
+                    <h2 className="text-xl font-bold text-white">Languages</h2>
+                  </div>
+                  {user.languages && user.languages.length > 0 ? (
                     <div className="flex flex-wrap gap-3">
                       {user.languages.map((lang, i) => (
                         <motion.div
@@ -732,14 +795,19 @@ const Page = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </motion.div>
-                )}
+                  ) : (
+                    <div className="border border-dashed border-white/10 bg-white/5 p-6 text-center">
+                      <RiGlobalLine className="mx-auto size-8 text-gray-600" />
+                      <p className="mt-2 text-sm text-gray-500">No languages added yet</p>
+                    </div>
+                  )}
+                </motion.div>
               </motion.div>
             </div>
           </div>
         </section>
         <section className="border-t border-white/5 bg-black py-16">
-          <div className="container mx-auto max-w-7xl px-4">
+          <div className="container mx-auto max-w-6xl px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -821,12 +889,19 @@ const Page = () => {
               viewport={{ once: false }}
               transition={{ delay: 0.3 }}
             >
-              <Button asChild className="gap-2" size="lg">
-                <a href={`mailto:${user.email}`}>
-                  <RiMailLine className="size-5" />
-                  Send Message
-                </a>
-              </Button>
+              {isSignedIn && !isOwnProfile ? (
+                <Button className="gap-2" size="lg" onClick={handleSendMessage} disabled={isCreatingConversation}>
+                  <RiMessage3Line className="size-5" />
+                  {isCreatingConversation ? "Starting..." : "Send Message"}
+                </Button>
+              ) : (
+                <Button asChild className="gap-2" size="lg">
+                  <a href={`mailto:${user.email}`}>
+                    <RiMailLine className="size-5" />
+                    Send Email
+                  </a>
+                </Button>
+              )}
               <Button asChild size="lg" variant="outline" className="gap-2">
                 <Link href="/talent-pool">
                   <RiArrowLeftLine className="size-5" />

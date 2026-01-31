@@ -1,5 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Link from "next/link";
+import React from "react";
 import {
   RiBriefcaseLine,
   RiCheckLine,
@@ -8,9 +11,6 @@ import {
   RiTimeLine,
   RiArrowRightLine,
 } from "@remixicon/react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import React from "react";
 
 import { useGetApplicationsForUserQuery } from "@/api/job";
 import { Avatar, ScrollArea } from "@/components/shared";

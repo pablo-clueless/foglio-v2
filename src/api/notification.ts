@@ -1,4 +1,11 @@
-import type { HttpResponse, NotificationProps, PaginatedParams, PaginatedResponse } from "@/types";
+import type {
+  HttpResponse,
+  NotificationProps,
+  NotificationSettingsResponse,
+  PaginatedParams,
+  PaginatedResponse,
+  UpdateNotificationSettingsDto,
+} from "@/types";
 import { api } from "./api";
 
 export const notification = api.injectEndpoints({
@@ -27,12 +34,30 @@ export const notification = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getNotificationSettings: builder.query<HttpResponse<NotificationSettingsResponse>, null>({
+      query: () => ({
+        url: `/notification-settings`,
+        method: "GET",
+      }),
+    }),
+    updateNotificationSettings: builder.mutation<
+      HttpResponse<NotificationSettingsResponse>,
+      UpdateNotificationSettingsDto
+    >({
+      query: (payload) => ({
+        url: `/notification-settings`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
   }),
 });
 
 export const {
   useDeleteNotificationQuery,
   useGetNotificationQuery,
+  useGetNotificationSettingsQuery,
   useGetNotificationsQuery,
   useReadNotificationsQuery,
+  useUpdateNotificationSettingsMutation,
 } = notification;
