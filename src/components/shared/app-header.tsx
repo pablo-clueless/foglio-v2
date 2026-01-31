@@ -1,11 +1,11 @@
 "use client";
 
-import { RiLogoutBoxRLine, RiNotification3Line, RiSearchLine, RiSettings4Line, RiUserLine } from "@remixicon/react";
-import Link from "next/link";
 import React from "react";
+import { RiLogoutBoxRLine, RiSearchLine, RiVerifiedBadgeFill, RiVipCrownFill } from "@remixicon/react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { NotificationSheet } from "./notification-sheet";
 import { useUserStore } from "@/store/user";
 import { Input } from "../ui/input";
 import { getInitials } from "@/lib";
@@ -36,10 +36,7 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
         )}
       </div>
       <div className="flex items-center gap-x-3">
-        <button className="border-primary-100/15 hover:bg-primary-100/10 relative grid size-10 place-items-center border transition-colors">
-          <RiNotification3Line className="size-5 text-gray-400" />
-          <span className="bg-primary-400 absolute top-2 right-2 size-2"></span>
-        </button>
+        <NotificationSheet />
         <Popover>
           <PopoverTrigger asChild>
             <button className="border-primary-100/15 hover:border-primary-400/50 flex h-10 items-center gap-x-3 border bg-black/30 p-2 transition-colors">
@@ -50,12 +47,16 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
                 </AvatarFallback>
               </Avatar>
               <div className="hidden text-left md:block">
-                <p className="text-xs font-medium">{user?.name}</p>
+                <p className="flex items-center gap-x-1 text-xs font-medium">
+                  {user?.name}
+                  {user?.verified && <RiVerifiedBadgeFill className="size-3 text-blue-500" />}
+                  {user?.is_premium && <RiVipCrownFill className="size-3 text-yellow-500" />}
+                </p>
                 <p className="text-[10px] text-gray-500">{user?.is_recruiter ? "Recruiter" : "Job Seeker"}</p>
               </div>
             </button>
           </PopoverTrigger>
-          <PopoverContent className="border-primary-100/15 w-64 border bg-black/95 p-0" align="end">
+          <PopoverContent className="border-primary-100/15 w-64 border bg-black p-0" align="end">
             <div className="border-primary-100/15 border-b p-4">
               <div className="flex items-center gap-x-3">
                 <Avatar className="size-10">
@@ -65,26 +66,14 @@ export const AppHeader = ({ title, showSearch = true }: AppHeaderProps) => {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-medium">{user?.name}</p>
+                  <p className="flex items-center gap-x-1 font-medium">
+                    {user?.name}
+                    {user?.verified && <RiVerifiedBadgeFill className="size-4 text-blue-500" />}
+                    {user?.is_premium && <RiVipCrownFill className="size-4 text-yellow-500" />}
+                  </p>
                   <p className="text-xs text-gray-400">{user?.email}</p>
                 </div>
               </div>
-            </div>
-            <div className="p-2">
-              <Link
-                href="/settings"
-                className="hover:bg-primary-100/10 flex items-center gap-x-3 px-3 py-2 text-sm text-gray-300 transition-colors"
-              >
-                <RiUserLine className="size-4" />
-                Profile
-              </Link>
-              <Link
-                href="/settings"
-                className="hover:bg-primary-100/10 flex items-center gap-x-3 px-3 py-2 text-sm text-gray-300 transition-colors"
-              >
-                <RiSettings4Line className="size-4" />
-                Settings
-              </Link>
             </div>
             <div className="border-primary-100/15 border-t p-2">
               <button

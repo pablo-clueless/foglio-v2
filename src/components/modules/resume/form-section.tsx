@@ -142,7 +142,6 @@ export const FormSection = <T extends { id: string }>({
 
   return (
     <div className={cn("space-y-4", className)}>
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {icon && <div className="flex size-10 items-center justify-center bg-white/5">{icon}</div>}
@@ -163,8 +162,6 @@ export const FormSection = <T extends { id: string }>({
           Add
         </Button>
       </div>
-
-      {/* Add New Form */}
       <AnimatePresence>
         {isAdding && (
           <motion.div
@@ -185,8 +182,6 @@ export const FormSection = <T extends { id: string }>({
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Items List */}
       {items.length > 0 ? (
         <Accordion type="multiple" value={expandedItems} onValueChange={setExpandedItems} className="space-y-2">
           <AnimatePresence initial={false}>
@@ -201,36 +196,33 @@ export const FormSection = <T extends { id: string }>({
                 layout
               >
                 <AccordionItem value={item.id} className="border border-white/10 bg-white/5 px-4">
-                  <div className="flex items-center gap-2">
-                    {/* Drag Handle & Reorder Buttons */}
-                    <div className="flex flex-col gap-0.5 py-2">
-                      <button
-                        type="button"
-                        onClick={() => moveUp(index)}
-                        disabled={!canMoveUp(index)}
-                        className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
-                      >
-                        <RiArrowUpLine className="size-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => moveDown(index)}
-                        disabled={!canMoveDown(index)}
-                        className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
-                      >
-                        <RiArrowDownLine className="size-3.5" />
-                      </button>
-                    </div>
-
-                    {/* Item Header */}
-                    <AccordionTrigger className="flex-1 hover:no-underline">
-                      <div className="flex flex-col items-start">
-                        <span className="font-medium text-white">{getItemTitle(item)}</span>
-                        {getItemSubtitle && <span className="text-sm text-gray-400">{getItemSubtitle(item)}</span>}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-x-4">
+                      <div className="flex flex-col gap-0.5 py-2">
+                        <button
+                          type="button"
+                          onClick={() => moveUp(index)}
+                          disabled={!canMoveUp(index)}
+                          className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
+                        >
+                          <RiArrowUpLine className="size-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveDown(index)}
+                          disabled={!canMoveDown(index)}
+                          className="p-0.5 text-gray-500 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-30"
+                        >
+                          <RiArrowDownLine className="size-3.5" />
+                        </button>
                       </div>
-                    </AccordionTrigger>
-
-                    {/* Actions */}
+                      <AccordionTrigger className="flex-1 hover:no-underline">
+                        <div className="flex flex-col items-start">
+                          <span className="font-medium text-white">{getItemTitle(item)}</span>
+                          {getItemSubtitle && <span className="text-sm text-gray-400">{getItemSubtitle(item)}</span>}
+                        </div>
+                      </AccordionTrigger>
+                    </div>
                     <div className="flex items-center gap-1">
                       <button
                         type="button"

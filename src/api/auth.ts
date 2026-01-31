@@ -59,25 +59,25 @@ const auth = api.injectEndpoints({
         body: payload,
       }),
     }),
-    github: builder.query<HttpResponse<string>, undefined>({
+    github: builder.query<HttpResponse<string>, null>({
       query: () => ({
         url: "/auth/github",
         method: "GET",
       }),
     }),
-    githubCallback: builder.query<HttpResponse<string>, undefined>({
+    githubCallback: builder.query<HttpResponse<string>, null>({
       query: () => ({
         url: "/auth/github/callback",
         method: "GET",
       }),
     }),
-    google: builder.query<HttpResponse<string>, undefined>({
+    google: builder.query<HttpResponse<string>, null>({
       query: () => ({
         url: "/auth/google",
         method: "GET",
       }),
     }),
-    googleCallback: builder.query<HttpResponse<string>, undefined>({
+    googleCallback: builder.query<HttpResponse<string>, null>({
       query: () => ({
         url: "/auth/google/callback",
         method: "GET",
@@ -128,13 +128,21 @@ const auth = api.injectEndpoints({
 
 export const {
   useForgotPasswordMutation,
+  useDisableTwoFactorMutation,
+  useGetTwoFactorBackupCodesMutation,
+  useGetTwoFactorStatusQuery,
   useGithubCallbackQuery,
   useGithubQuery,
   useGoogleCallbackQuery,
   useGoogleQuery,
+  useLazyGithubQuery,
+  useLazyGoogleQuery,
   useResetPasswordMutation,
+  useSetupTwoFactorMutation,
   useSigninMutation,
   useSignupMutation,
   useUpdatePasswordMutation,
   useVerificationMutation,
+  useVerifySetupTwoFactorMutation,
+  useVerifyTwoFactorMutation,
 } = auth;

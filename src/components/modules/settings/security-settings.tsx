@@ -12,6 +12,7 @@ import {
   RiCloseLine,
 } from "@remixicon/react";
 
+import { TwoFactorAuthentication } from "@/components/modules/security/two-factor-authentication";
 import { useUpdatePasswordMutation } from "@/api/auth";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
@@ -30,9 +31,10 @@ import type { HttpError } from "@/types";
 
 export const SecuritySettings = () => {
   const { user, signout } = useUserStore();
-  const [twoFactorEnabled, setTwoFactorEnabled] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = React.useState("");
+  const [twoFactorDialogOpen, setTwoFactorDialogOpen] = React.useState(false);
+  const [twoFactorMode, setTwoFactorMode] = React.useState<"enable" | "disable">("enable");
 
   const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
 
@@ -63,11 +65,9 @@ export const SecuritySettings = () => {
     }
   };
 
-  const handleToggle2FA = async (enabled: boolean) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setTwoFactorEnabled(enabled);
-    toast.success(enabled ? "Two-factor authentication enabled" : "Two-factor authentication disabled");
+  const handleToggle2FA = (enabled: boolean) => {
+    setTwoFactorMode(enabled ? "enable" : "disable");
+    setTwoFactorDialogOpen(true);
   };
 
   const handleDeleteAccount = async () => {
@@ -75,8 +75,6 @@ export const SecuritySettings = () => {
       toast.error("Please enter your email correctly");
       return;
     }
-
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     toast.success("Account deletion initiated. You will receive a confirmation email.");
     setDeleteDialogOpen(false);
@@ -192,16 +190,16 @@ export const SecuritySettings = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            {twoFactorEnabled ? (
+            {user?.is_two_factor_enabled ? (
               <Badge className="border-green-500/30 bg-green-500/20 text-green-400">Enabled</Badge>
             ) : (
               <Badge className="border-yellow-500/30 bg-yellow-500/20 text-yellow-400">Disabled</Badge>
             )}
-            <Switch checked={twoFactorEnabled} onCheckedChange={handleToggle2FA} />
+            <Switch checked={user?.is_two_factor_enabled} onCheckedChange={handleToggle2FA} />
           </div>
         </div>
 
-        {twoFactorEnabled && (
+        {user?.is_two_factor_enabled && (
           <div className="mt-4 border border-green-500/20 bg-green-500/10 p-4">
             <div className="flex items-start gap-3">
               <RiShieldCheckLine className="mt-0.5 size-5 text-green-400" />
@@ -277,6 +275,8 @@ export const SecuritySettings = () => {
           </div>
         </div>
       </div>
+
+      <TwoFactorAuthentication open={twoFactorDialogOpen} onOpenChange={setTwoFactorDialogOpen} mode={twoFactorMode} />
     </div>
   );
 };
