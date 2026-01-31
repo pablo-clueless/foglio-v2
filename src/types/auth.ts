@@ -14,7 +14,7 @@ export interface OAuthUserDto {
 }
 
 export interface SigninDto {
-  email: string;
+  identifier: string;
   password: string;
 }
 
@@ -37,10 +37,10 @@ export interface CreateUserDto {
 }
 
 export interface SigninResponse {
-  requires_two_factor: boolean | null;
+  requires_two_factor: boolean;
   token: string;
   user: UserProps;
-  user_id: string;
+  user_id?: string;
 }
 
 export interface Verify2FASetupRequestDto {

@@ -51,14 +51,14 @@ const slideInFromLeft = {
   },
 } as const;
 
-const slideInFromRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-} as const;
+// const slideInFromRight = {
+//   hidden: { opacity: 0, x: 50 },
+//   visible: {
+//     opacity: 1,
+//     x: 0,
+//     transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+//   },
+// } as const;
 
 const Page = () => {
   return (
@@ -121,7 +121,7 @@ const Page = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
-                  variants={isReversed ? slideInFromRight : slideInFromLeft}
+                  variants={slideInFromLeft}
                 >
                   <div className="flex flex-1 flex-col justify-center gap-y-2 p-10">
                     <feature.icon className="text-primary-400 size-5" />
