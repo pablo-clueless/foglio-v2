@@ -57,7 +57,7 @@ const Page = () => {
 
   return (
     <motion.div
-      className="flex w-[400px] flex-col items-center gap-y-20"
+      className="flex w-[300px] flex-col items-center gap-y-20 sm:w-[400px]"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

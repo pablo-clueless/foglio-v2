@@ -12,6 +12,7 @@ import {
   RiArticleLine,
   RiUserLine,
   RiExternalLinkLine,
+  RiMediumFill,
 } from "@remixicon/react";
 
 import { useUpdateUserMutation } from "@/api/user";
@@ -25,6 +26,7 @@ const socialFields = [
   { key: "twitter", label: "Twitter / X", icon: RiTwitterXFill, placeholder: "https://x.com/username" },
   { key: "instagram", label: "Instagram", icon: RiInstagramFill, placeholder: "https://instagram.com/username" },
   { key: "facebook", label: "Facebook", icon: RiFacebookBoxFill, placeholder: "https://facebook.com/username" },
+  { key: "medium", label: "Medium", icon: RiMediumFill, placeholder: "https://medium.com/username" },
   { key: "youtube", label: "YouTube", icon: RiYoutubeFill, placeholder: "https://youtube.com/@channel" },
   { key: "blog", label: "Blog / Website", icon: RiArticleLine, placeholder: "https://yourblog.com" },
 ] as const;
@@ -45,6 +47,7 @@ export const ProfileSettings = () => {
     twitter: user?.social_media?.twitter || "",
     instagram: user?.social_media?.instagram || "",
     facebook: user?.social_media?.facebook || "",
+    medium: user?.social_media?.medium || "",
     youtube: user?.social_media?.youtube || "",
     blog: user?.social_media?.blog || "",
   });
@@ -62,6 +65,7 @@ export const ProfileSettings = () => {
         twitter: user.social_media?.twitter || "",
         instagram: user.social_media?.instagram || "",
         facebook: user.social_media?.facebook || "",
+        medium: user.social_media?.medium || "",
         youtube: user.social_media?.youtube || "",
         blog: user.social_media?.blog || "",
       });

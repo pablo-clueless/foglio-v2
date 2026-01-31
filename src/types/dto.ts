@@ -21,6 +21,107 @@ export interface UpdateUserDto {
     youtube?: string;
     blog?: string;
   };
+  domain?: {
+    subdomain?: string;
+    custom_domain?: string;
+  };
+}
+
+export interface VerifyDomainDto {
+  domain: string;
+}
+
+export interface DomainVerificationResponse {
+  verified: boolean;
+  dns_records: {
+    type: string;
+    name: string;
+    value: string;
+    status: "pending" | "verified";
+  }[];
+}
+
+export interface CreatePortfolioDto {
+  title: string;
+  slug: string;
+  tagline: string;
+  bio: string;
+  template: string;
+  theme: {
+    primary_color: string;
+    secondary_color: string;
+    accent_color: string;
+    text_color: string;
+    background_color: string;
+    font_family: string;
+    font_size: string;
+  };
+  seo: {
+    meta_title: string;
+    meta_description: string;
+    meta_keywords: string;
+    og_image: string;
+  };
+  settings: {
+    show_projects: boolean;
+    show_experiences: boolean;
+    show_education: boolean;
+    show_skills: boolean;
+    show_certifications: boolean;
+    show_contact: boolean;
+    show_social_links: boolean;
+    enable_analytics: boolean;
+    enable_comments: boolean;
+  };
+}
+
+export interface UpdatePortfolioDto {
+  title?: string;
+  slug?: string;
+  tagline?: string;
+  bio?: string;
+  cover_image?: string;
+  logo?: string;
+  template?: string;
+  theme: {
+    primary_color?: string;
+    secondary_color?: string;
+    accent_color?: string;
+    text_color?: string;
+    background_color?: string;
+    font_family?: string;
+    font_size?: string;
+  };
+  custom_css?: string;
+  status?: string;
+  is_public: boolean;
+  seo?: {
+    meta_title?: string;
+    meta_description?: string;
+    meta_keywords?: string;
+    og_image?: string;
+  };
+  settings?: {
+    show_projects?: boolean;
+    show_experiences?: boolean;
+    show_education?: boolean;
+    show_skills?: boolean;
+    show_certifications?: boolean;
+    show_contact?: boolean;
+    show_social_links?: boolean;
+    enable_analytics?: boolean;
+    enable_comments?: boolean;
+  };
+}
+
+export interface CreatePortfolioSectionDto {
+  title: string;
+  type: string;
+  content: string;
+  settings: string;
+  sort_order: number;
+  is_visible: boolean;
+  id?: string;
 }
 
 export interface CompanyDto {

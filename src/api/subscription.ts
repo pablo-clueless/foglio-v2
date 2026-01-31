@@ -55,25 +55,25 @@ export const subscription = api.injectEndpoints({
         method: "GET",
       }),
     }),
-    subscribe: builder.query<HttpResponse<UserSubscriptionProps>, string>({
+    subscribe: builder.mutation<HttpResponse<UserSubscriptionProps>, string>({
       query: (id) => ({
         url: `/user/subscriptions/${id}/subscribe`,
         method: "POST",
       }),
     }),
-    unsubscribe: builder.query<HttpResponse<UserSubscriptionProps>, null>({
+    unsubscribe: builder.mutation<HttpResponse<UserSubscriptionProps>, null>({
       query: () => ({
         url: `/user/subscriptions/unsubscribe`,
         method: "DELETE",
       }),
     }),
-    upgradeSubscription: builder.query<HttpResponse<UserSubscriptionProps>, string>({
+    upgradeSubscription: builder.mutation<HttpResponse<UserSubscriptionProps>, string>({
       query: (id) => ({
         url: `/user/subscriptions/${id}/upgrade`,
         method: "PUT",
       }),
     }),
-    downgradeSubscription: builder.query<HttpResponse<UserSubscriptionProps>, string>({
+    downgradeSubscription: builder.mutation<HttpResponse<UserSubscriptionProps>, string>({
       query: (id) => ({
         url: `/user/subscriptions/${id}/downgrade`,
         method: "PUT",
@@ -85,13 +85,13 @@ export const subscription = api.injectEndpoints({
 export const {
   useCreateSubscriptionMutation,
   useDeleteSubscriptionQuery,
-  useDowngradeSubscriptionQuery,
+  useDowngradeSubscriptionMutation,
   useGetSubscriptionQuery,
   useGetSubscriptionsQuery,
   useGetUserSubscriptionQuery,
   useGetUserSubscriptionsQuery,
-  useSubscribeQuery,
-  useUnsubscribeQuery,
+  useSubscribeMutation,
+  useUnsubscribeMutation,
   useUpdateSubscriptionsQuery,
-  useUpgradeSubscriptionQuery,
+  useUpgradeSubscriptionMutation,
 } = subscription;

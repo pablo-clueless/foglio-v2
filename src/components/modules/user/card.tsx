@@ -27,7 +27,7 @@ export const Card = ({ user, index = 0 }: Props) => {
     },
   } as const;
 
-  const skills = user.skills?.slice(0, 3) || ["TypeScript", "Rust", "Golang"];
+  const skills = user.skills?.slice(0, 3) || [];
   const experienceYears = user.experiences?.[0]
     ? new Date().getFullYear() - new Date(user.experiences[0].start_date).getFullYear()
     : 0;
