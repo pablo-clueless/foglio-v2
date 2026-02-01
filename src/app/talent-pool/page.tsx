@@ -59,16 +59,17 @@ const cardVariants = {
 const Page = () => {
   const [query, setQuery] = React.useState("");
   const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(PAGE_SIZE_DESKTOP);
 
   const q = useDebounce(query, 500);
 
-  const PAGE_SIZE = React.useMemo(() => {
-    const isMobile = window.innerWidth < 768;
-    return isMobile ? PAGE_SIZE_MOBILE : PAGE_SIZE_DESKTOP;
-  }, []);
-
   React.useEffect(() => {
-    const handleResize = () => {};
+    const handleResize = () => {
+      if (typeof window !== "undefined") {
+        const isMobile = window.innerWidth < 768;
+        setPageSize(isMobile ? PAGE_SIZE_MOBILE : PAGE_SIZE_DESKTOP);
+      }
+    };
 
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -81,13 +82,13 @@ const Page = () => {
   };
 
   const { data: users, isFetching } = useGetUsersQuery(
-    { page, query: q, size: PAGE_SIZE, user_type: "talent" },
+    { page, query: q, size: pageSize, user_type: "talent" },
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 
   React.useEffect(() => {
     setPage(1);
-  }, [q, PAGE_SIZE]);
+  }, [q, pageSize]);
 
   return (
     <>
@@ -156,7 +157,7 @@ const Page = () => {
                     >
                       {(users?.data.total_items || 0) > 0 ? (
                         users?.data.data.map((user, idx) => {
-                          const index = idx + (page - 1) * PAGE_SIZE;
+                          const index = idx + (page - 1) * pageSize;
                           return (
                             <motion.div key={user.id} variants={cardVariants}>
                               <Card index={index} key={user.id} user={user} />
@@ -177,7 +178,7 @@ const Page = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                {(users?.data.total_items || 0) > PAGE_SIZE && (
+                {(users?.data.total_items || 0) > pageSize && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -185,7 +186,7 @@ const Page = () => {
                   >
                     <Pagination
                       current={page}
-                      limit={PAGE_SIZE}
+                      limit={pageSize}
                       onPageChange={handlePageChange}
                       total={users?.data.total_items || 0}
                       className="border-primary-100/15 border bg-black/20 p-4"

@@ -132,7 +132,7 @@ const Page = () => {
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 
-  const applications = React.useMemo(() => data?.data.data || [], []);
+  const applications = React.useMemo(() => data?.data.data || [], [data?.data]);
 
   const stats = React.useMemo(() => {
     if (isRecruiter && recruiterData?.data) {
