@@ -178,6 +178,16 @@ const Page = () => {
     }
   }, [isCreateDialogOpen]);
 
+  const handleCreateDialogOpen = (open: boolean) => {
+    if (!user?.company) {
+      toast.error("Please create a company profile first");
+      return;
+    }
+    if (!isCreating) {
+      setIsCreateDialogOpen(open);
+    }
+  };
+
   return (
     <ScrollArea>
       <motion.div className="w-full space-y-6 pb-10" variants={containerVariants} initial="hidden" animate="visible">
@@ -189,7 +199,7 @@ const Page = () => {
             <h1 className="text-2xl font-bold text-white">My Job Postings</h1>
             <p className="text-gray-400">Manage your job listings and view applications</p>
           </div>
-          <Dialog open={isCreateDialogOpen} onOpenChange={(open) => !isCreating && setIsCreateDialogOpen(open)}>
+          <Dialog open={isCreateDialogOpen} onOpenChange={handleCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button>
                 <RiAddLine className="mr-2 size-4" />
@@ -212,10 +222,11 @@ const Page = () => {
                   />
                   <Input
                     label="Company Name"
-                    placeholder={user?.company?.name || "Your company name"}
                     name="company"
-                    value={values.company}
                     onChange={handleChange}
+                    placeholder={user?.company?.name || "Your company name"}
+                    readOnly
+                    value={values.company}
                   />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Input
@@ -393,7 +404,6 @@ const Page = () => {
                     <h3 className="line-clamp-1 font-semibold text-white">{job.title}</h3>
                     <Badge className="shrink-0">{formatEmploymentType(job.employment_type)}</Badge>
                   </div>
-
                   <div className="space-y-2 text-sm text-gray-400">
                     <div className="flex items-center gap-2">
                       <RiMapPinLine className="size-4 shrink-0" />
@@ -408,7 +418,6 @@ const Page = () => {
                       <span>Posted {new Date(job.posted_date).toLocaleDateString()}</span>
                     </div>
                   </div>
-
                   {job.salary && (
                     <div className="mt-3 border-t border-white/10 pt-3">
                       <p className="text-primary-400 text-sm font-medium">
@@ -416,7 +425,6 @@ const Page = () => {
                       </p>
                     </div>
                   )}
-
                   <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
                     <Button asChild variant="outline" size="sm" className="flex-1">
                       <Link href={`/vacancies/${job.id}`}>
@@ -437,7 +445,6 @@ const Page = () => {
                 </motion.div>
               ))}
             </motion.div>
-
             {total > PAGE_SIZE && (
               <motion.div variants={itemVariants}>
                 <Pagination current={page} limit={PAGE_SIZE} total={total} onPageChange={setPage} className="mt-6" />
@@ -449,13 +456,12 @@ const Page = () => {
             <RiBriefcaseLine className="mx-auto size-16 text-gray-600" />
             <h3 className="mt-4 text-lg font-semibold text-white">No job postings yet</h3>
             <p className="mt-2 text-gray-400">Create your first job posting to start receiving applications</p>
-            <Button className="mt-6" onClick={() => setIsCreateDialogOpen(true)}>
+            <Button className="mt-6" onClick={() => handleCreateDialogOpen(true)}>
               <RiAddLine className="mr-2 size-4" />
               Post Your First Job
             </Button>
           </motion.div>
         )}
-
         <Dialog open={!!deleteJobId} onOpenChange={() => setDeleteJobId(null)}>
           <DialogContent>
             <DialogHeader>

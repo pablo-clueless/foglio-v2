@@ -161,7 +161,7 @@ export const Navbar = () => {
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       />
                       <p className="text-sm">{user.name}</p>
-                      {user.verified && <BadgeCheck className="size-4 text-green-500" />}
+                      {user.verified && <BadgeCheck className="size-4 text-blue-500" />}
                       {user.is_premium && <Crown className="size-4 text-yellow-500" />}
                     </Button>
                   </PopoverTrigger>

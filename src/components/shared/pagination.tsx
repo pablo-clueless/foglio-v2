@@ -92,14 +92,18 @@ export const Pagination = ({ current, limit, onPageChange, total, buttonClassNam
   };
 
   return (
-    <div className={cn("flex w-full items-center justify-between", className)}>
-      <div className="text-sm text-neutral-500">
-        <p>
+    <div className={cn("flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between", className)}>
+      {/* Page Numbers - First on mobile, center on desktop */}
+      <div className="order-1 flex items-center justify-center gap-x-2 sm:order-2 sm:gap-x-4">{renderButtons()}</div>
+
+      {/* Info and Navigation - Below on mobile, sides on desktop */}
+      <div className="order-2 flex items-center justify-between gap-4 sm:order-1 sm:flex-1 sm:justify-start">
+        <p className="text-sm text-neutral-500">
           Showing {current} of {totalPages} pages
         </p>
       </div>
-      <div className="flex items-center gap-x-4">{renderButtons()}</div>
-      <div className="flex items-center gap-x-4">
+
+      <div className="order-3 flex items-center justify-center gap-x-2 sm:flex-1 sm:justify-end sm:gap-x-4">
         <button
           className="flex h-8 items-center gap-x-1 border px-3 text-sm text-neutral-500 transition-colors duration-300 hover:bg-neutral-300 hover:text-neutral-500 disabled:bg-neutral-100"
           disabled={totalPages === 0 || current === 1}
