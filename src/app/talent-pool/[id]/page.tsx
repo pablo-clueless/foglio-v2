@@ -1,7 +1,8 @@
 "use client";
 
-import { type Variants, motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
+import { type Variants, motion } from "framer-motion";
+import { toast } from "sonner";
 import Link from "next/link";
 import React from "react";
 import {
@@ -31,7 +32,6 @@ import {
   RiUserLine,
   RiMessage3Line,
 } from "@remixicon/react";
-import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Footer, Navbar, Loader } from "@/components/shared";

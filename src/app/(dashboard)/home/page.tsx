@@ -10,10 +10,18 @@ import {
   RiFileTextLine,
   RiTimeLine,
   RiArrowRightLine,
+  RiSearchLine,
+  RiBarChartLine,
+  RiAddLine,
+  RiEyeLine,
+  RiUserLine,
+  RiTeamLine,
 } from "@remixicon/react";
 
+import { useRecruiterDashboardQuery, useTalentDashboardQuery } from "@/api/analytics";
 import { useGetApplicationsForUserQuery } from "@/api/job";
 import { Avatar, ScrollArea } from "@/components/shared";
+import type { AnalyticsDtoWithGroup } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useUserStore } from "@/store/user";
@@ -65,20 +73,93 @@ const getStatusBadge = (status: string) => {
   }
 };
 
+const initialParams: AnalyticsDtoWithGroup = {
+  start_date: new Date().toDateString(),
+  end_date: new Date().toDateString(),
+  group_by: "day",
+};
+
+// Quick Action Card Component
+interface QuickActionCardProps {
+  icon: React.ElementType;
+  label: string;
+  href: string;
+  color: "blue" | "green" | "purple" | "yellow";
+}
+
+const QuickActionCard = ({ icon: Icon, label, href, color }: QuickActionCardProps) => {
+  const colorMap = {
+    blue: "bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30",
+    green: "bg-green-500/20 text-green-400 group-hover:bg-green-500/30",
+    purple: "bg-purple-500/20 text-purple-400 group-hover:bg-purple-500/30",
+    yellow: "bg-yellow-500/20 text-yellow-400 group-hover:bg-yellow-500/30",
+  };
+
+  return (
+    <Link
+      href={href}
+      className="group flex items-center gap-3 border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10"
+    >
+      <div className={`flex size-10 items-center justify-center transition-colors ${colorMap[color]}`}>
+        <Icon className="size-5" />
+      </div>
+      <span className="font-medium text-white">{label}</span>
+      <RiArrowRightLine className="ml-auto size-4 text-gray-500 transition-transform group-hover:translate-x-1" />
+    </Link>
+  );
+};
+
 const Page = () => {
+  const [params] = React.useState(initialParams);
   const { user } = useUserStore();
+
+  const isRecruiter = user?.is_recruiter || false;
+
+  const { data: recruiterData } = useRecruiterDashboardQuery(params, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    skip: !isRecruiter,
+  });
+
+  const { data: talentData } = useTalentDashboardQuery(params, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    skip: !!isRecruiter,
+  });
+
   const { data, isLoading } = useGetApplicationsForUserQuery(
     { page: 1, size: 100 },
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 
-  const applications = data?.data.data || [];
+  const applications = React.useMemo(() => data?.data.data || [], [data?.data]);
+
   const stats = React.useMemo(() => {
+    if (isRecruiter && recruiterData?.data) {
+      const overview = recruiterData.data.overview;
+      return {
+        total: Number(overview.total_jobs) || 0,
+        active: Number(overview.active_jobs) || 0,
+        applications: Number(overview.total_applications) || 0,
+        hires: Number(overview.total_hires) || 0,
+      };
+    }
+
+    if (!isRecruiter && talentData?.data) {
+      const overview = talentData.data.overview;
+      return {
+        total: overview.total_applications || 0,
+        pending: overview.pending_applications || 0,
+        accepted: overview.accepted_applications || 0,
+        views: overview.total_profile_views || 0,
+      };
+    }
+
     const pending = applications.filter((a) => a.status.toLowerCase() === "pending").length;
     const accepted = applications.filter((a) => a.status.toLowerCase() === "accepted").length;
     const rejected = applications.filter((a) => a.status.toLowerCase() === "rejected").length;
     return { total: applications.length, pending, accepted, rejected };
-  }, [applications]);
+  }, [applications, isRecruiter, recruiterData, talentData]);
 
   const recentApplications = applications.slice(0, 5);
 
@@ -89,6 +170,7 @@ const Page = () => {
   return (
     <ScrollArea>
       <motion.div className="w-full space-y-6 pb-10" variants={containerVariants} initial="hidden" animate="visible">
+        {/* Welcome Section */}
         <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
@@ -98,74 +180,173 @@ const Page = () => {
                 src={user.image}
               />
               <div>
-                <h1 className="text-2xl font-bold text-white">Welcome back, {user.name.split(" ")[0]}!</h1>
-                <p className="text-gray-400">{user.headline || user.role || "Job Seeker"}</p>
+                <h1 className="text-xl font-medium text-white sm:text-2xl">Welcome back, {user.name.split(" ")[0]}!</h1>
+                <p className="text-gray-400">
+                  {user.headline || user.role || (isRecruiter ? "Recruiter" : "Job Seeker")}
+                </p>
               </div>
             </div>
             <div className="flex gap-2">
-              <Button asChild variant="outline" size="sm">
-                <Link href="/resume">Edit Resume</Link>
-              </Button>
-              <Button asChild size="sm">
-                <Link href="/jobs">Browse Jobs</Link>
-              </Button>
+              {isRecruiter ? (
+                <>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href="/vacancies">Manage Jobs</Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link href="/vacancies/create">
+                      <RiAddLine className="mr-1 size-4" />
+                      Post Job
+                    </Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href="/resume">Edit Resume</Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link href="/jobs">Browse Jobs</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </motion.div>
 
+        {/* Stats Grid - Different for Recruiter vs Talent */}
         <motion.div variants={itemVariants} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="border border-white/10 bg-white/5 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center bg-blue-500/20">
-                <RiBriefcaseLine className="size-5 text-blue-400" />
+          {isRecruiter ? (
+            <>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-blue-500/20">
+                    <RiBriefcaseLine className="size-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.total}</p>
+                    <p className="text-sm text-gray-400">Total Jobs</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.total}</p>
-                <p className="text-sm text-gray-400">Total Applications</p>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-green-500/20">
+                    <RiCheckLine className="size-5 text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.active}</p>
+                    <p className="text-sm text-gray-400">Active Jobs</p>
+                  </div>
+                </div>
               </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-yellow-500/20">
+                    <RiFileTextLine className="size-5 text-yellow-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.applications}</p>
+                    <p className="text-sm text-gray-400">Applications</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-purple-500/20">
+                    <RiUserLine className="size-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.hires}</p>
+                    <p className="text-sm text-gray-400">Total Hires</p>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-blue-500/20">
+                    <RiBriefcaseLine className="size-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.total}</p>
+                    <p className="text-sm text-gray-400">Total Applications</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-yellow-500/20">
+                    <RiTimeLine className="size-5 text-yellow-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.pending}</p>
+                    <p className="text-sm text-gray-400">Pending</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-green-500/20">
+                    <RiCheckLine className="size-5 text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.accepted}</p>
+                    <p className="text-sm text-gray-400">Accepted</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center bg-purple-500/20">
+                    <RiEyeLine className="size-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{stats.views || 0}</p>
+                    <p className="text-sm text-gray-400">Profile Views</p>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </motion.div>
+
+        {/* Quick Actions */}
+        <motion.div variants={itemVariants}>
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex size-10 items-center justify-center bg-white/5">
+              <RiArrowRightLine className="text-primary-100 size-5" />
             </div>
+            <h3 className="text-lg font-semibold text-white">Quick Actions</h3>
           </div>
-          <div className="border border-white/10 bg-white/5 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center bg-yellow-500/20">
-                <RiTimeLine className="size-5 text-yellow-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.pending}</p>
-                <p className="text-sm text-gray-400">Pending</p>
-              </div>
-            </div>
-          </div>
-          <div className="border border-white/10 bg-white/5 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center bg-green-500/20">
-                <RiCheckLine className="size-5 text-green-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.accepted}</p>
-                <p className="text-sm text-gray-400">Accepted</p>
-              </div>
-            </div>
-          </div>
-          <div className="border border-white/10 bg-white/5 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center bg-red-500/20">
-                <RiCloseLine className="size-5 text-red-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.rejected}</p>
-                <p className="text-sm text-gray-400">Rejected</p>
-              </div>
-            </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {isRecruiter ? (
+              <>
+                <QuickActionCard icon={RiAddLine} label="Post New Job" href="/vacancies/create" color="blue" />
+                <QuickActionCard icon={RiTeamLine} label="View Candidates" href="/applications" color="green" />
+                <QuickActionCard icon={RiBarChartLine} label="View Analytics" href="/analytics" color="purple" />
+              </>
+            ) : (
+              <>
+                <QuickActionCard icon={RiSearchLine} label="Browse Jobs" href="/jobs" color="blue" />
+                <QuickActionCard icon={RiFileTextLine} label="My Applications" href="/applications" color="green" />
+                <QuickActionCard icon={RiBarChartLine} label="View Analytics" href="/analytics" color="purple" />
+              </>
+            )}
           </div>
         </motion.div>
+
+        {/* Recent Applications */}
         <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex size-10 items-center justify-center bg-white/5">
                 <RiFileTextLine className="text-primary-100 size-5" />
               </div>
-              <h3 className="text-lg font-semibold text-white">Recent Applications</h3>
+              <h3 className="text-lg font-semibold text-white">
+                {isRecruiter ? "Recent Applicants" : "Recent Applications"}
+              </h3>
             </div>
             <Button asChild variant="ghost" size="sm">
               <Link href="/applications" className="flex items-center gap-1">
@@ -206,12 +387,82 @@ const Page = () => {
           ) : (
             <div className="py-8 text-center">
               <RiBriefcaseLine className="mx-auto size-12 text-gray-600" />
-              <p className="mt-2 text-gray-400">No applications yet</p>
+              <p className="mt-2 text-gray-400">{isRecruiter ? "No applicants yet" : "No applications yet"}</p>
               <Button asChild className="mt-4" size="sm">
-                <Link href="/jobs">Start Applying</Link>
+                <Link href={isRecruiter ? "/vacancies/create" : "/jobs"}>
+                  {isRecruiter ? "Post a Job" : "Start Applying"}
+                </Link>
               </Button>
             </div>
           )}
+        </motion.div>
+
+        {/* Insights Preview */}
+        <motion.div variants={itemVariants} className="border border-white/10 bg-white/5 p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center bg-purple-500/20">
+                <RiBarChartLine className="size-5 text-purple-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Analytics Overview</h3>
+                <p className="text-sm text-gray-400">Quick insights into your performance</p>
+              </div>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/analytics" className="flex items-center gap-1">
+                Full Analytics
+                <RiArrowRightLine className="size-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {isRecruiter ? (
+              <>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">
+                    {recruiterData?.data?.overview?.response_rate
+                      ? `${(recruiterData.data.overview.response_rate * 100).toFixed(0)}%`
+                      : "0%"}
+                  </p>
+                  <p className="text-sm text-gray-400">Response Rate</p>
+                </div>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">
+                    {Number(recruiterData?.data?.overview?.total_job_views) || 0}
+                  </p>
+                  <p className="text-sm text-gray-400">Job Views</p>
+                </div>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">
+                    {recruiterData?.data?.application_stats?.pending || 0}
+                  </p>
+                  <p className="text-sm text-gray-400">Pending Review</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">
+                    {talentData?.data?.application_stats?.response_rate
+                      ? `${(talentData.data.application_stats.response_rate * 100).toFixed(0)}%`
+                      : "0%"}
+                  </p>
+                  <p className="text-sm text-gray-400">Response Rate</p>
+                </div>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">
+                    {talentData?.data?.overview?.profile_completeness || 0}%
+                  </p>
+                  <p className="text-sm text-gray-400">Profile Complete</p>
+                </div>
+                <div className="border border-white/5 bg-white/5 p-4 text-center">
+                  <p className="text-3xl font-bold text-white">{talentData?.data?.overview?.recruiter_views || 0}</p>
+                  <p className="text-sm text-gray-400">Recruiter Views</p>
+                </div>
+              </>
+            )}
+          </div>
         </motion.div>
       </motion.div>
     </ScrollArea>

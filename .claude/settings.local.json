@@ -1,5 +1,12 @@
 {
   "permissions": {
-    "allow": ["Bash(npx tsc:*)", "Bash(ls:*)", "Bash(find:*)", "Bash(npm run lint:*)", "Bash(npm run build:*)"]
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''C:\\\\Users\\\\xplic\\\\Documents\\\\vscode\\\\foglio-v2\\\\src\\\\app\\\\\\(dashboard\\\\\\)'' -Directory\")"
+    ]
   }
 }
