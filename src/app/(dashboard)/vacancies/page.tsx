@@ -15,6 +15,7 @@ import {
   RiDeleteBin6Line,
   RiEditLine,
   RiEyeLine,
+  RiCloseLine,
 } from "@remixicon/react";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -93,6 +94,7 @@ const formatEmploymentType = (type: string) => {
 const Page = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
   const [deleteJobId, setDeleteJobId] = React.useState<string | null>(null);
+  const [requirementInput, setRequirementInput] = React.useState("");
   const [page, setPage] = React.useState(1);
   const { user } = useUserStore();
 
@@ -107,7 +109,7 @@ const Page = () => {
   const jobs = React.useMemo(() => data?.data.data || [], [data]);
   const total = data?.data.total_items || 0;
 
-  const { handleChange, handleSubmit, setFieldValue, values } = useFormik<CreateJobDto>({
+  const { handleChange, handleSubmit, resetForm, setFieldValue, values } = useFormik<CreateJobDto>({
     initialValues: {
       title: "",
       company: user?.company?.name || "",
@@ -124,19 +126,16 @@ const Page = () => {
       employment_type: "FULL_TIME",
     },
     onSubmit: async (values) => {
-      const requirements = values.requirements
-        .join("\n")
-        .split("\n")
-        .filter((r) => r.trim() !== "");
       try {
         const payload: CreateJobDto = {
           ...values,
           deadline: new Date(values.deadline).toISOString(),
-          requirements,
+          requirements: values.requirements.filter((r) => r.trim() !== ""),
         };
         await createJob(payload).unwrap();
         toast.success("Job posted successfully");
         setIsCreateDialogOpen(false);
+        setRequirementInput("");
         refetch();
       } catch {
         toast.error("Failed to create job");
@@ -156,6 +155,28 @@ const Page = () => {
       toast.error("Failed to delete job");
     }
   };
+
+  React.useEffect(() => {
+    if (!isCreateDialogOpen) {
+      resetForm({
+        values: {
+          title: "",
+          company: user?.company?.name || "",
+          location: "",
+          description: "",
+          requirements: [],
+          salary: {
+            min: 0,
+            max: 0,
+            currency: "",
+          },
+          deadline: "",
+          is_remote: false,
+          employment_type: "FULL_TIME",
+        },
+      });
+    }
+  }, [isCreateDialogOpen]);
 
   return (
     <ScrollArea>
@@ -231,14 +252,58 @@ const Page = () => {
                     onChange={handleChange}
                     className="min-h-[120px]"
                   />
-                  <Textarea
-                    label="Requirements (one per line)"
-                    placeholder="5+ years of experience with React&#10;Strong TypeScript skills&#10;Experience with REST APIs"
-                    name="requirements"
-                    value={values.requirements}
-                    onChange={handleChange}
-                    className="min-h-[100px]"
-                  />
+                  <div className="space-y-2">
+                    <Label>Requirements</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="e.g. 5+ years of experience with React"
+                        value={requirementInput}
+                        onChange={(e) => setRequirementInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && requirementInput.trim()) {
+                            e.preventDefault();
+                            setFieldValue("requirements", [...values.requirements, requirementInput.trim()]);
+                            setRequirementInput("");
+                          }
+                        }}
+                        wrapperClassName="flex-1"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          if (requirementInput.trim()) {
+                            setFieldValue("requirements", [...values.requirements, requirementInput.trim()]);
+                            setRequirementInput("");
+                          }
+                        }}
+                      >
+                        <RiAddLine className="size-4" />
+                      </Button>
+                    </div>
+                    {values.requirements.length > 0 && (
+                      <div className="mt-2 space-y-2">
+                        {values.requirements.map((req, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between gap-2 rounded border border-gray-200 bg-gray-50 px-3 py-2"
+                          >
+                            <span className="text-sm">{req}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newReqs = values.requirements.filter((_, i) => i !== index);
+                                setFieldValue("requirements", newReqs);
+                              }}
+                              className="text-gray-400 hover:text-red-500"
+                            >
+                              <RiCloseLine className="size-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <div className="grid gap-4 sm:grid-cols-3">
                     <Input
                       label="Min Salary"

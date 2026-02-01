@@ -19,7 +19,7 @@ import {
 } from "@remixicon/react";
 
 import { useRecruiterDashboardQuery, useTalentDashboardQuery } from "@/api/analytics";
-import { useGetApplicationsForUserQuery } from "@/api/job";
+import { useGetApplicationsForRecruiterQuery } from "@/api/job";
 import { Avatar, ScrollArea } from "@/components/shared";
 import type { AnalyticsDtoWithGroup } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -127,9 +127,9 @@ const Page = () => {
     skip: !!isRecruiter,
   });
 
-  const { data, isLoading } = useGetApplicationsForUserQuery(
+  const { data, isLoading } = useGetApplicationsForRecruiterQuery(
     { page: 1, size: 100 },
-    { refetchOnFocus: true, refetchOnMountOrArgChange: true },
+    { refetchOnFocus: true, refetchOnMountOrArgChange: true, skip: true },
   );
 
   const applications = React.useMemo(() => data?.data.data || [], [data?.data]);
