@@ -249,8 +249,8 @@ const Page = () => {
               <RiSearchLine className="mx-auto mb-4 size-12 text-gray-600" />
               <h3 className="mb-2 text-lg font-medium text-white">No results found</h3>
               <p className="text-gray-400">
-                We couldn't find any articles matching "{debouncedSearch}". Try different keywords or browse the
-                categories above.
+                We couldn&apos;t find any articles matching &ldquo;{debouncedSearch}&rdquo;. Try different keywords or
+                browse the categories above.
               </p>
             </div>
           ) : (
@@ -286,7 +286,9 @@ const Page = () => {
           <div className="from-primary-900/20 to-primary-800/20 border border-gray-800 bg-gradient-to-r p-8 text-center sm:p-12">
             <RiCustomerService2Line className="text-primary-400 mx-auto mb-4 size-12" />
             <h2 className="mb-2 text-2xl font-semibold">Still need help?</h2>
-            <p className="mb-6 text-gray-400">Can't find what you're looking for? Our support team is here to help.</p>
+            <p className="mb-6 text-gray-400">
+              Can&apos;t find what you&apos;re looking for? Our support team is here to help.
+            </p>
             <Button asChild size="lg">
               <Link href="mailto:support@foglio.com">Contact Support</Link>
             </Button>

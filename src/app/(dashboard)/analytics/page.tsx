@@ -21,11 +21,11 @@ import {
 } from "@remixicon/react";
 
 import { useRecruiterDashboardQuery, useTalentDashboardQuery } from "@/api/analytics";
+import type { AnalyticsDtoWithGroup, TrendDataPoint, StatusCount } from "@/types";
 import { ScrollArea } from "@/components/shared";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user";
-import type { AnalyticsDtoWithGroup, TrendDataPoint, StatusCount } from "@/types";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -488,7 +488,7 @@ const TalentAnalytics = () => {
               <RiTeamLine className="text-primary-100 size-5" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">Who's Viewing You</h3>
+              <h3 className="text-lg font-semibold text-white">Who&apos;s Viewing You</h3>
               <p className="text-sm text-gray-400">Breakdown of your profile viewers</p>
             </div>
           </div>
