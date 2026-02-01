@@ -2,7 +2,7 @@ import type { NextURL } from "next/dist/server/web/next-url";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { COOKIE_NAME } from "@/api/store/auth";
+import { COOKIE_NAME } from "@/constants";
 
 export const config = {
   matcher: [

@@ -2,8 +2,8 @@ import Cookies from "js-cookie";
 
 import type { Maybe, SigninResponse, UserProps } from "@/types";
 import { createPersistMiddleware } from "./middleware";
-import { COOKIE_NAME } from "@/api/store/auth";
-export const STORAGE_KEY = "foglio_user";
+import { COOKIE_NAME, STORAGE_KEY } from "@/constants";
+
 const COOKIE_OPTIONS = {
   path: "/",
   sameSite: "strict" as const,
@@ -11,15 +11,14 @@ const COOKIE_OPTIONS = {
 };
 
 interface SignOutOptions {
-  callbackUrl?: string;
+  clearStorage?: boolean;
   redirectUrl?: string;
   soft?: boolean;
-  clearStorage?: boolean;
 }
 
 interface SignInOptions {
-  remember?: boolean;
   expiresIn?: number;
+  remember?: boolean;
 }
 
 interface UserStore {
@@ -51,7 +50,7 @@ class UserManager {
 
 const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set) => ({
   user: null,
-  signin: async (payload, options = {}) => {
+  signin: async (payload, options = { expiresIn: 30, remember: false }) => {
     try {
       const { token, user } = payload;
       const cookieOptions = UserManager.getCookieOptions(options.remember, options.expiresIn);
@@ -63,7 +62,7 @@ const useUserStore = createPersistMiddleware<UserStore>(STORAGE_KEY, (set) => ({
       throw new Error("Failed to sign in user");
     }
   },
-  signout: async (options = {}) => {
+  signout: async (options = { redirectUrl: "/signin", soft: false, clearStorage: true }) => {
     try {
       if (options.soft) {
         set({ user: null });

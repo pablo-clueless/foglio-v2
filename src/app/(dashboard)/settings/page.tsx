@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+import React from "react";
 import {
   RiUserLine,
   RiVipCrownLine,
@@ -7,9 +9,8 @@ import {
   RiShieldCheckLine,
   RiGlobalLine,
   RiPaletteLine,
+  RiVerifiedBadgeLine,
 } from "@remixicon/react";
-import { motion } from "framer-motion";
-import React from "react";
 
 import { ScrollArea, TabPanel } from "@/components/shared";
 import { cn } from "@/lib";
@@ -20,6 +21,7 @@ import {
   PortfolioSettings,
   ProfileSettings,
   SecuritySettings,
+  VerificationSettings,
 } from "@/components/modules/settings";
 
 const containerVariants = {
@@ -44,10 +46,11 @@ const itemVariants = {
 
 const tabs = [
   { id: "profile", label: "Profile", icon: RiUserLine },
-  { id: "billing", label: "Billing", icon: RiVipCrownLine },
-  { id: "notifications", label: "Notifications", icon: RiNotification3Line },
+  { id: "verification", label: "Verification", icon: RiVerifiedBadgeLine },
   { id: "portfolio", label: "Portfolio", icon: RiPaletteLine },
   { id: "domain", label: "Domain", icon: RiGlobalLine },
+  { id: "billing", label: "Billing", icon: RiVipCrownLine },
+  { id: "notifications", label: "Notifications", icon: RiNotification3Line },
   { id: "security", label: "Security", icon: RiShieldCheckLine },
 ] as const;
 
@@ -105,6 +108,9 @@ const Page = () => {
           </TabPanel>
           <TabPanel selected={activeTab} value="security">
             <SecuritySettings />
+          </TabPanel>
+          <TabPanel selected={activeTab} value="verification">
+            <VerificationSettings />
           </TabPanel>
         </motion.div>
       </motion.div>

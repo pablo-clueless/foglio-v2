@@ -2,13 +2,12 @@ import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 
 import type { Maybe, SigninResponse, UserProps } from "@/types";
+import { COOKIE_NAME } from "@/constants/auth";
 
 interface AuthState {
   token: string;
   user: Maybe<UserProps>;
 }
-
-export const COOKIE_NAME = "foglio_user";
 
 const initialState: AuthState = {
   token: "",

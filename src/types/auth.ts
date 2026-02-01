@@ -43,6 +43,14 @@ export interface SigninResponse {
   user_id?: string;
 }
 
+export type VerificationType = "DRIVERS_LICENSE" | "INTERNATIONAL_PASSPORT" | "NATIONAL_ID_CARD" | "VOTERS_CARD";
+
+export interface VerificationDto {
+  verification_number: string;
+  verification_type: VerificationType;
+  verification_document: string;
+}
+
 export interface Verify2FASetupRequestDto {
   code: string;
 }

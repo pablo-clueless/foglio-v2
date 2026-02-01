@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import React from "react";
 
-import { COOKIE_NAME } from "@/api/store/auth";
 import { Loader } from "@/components/shared";
+import { COOKIE_NAME } from "@/constants";
 
 interface WithAuthProps {
   children: React.ReactNode;
