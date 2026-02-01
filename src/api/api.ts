@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
 import { PUBLIC_ROUTES } from "@/config/routes";
+import { COOKIE_NAME } from "@/constants/auth";
 import type { HttpResponse } from "@/types";
 
 export const api = createApi({
@@ -9,13 +10,13 @@ export const api = createApi({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URI,
     credentials: "same-origin",
     prepareHeaders: (headers, { endpoint }) => {
-      const token = Cookies.get("FOGLIO_TOKEN");
+      const token = Cookies.get(COOKIE_NAME);
       const isPublic = PUBLIC_ROUTES.some((path) => {
         return endpoint.toLowerCase() === path.toLowerCase();
       });
       if (token && !isPublic) {
+        headers.set("Authorization", `Bearer ${token}`);
       }
-      headers.set("Authorization", `Bearer ${token}`);
       return headers;
     },
   }),
