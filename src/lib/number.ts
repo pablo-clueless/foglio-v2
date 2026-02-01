@@ -7,3 +7,7 @@ export const formatCurrency = (amount: number, currency = "USD") => {
     compactDisplay: "short",
   }).format(amount);
 };
+
+export const getRandomItem = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+
+export const getRandomNumber = (max: number) => Math.max(1, Math.round(Math.random() * max));
