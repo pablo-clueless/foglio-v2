@@ -57,18 +57,16 @@ const cardVariants = {
 } as const;
 
 const Page = () => {
+  const [pageSize, setPageSize] = React.useState(PAGE_SIZE_DESKTOP);
   const [query, setQuery] = React.useState("");
   const [page, setPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(PAGE_SIZE_DESKTOP);
 
   const q = useDebounce(query, 500);
 
   React.useEffect(() => {
     const handleResize = () => {
-      if (typeof window !== "undefined") {
-        const isMobile = window.innerWidth < 768;
-        setPageSize(isMobile ? PAGE_SIZE_MOBILE : PAGE_SIZE_DESKTOP);
-      }
+      const isMobile = window.innerWidth < 768;
+      setPageSize(isMobile ? PAGE_SIZE_MOBILE : PAGE_SIZE_DESKTOP);
     };
 
     handleResize();
