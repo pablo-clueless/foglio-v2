@@ -59,7 +59,7 @@ function Input({
           id={id}
           data-slot="input"
           className={cn(
-            "file:text-foreground h-full w-full border-0 bg-transparent text-sm outline-0 transition-all duration-300 placeholder:text-neutral-700 focus:border-0 focus:outline-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "file:text-foreground h-full w-full border-0 bg-transparent text-sm outline-0 transition-all duration-300 placeholder:text-gray-400 focus:border-0 focus:outline-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
             "aria-invalid:border-red-500",
             className,
           )}

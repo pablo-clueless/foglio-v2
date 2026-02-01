@@ -187,8 +187,12 @@ export interface CreateJobDto {
   location: string;
   description: string;
   requirements: string[];
-  salary?: number;
-  deadline?: string;
+  salary: {
+    min: number;
+    max: number;
+    currency: string;
+  };
+  deadline: string;
   is_remote: boolean;
   employment_type: string;
 }

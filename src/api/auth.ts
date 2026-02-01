@@ -10,6 +10,7 @@ import type {
   SigninResponse,
   TwoFactorStatusResponseDto,
   UserProps,
+  VerificationDto,
   Verify2FALoginRequestDto,
   Verify2FASetupRequestDto,
 } from "@/types";
@@ -31,13 +32,6 @@ const auth = api.injectEndpoints({
         body: payload,
       }),
     }),
-    verification: builder.mutation<HttpResponse<SigninResponse>, string>({
-      query: (otp) => ({
-        url: "/auth/verification",
-        method: "POST",
-        body: { otp },
-      }),
-    }),
     forgotPassword: builder.mutation<HttpResponse<string>, string>({
       query: (email) => ({
         url: "/auth/forgot-password",
@@ -55,6 +49,13 @@ const auth = api.injectEndpoints({
     updatePassword: builder.mutation<HttpResponse<string>, ChangePasswordDto>({
       query: (payload) => ({
         url: "/auth/update-password",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    verification: builder.mutation<HttpResponse<SigninResponse>, VerificationDto>({
+      query: (payload) => ({
+        url: "/auth/verification",
         method: "POST",
         body: payload,
       }),
