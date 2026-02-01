@@ -132,9 +132,8 @@ const Page = () => {
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
 
-  const applications = data?.data.data || [];
+  const applications = React.useMemo(() => data?.data.data || [], []);
 
-  // Get stats from dashboard API or calculate from applications
   const stats = React.useMemo(() => {
     if (isRecruiter && recruiterData?.data) {
       const overview = recruiterData.data.overview;
@@ -156,7 +155,6 @@ const Page = () => {
       };
     }
 
-    // Fallback to calculating from applications
     const pending = applications.filter((a) => a.status.toLowerCase() === "pending").length;
     const accepted = applications.filter((a) => a.status.toLowerCase() === "accepted").length;
     const rejected = applications.filter((a) => a.status.toLowerCase() === "rejected").length;

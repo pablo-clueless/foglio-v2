@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { toast } from "sonner";
 import React from "react";
 import {
@@ -247,14 +248,16 @@ const Page = () => {
           {form.logo && (
             <div className="mt-4">
               <Label className="mb-2 block">Logo Preview</Label>
-              <div className="inline-flex items-center justify-center border border-white/10 bg-white/5 p-4">
-                <img
-                  src={form.logo}
+              <div className="relative inline-flex items-center justify-center border border-white/10 bg-white/5 p-4">
+                <Image
                   alt="Company logo preview"
                   className="max-h-20 max-w-[200px] object-contain"
+                  fill
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
+                  sizes="100%"
+                  src={form.logo}
                 />
               </div>
             </div>
@@ -294,7 +297,15 @@ const Page = () => {
                 <div key={member.id} className="flex items-center gap-3 border border-white/10 bg-white/5 p-3">
                   <div className="bg-primary-500/20 text-primary-400 flex size-10 items-center justify-center">
                     {member.image ? (
-                      <img src={member.image} alt={member.name} className="size-10 object-cover" />
+                      <div className="relative aspect-square size-10">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          fill
+                          sizes="100%"
+                          className="size-10 object-cover"
+                        />
+                      </div>
                     ) : (
                       <span className="text-sm font-medium">{member.name?.charAt(0).toUpperCase()}</span>
                     )}
