@@ -111,7 +111,13 @@ export const job = api.injectEndpoints({
         params: removeNullorUndefined(params),
       }),
     }),
-    getApplicationsForRecruiter: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
+    getApplicationsForRecruiter: builder.query<
+      HttpResponse<PaginatedResponse<JobApplicationProps>>,
+      PaginatedParams & {
+        status?: string;
+        submission_date?: string;
+      }
+    >({
       query: (params) => ({
         url: "/jobs/applications/recruiter",
         method: "GET",
