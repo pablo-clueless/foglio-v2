@@ -131,7 +131,7 @@ const Page = () => {
                   wrapperClassName="w-full"
                 />
               </div>
-              <div className="w-full">
+              <div className="w-full space-y-6">
                 <AnimatePresence mode="wait">
                   {isFetching ? (
                     <motion.div
@@ -187,7 +187,6 @@ const Page = () => {
                       limit={pageSize}
                       onPageChange={handlePageChange}
                       total={users?.data.total_items || 0}
-                      className="border-primary-100/15 border bg-black/20 p-4"
                       buttonClassName="hover:bg-primary-400/20"
                     />
                   </motion.div>

@@ -267,7 +267,7 @@ const Page = () => {
                           transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                           className="absolute -right-1 bottom-2"
                         >
-                          <div className="flex items-center justify-center bg-green-500 p-1.5 shadow-lg shadow-blue-500/50">
+                          <div className="flex items-center justify-center bg-blue-500 p-1.5 shadow-lg shadow-blue-500/50">
                             <RiCheckboxCircleLine className="size-5 text-white" />
                           </div>
                         </motion.div>

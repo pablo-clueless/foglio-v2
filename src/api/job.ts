@@ -111,6 +111,19 @@ export const job = api.injectEndpoints({
         params: removeNullorUndefined(params),
       }),
     }),
+    getApplicationsForRecruiter: builder.query<
+      HttpResponse<PaginatedResponse<JobApplicationProps>>,
+      PaginatedParams & {
+        status?: string;
+        submission_date?: string;
+      }
+    >({
+      query: (params) => ({
+        url: "/jobs/applications/recruiter",
+        method: "GET",
+        params: removeNullorUndefined(params),
+      }),
+    }),
     getApplications: builder.query<HttpResponse<PaginatedResponse<JobApplicationProps>>, PaginatedParams>({
       query: (params) => ({
         url: "/jobs/applications",
@@ -152,6 +165,7 @@ export const {
   useDeleteReactionOnJobMutation,
   useGetApplicationQuery,
   useGetApplicationsForJobQuery,
+  useGetApplicationsForRecruiterQuery,
   useGetApplicationsForUserQuery,
   useGetApplicationsQuery,
   useGetJobQuery,

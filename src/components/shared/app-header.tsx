@@ -49,7 +49,7 @@ export const AppHeader = ({ title, showSearch = false }: AppHeaderProps) => {
               <div className="hidden text-left md:block">
                 <p className="flex items-center gap-x-1 text-xs font-medium">
                   {user?.name}
-                  {user?.verified && <RiVerifiedBadgeFill className="size-3 text-green-500" />}
+                  {user?.verified && <RiVerifiedBadgeFill className="size-3 text-blue-500" />}
                   {user?.is_premium && <RiVipCrownFill className="size-3 text-yellow-500" />}
                 </p>
                 <p className="text-[10px] text-gray-500">{user?.is_recruiter ? "Recruiter" : "Job Seeker"}</p>

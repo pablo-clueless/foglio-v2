@@ -15,6 +15,7 @@ import {
   RiDeleteBin6Line,
   RiEditLine,
   RiEyeLine,
+  RiCloseLine,
 } from "@remixicon/react";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -93,6 +94,7 @@ const formatEmploymentType = (type: string) => {
 const Page = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
   const [deleteJobId, setDeleteJobId] = React.useState<string | null>(null);
+  const [requirementInput, setRequirementInput] = React.useState("");
   const [page, setPage] = React.useState(1);
   const { user } = useUserStore();
 
@@ -107,7 +109,7 @@ const Page = () => {
   const jobs = React.useMemo(() => data?.data.data || [], [data]);
   const total = data?.data.total_items || 0;
 
-  const { handleChange, handleSubmit, setFieldValue, values } = useFormik<CreateJobDto>({
+  const { handleChange, handleSubmit, resetForm, setFieldValue, values } = useFormik<CreateJobDto>({
     initialValues: {
       title: "",
       company: user?.company?.name || "",
@@ -124,19 +126,16 @@ const Page = () => {
       employment_type: "FULL_TIME",
     },
     onSubmit: async (values) => {
-      const requirements = values.requirements
-        .join("\n")
-        .split("\n")
-        .filter((r) => r.trim() !== "");
       try {
         const payload: CreateJobDto = {
           ...values,
           deadline: new Date(values.deadline).toISOString(),
-          requirements,
+          requirements: values.requirements.filter((r) => r.trim() !== ""),
         };
         await createJob(payload).unwrap();
         toast.success("Job posted successfully");
         setIsCreateDialogOpen(false);
+        setRequirementInput("");
         refetch();
       } catch {
         toast.error("Failed to create job");
@@ -157,6 +156,38 @@ const Page = () => {
     }
   };
 
+  React.useEffect(() => {
+    if (!isCreateDialogOpen) {
+      resetForm({
+        values: {
+          title: "",
+          company: user?.company?.name || "",
+          location: "",
+          description: "",
+          requirements: [],
+          salary: {
+            min: 0,
+            max: 0,
+            currency: "",
+          },
+          deadline: "",
+          is_remote: false,
+          employment_type: "FULL_TIME",
+        },
+      });
+    }
+  }, [isCreateDialogOpen]);
+
+  const handleCreateDialogOpen = (open: boolean) => {
+    if (!user?.company) {
+      toast.error("Please create a company profile first");
+      return;
+    }
+    if (!isCreating) {
+      setIsCreateDialogOpen(open);
+    }
+  };
+
   return (
     <ScrollArea>
       <motion.div className="w-full space-y-6 pb-10" variants={containerVariants} initial="hidden" animate="visible">
@@ -168,7 +199,7 @@ const Page = () => {
             <h1 className="text-2xl font-bold text-white">My Job Postings</h1>
             <p className="text-gray-400">Manage your job listings and view applications</p>
           </div>
-          <Dialog open={isCreateDialogOpen} onOpenChange={(open) => !isCreating && setIsCreateDialogOpen(open)}>
+          <Dialog open={isCreateDialogOpen} onOpenChange={handleCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button>
                 <RiAddLine className="mr-2 size-4" />
@@ -191,10 +222,11 @@ const Page = () => {
                   />
                   <Input
                     label="Company Name"
-                    placeholder={user?.company?.name || "Your company name"}
                     name="company"
-                    value={values.company}
                     onChange={handleChange}
+                    placeholder={user?.company?.name || "Your company name"}
+                    readOnly
+                    value={values.company}
                   />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Input
@@ -231,14 +263,58 @@ const Page = () => {
                     onChange={handleChange}
                     className="min-h-[120px]"
                   />
-                  <Textarea
-                    label="Requirements (one per line)"
-                    placeholder="5+ years of experience with React&#10;Strong TypeScript skills&#10;Experience with REST APIs"
-                    name="requirements"
-                    value={values.requirements}
-                    onChange={handleChange}
-                    className="min-h-[100px]"
-                  />
+                  <div className="space-y-2">
+                    <Label>Requirements</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="e.g. 5+ years of experience with React"
+                        value={requirementInput}
+                        onChange={(e) => setRequirementInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && requirementInput.trim()) {
+                            e.preventDefault();
+                            setFieldValue("requirements", [...values.requirements, requirementInput.trim()]);
+                            setRequirementInput("");
+                          }
+                        }}
+                        wrapperClassName="flex-1"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          if (requirementInput.trim()) {
+                            setFieldValue("requirements", [...values.requirements, requirementInput.trim()]);
+                            setRequirementInput("");
+                          }
+                        }}
+                      >
+                        <RiAddLine className="size-4" />
+                      </Button>
+                    </div>
+                    {values.requirements.length > 0 && (
+                      <div className="mt-2 space-y-2">
+                        {values.requirements.map((req, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between gap-2 rounded border border-gray-200 bg-gray-50 px-3 py-2"
+                          >
+                            <span className="text-sm">{req}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newReqs = values.requirements.filter((_, i) => i !== index);
+                                setFieldValue("requirements", newReqs);
+                              }}
+                              className="text-gray-400 hover:text-red-500"
+                            >
+                              <RiCloseLine className="size-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <div className="grid gap-4 sm:grid-cols-3">
                     <Input
                       label="Min Salary"
@@ -328,7 +404,6 @@ const Page = () => {
                     <h3 className="line-clamp-1 font-semibold text-white">{job.title}</h3>
                     <Badge className="shrink-0">{formatEmploymentType(job.employment_type)}</Badge>
                   </div>
-
                   <div className="space-y-2 text-sm text-gray-400">
                     <div className="flex items-center gap-2">
                       <RiMapPinLine className="size-4 shrink-0" />
@@ -343,7 +418,6 @@ const Page = () => {
                       <span>Posted {new Date(job.posted_date).toLocaleDateString()}</span>
                     </div>
                   </div>
-
                   {job.salary && (
                     <div className="mt-3 border-t border-white/10 pt-3">
                       <p className="text-primary-400 text-sm font-medium">
@@ -351,7 +425,6 @@ const Page = () => {
                       </p>
                     </div>
                   )}
-
                   <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
                     <Button asChild variant="outline" size="sm" className="flex-1">
                       <Link href={`/vacancies/${job.id}`}>
@@ -372,7 +445,6 @@ const Page = () => {
                 </motion.div>
               ))}
             </motion.div>
-
             {total > PAGE_SIZE && (
               <motion.div variants={itemVariants}>
                 <Pagination current={page} limit={PAGE_SIZE} total={total} onPageChange={setPage} className="mt-6" />
@@ -384,13 +456,12 @@ const Page = () => {
             <RiBriefcaseLine className="mx-auto size-16 text-gray-600" />
             <h3 className="mt-4 text-lg font-semibold text-white">No job postings yet</h3>
             <p className="mt-2 text-gray-400">Create your first job posting to start receiving applications</p>
-            <Button className="mt-6" onClick={() => setIsCreateDialogOpen(true)}>
+            <Button className="mt-6" onClick={() => handleCreateDialogOpen(true)}>
               <RiAddLine className="mr-2 size-4" />
               Post Your First Job
             </Button>
           </motion.div>
         )}
-
         <Dialog open={!!deleteJobId} onOpenChange={() => setDeleteJobId(null)}>
           <DialogContent>
             <DialogHeader>
