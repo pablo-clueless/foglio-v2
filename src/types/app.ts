@@ -67,21 +67,6 @@ export interface TemplateThemeProps {
   };
 }
 
-export interface ReviewUserProps {
-  id: string;
-  name: string;
-  role: string;
-  image: string;
-}
-
-export interface ReviewProps {
-  id: string;
-  rating: number; // 1–5
-  comment: string;
-  reviewer: ReviewUserProps;
-  createdAt: Date | string;
-}
-
 export interface PricingProps {
   tier: string;
   price: number;

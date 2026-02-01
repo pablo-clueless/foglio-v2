@@ -174,7 +174,7 @@ const Page = () => {
             <div className="space-y-2">
               <Label>Industry</Label>
               <Select value={form.industry} onValueChange={(value) => handleChange("industry", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select industry" />
                 </SelectTrigger>
                 <SelectContent className="bg-black text-white">
@@ -189,7 +189,7 @@ const Page = () => {
             <div className="space-y-2">
               <Label>Company Size</Label>
               <Select value={form.size} onValueChange={(value) => handleChange("size", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select company size" />
                 </SelectTrigger>
                 <SelectContent className="bg-black text-white">

@@ -9,5 +9,6 @@ export * from "./job";
 export * from "./notification";
 export * from "./payment";
 export * from "./portfolio";
+export * from "./review";
 export * from "./subscription";
 export * from "./user";
