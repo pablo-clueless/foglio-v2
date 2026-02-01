@@ -1,4 +1,4 @@
-import { RiStarFill } from "@remixicon/react";
+import { RiStarFill, RiVerifiedBadgeFill, RiVipCrownFill } from "@remixicon/react";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -145,22 +145,22 @@ export const Card = ({ review, index = 0 }: Props) => {
           <motion.div variants={avatarVariants} className="flex items-center gap-x-4">
             <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
               <Avatar className="hover:ring-primary-100/30 size-14 rounded-none ring-2 ring-transparent transition-all duration-300 sm:size-20">
-                <AvatarImage src={review.reviewer.image} />
-                <AvatarFallback className="bg-primary-100/10 rounded-none">
-                  {review.reviewer.name.charAt(0)}
-                </AvatarFallback>
+                <AvatarImage src={review.user.image} />
+                <AvatarFallback className="bg-primary-100/10 rounded-none">{review.user.name.charAt(0)}</AvatarFallback>
               </Avatar>
             </motion.div>
             <div className="space-y-1">
-              <motion.p
-                className="text-sm font-semibold sm:text-base lg:text-lg"
+              <motion.div
+                className="flex items-center gap-1.5"
                 animate={{
                   x: isHovered ? 4 : 0,
                 }}
                 transition={{ duration: 0.3 }}
               >
-                {review.reviewer.name}
-              </motion.p>
+                <span className="text-sm font-semibold sm:text-base lg:text-lg">{review.user.name}</span>
+                {review.user.verified && <RiVerifiedBadgeFill className="size-4 text-blue-500 sm:size-5" />}
+                {review.user.is_premium && <RiVipCrownFill className="size-4 text-yellow-500 sm:size-5" />}
+              </motion.div>
               <motion.p
                 className="text-xs text-gray-400 sm:text-sm"
                 animate={{
@@ -168,7 +168,7 @@ export const Card = ({ review, index = 0 }: Props) => {
                 }}
                 transition={{ duration: 0.3, delay: 0.05 }}
               >
-                {review.reviewer.role}
+                {review.user.is_recruiter ? "Recruiter" : "Talent"}
               </motion.p>
             </div>
           </motion.div>
