@@ -1,13 +1,25 @@
 import { api } from "./api";
 import type {
+  AdminDashboardAnalytics,
   AnalyticsDto,
   AnalyticsDtoWithGroup,
+  ApplicationStatsResponse,
   HttpResponse,
+  JobStatsResponse,
+  PlatformOverview,
+  PortfolioStatsResponse,
+  ProfileViewsStats,
+  RecruiterAnalytics,
+  RevenueStatsResponse,
+  TalentAnalytics,
+  TalentApplicationStats,
   TrackEventDto,
   TrackJobViewDto,
   TrackPageViewDto,
   TrackPortfolioViewDto,
   TrackProfileViewDto,
+  UserStatsResponse,
+  ViewerInsightsResponse,
 } from "@/types";
 
 export const analytics = api.injectEndpoints({
@@ -47,85 +59,85 @@ export const analytics = api.injectEndpoints({
         body: payload,
       }),
     }),
-    adminDashboard: builder.query<HttpResponse<unknown>, AnalyticsDtoWithGroup>({
+    adminDashboard: builder.query<HttpResponse<AdminDashboardAnalytics>, AnalyticsDtoWithGroup>({
       query: () => ({
         url: `/analytics/admin/dashboard`,
         method: "GET",
       }),
     }),
-    adminOverview: builder.query<HttpResponse<unknown>, null>({
+    adminOverview: builder.query<HttpResponse<PlatformOverview>, null>({
       query: () => ({
         url: `/analytics/admin/overview`,
         method: "GET",
       }),
     }),
-    adminUsers: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    adminUsers: builder.query<HttpResponse<UserStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/admin/users`,
         method: "GET",
       }),
     }),
-    adminJobs: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    adminJobs: builder.query<HttpResponse<JobStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/admin/jobs`,
         method: "GET",
       }),
     }),
-    adminApplications: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    adminApplications: builder.query<HttpResponse<ApplicationStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/admin/applications`,
         method: "GET",
       }),
     }),
-    adminRevenue: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    adminRevenue: builder.query<HttpResponse<RevenueStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/admin/revenue`,
         method: "GET",
       }),
     }),
-    recruiterDashboard: builder.query<HttpResponse<unknown>, AnalyticsDtoWithGroup>({
+    recruiterDashboard: builder.query<HttpResponse<RecruiterAnalytics>, AnalyticsDtoWithGroup>({
       query: () => ({
         url: `/analytics/recruiter/dashboard`,
         method: "GET",
       }),
     }),
-    recruiterJobs: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    recruiterJobs: builder.query<HttpResponse<JobStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/recruiter/jobs`,
         method: "GET",
       }),
     }),
-    recruiterApplications: builder.query<HttpResponse<unknown>, null>({
+    recruiterApplications: builder.query<HttpResponse<ApplicationStatsResponse>, null>({
       query: () => ({
         url: `/analytics/recruiter/applications`,
         method: "GET",
       }),
     }),
-    talentDashboard: builder.query<HttpResponse<unknown>, AnalyticsDtoWithGroup>({
+    talentDashboard: builder.query<HttpResponse<TalentAnalytics>, AnalyticsDtoWithGroup>({
       query: () => ({
         url: `/analytics/talent/dashboard`,
         method: "GET",
       }),
     }),
-    talentProfileViews: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    talentProfileViews: builder.query<HttpResponse<ProfileViewsStats>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/talent/profile-views`,
         method: "GET",
       }),
     }),
-    talentPortfolio: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    talentPortfolio: builder.query<HttpResponse<PortfolioStatsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/talent/portfolio`,
         method: "GET",
       }),
     }),
-    talentApplications: builder.query<HttpResponse<unknown>, unknown>({
+    talentApplications: builder.query<HttpResponse<TalentApplicationStats>, unknown>({
       query: () => ({
         url: `/analytics/talent/applications`,
         method: "GET",
       }),
     }),
-    talentViewerInsights: builder.query<HttpResponse<unknown>, AnalyticsDto>({
+    talentViewerInsights: builder.query<HttpResponse<ViewerInsightsResponse>, AnalyticsDto>({
       query: () => ({
         url: `/analytics/talent/viewer-insights`,
         method: "GET",

@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
+import { AppHeader, Logo } from "@/components/shared";
 import { DASHBOARD_ROUTES } from "@/config/routes";
 import { WithAuth } from "@/components/providers";
-import { AppHeader, Logo } from "@/components/shared";
-import { useAppSelector } from "@/hooks";
+import { useUserStore } from "@/store/user";
 import { cn, normalize } from "@/lib";
 
 interface Props {
@@ -17,8 +17,9 @@ interface Props {
 }
 
 export default function DashboardLayout({ children }: Props) {
-  const { user } = useAppSelector((state) => state.auth);
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const { user } = useUserStore();
   const pathname = usePathname();
 
   const isActive = (href: string) => href === normalize(pathname);

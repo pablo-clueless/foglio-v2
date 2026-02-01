@@ -13,6 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks";
 
+const PAGE_SIZE_MOBILE = 10;
+const PAGE_SIZE_DESKTOP = 20;
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -53,13 +56,24 @@ const cardVariants = {
   },
 } as const;
 
-const PAGE_SIZE = 12;
-
 const Page = () => {
   const [query, setQuery] = React.useState("");
   const [page, setPage] = React.useState(1);
 
   const q = useDebounce(query, 500);
+
+  const PAGE_SIZE = React.useMemo(() => {
+    const isMobile = window.innerWidth < 768;
+    return isMobile ? PAGE_SIZE_MOBILE : PAGE_SIZE_DESKTOP;
+  }, []);
+
+  React.useEffect(() => {
+    const handleResize = () => {};
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -73,7 +87,7 @@ const Page = () => {
 
   React.useEffect(() => {
     setPage(1);
-  }, [q]);
+  }, [q, PAGE_SIZE]);
 
   return (
     <>

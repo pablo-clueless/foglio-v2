@@ -1,5 +1,6 @@
 import {
   RiBriefcase2Line,
+  RiBriefcase3Line,
   RiBuilding2Line,
   RiDashboardLine,
   RiFilePdf2Line,
@@ -23,22 +24,28 @@ export const DASHBOARD_ROUTES = (isRecruiter: boolean) => {
       show: true,
     },
     {
-      label: "Resume",
-      href: "/resume",
-      icon: RiFilePdf2Line,
-      show: !isRecruiter,
-    },
-    {
       label: "Analytics",
       href: "/analytics",
       icon: RiPieChart2Line,
       show: isRecruiter,
     },
     {
+      label: "Resume",
+      href: "/resume",
+      icon: RiFilePdf2Line,
+      show: !isRecruiter,
+    },
+    {
+      label: "Jobs",
+      href: "/vacancies",
+      icon: RiBriefcase3Line,
+      show: isRecruiter,
+    },
+    {
       label: "Applications",
       href: "/applications",
       icon: RiFileTextLine,
-      show: true,
+      show: !isRecruiter,
     },
     {
       label: "Company",

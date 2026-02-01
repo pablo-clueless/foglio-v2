@@ -48,7 +48,7 @@ function Textarea({
         <textarea
           data-slot="textarea"
           className={cn(
-            "h-full w-full resize-none bg-transparent text-sm transition-[color,box-shadow] outline-none placeholder:text-neutral-700 focus:border-0 focus:outline-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "h-full w-full resize-none bg-transparent text-sm transition-[color,box-shadow] outline-none placeholder:text-gray-400 focus:border-0 focus:outline-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
             className,
           )}
           id={id}
