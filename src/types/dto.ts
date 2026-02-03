@@ -183,7 +183,7 @@ export interface LanguageDto {
 
 export interface CreateJobDto {
   title: string;
-  company: string;
+  company_id: string;
   location: string;
   description: string;
   requirements: string[];
@@ -208,17 +208,13 @@ export interface UpdateJobDto {
 }
 
 export interface ApplyToJobDto {
-  userId: string;
-  jobId: string;
+  job_id: string;
   payload: JobApplicationDto;
 }
 
 export interface JobApplicationDto {
-  resume: string;
-  coverLetter?: string;
-  status: string;
-  submissionDate: string;
-  lastUpdated: string;
+  applicant_id: string;
+  cover_letter: string;
   notes?: string;
 }
 

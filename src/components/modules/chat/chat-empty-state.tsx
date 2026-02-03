@@ -15,9 +15,10 @@ interface ChatEmptyStateProps {
 }
 
 export const ChatEmptyState = ({ type, onSendMessage, onTyping, onStopTyping }: ChatEmptyStateProps) => {
+  console.log({ type });
   if (type === "no-conversations") {
     return (
-      <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+      <div className="flex h-[calc(100%-80px)] flex-col items-center justify-center p-8 text-center">
         <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-white/5">
           <RiMessage3Line className="size-8 text-gray-500" />
         </div>
@@ -34,7 +35,7 @@ export const ChatEmptyState = ({ type, onSendMessage, onTyping, onStopTyping }: 
 
   if (type === "no-selection") {
     return (
-      <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+      <div className="flex h-[calc(100%-80px)] flex-col items-center justify-center p-8 text-center">
         <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-white/5">
           <RiChatSmile2Line className="size-8 text-gray-500" />
         </div>
@@ -46,7 +47,7 @@ export const ChatEmptyState = ({ type, onSendMessage, onTyping, onStopTyping }: 
 
   if (type === "no-messages") {
     return (
-      <div className="flex h-full flex-col">
+      <div className="flex h-[calc(100%-80px)] flex-col">
         <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
           <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-white/5">
             <RiMessage3Line className="size-8 text-gray-500" />
