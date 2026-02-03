@@ -2,10 +2,12 @@ export const formatCurrency = (amount: number, currency = "USD") => {
   return new Intl.NumberFormat("en-NG", {
     currency,
     style: "currency",
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
     compactDisplay: "short",
   }).format(amount);
+};
+
+export const formatCurrencyValue = (amount: number) => {
+  return amount.toLocaleString("en-US");
 };
 
 export const getRandomItem = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];

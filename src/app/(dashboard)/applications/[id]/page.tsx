@@ -134,7 +134,7 @@ const Page = () => {
               <div className="flex flex-wrap items-center gap-4 text-gray-400">
                 <div className="flex items-center gap-1">
                   <RiBuilding2Line className="size-4" />
-                  <span>{job.company}</span>
+                  <span>{job.company.name}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <RiMapPinLine className="size-4" />
