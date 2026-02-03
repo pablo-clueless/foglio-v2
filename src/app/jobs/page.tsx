@@ -98,7 +98,7 @@ const Page = () => {
             />
           </div>
         </motion.section>
-        <section className="container mx-auto max-w-6xl space-y-8 py-10 sm:py-20">
+        <section className="container mx-auto max-w-6xl space-y-8 px-4 py-10 sm:px-0 sm:py-20">
           <AnimatePresence mode="wait">
             {isFetching ? (
               <motion.div
