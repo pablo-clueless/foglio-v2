@@ -372,7 +372,7 @@ const Page = () => {
                   <div className="flex-1">
                     <h4 className="font-medium text-white">{application.job.title}</h4>
                     <p className="text-sm text-gray-400">
-                      {application.job.company} • {application.job.location}
+                      {application.job.company.name} • {application.job.location}
                     </p>
                   </div>
                   <div className="flex items-center gap-4">

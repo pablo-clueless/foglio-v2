@@ -146,7 +146,7 @@ const Page = () => {
                     <div className="space-y-2 text-sm text-gray-400">
                       <div className="flex items-center gap-2">
                         <RiBuilding2Line className="size-4 shrink-0" />
-                        <span className="line-clamp-1">{application.job.company}</span>
+                        <span className="line-clamp-1">{application.job.company.name}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <RiMapPinLine className="size-4 shrink-0" />

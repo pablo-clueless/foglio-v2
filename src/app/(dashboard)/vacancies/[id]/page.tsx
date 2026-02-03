@@ -347,7 +347,7 @@ const Page = () => {
                   <h1 className="text-2xl font-bold text-white">{job.title}</h1>
                   <Badge>{formatEmploymentType(job.employment_type)}</Badge>
                 </div>
-                <p className="text-lg text-gray-400">{job.company}</p>
+                <p className="text-lg text-gray-400">{job.company.name}</p>
               </div>
               <Button onClick={() => setIsEditing(true)}>
                 <RiEditLine className="mr-2 size-4" />
