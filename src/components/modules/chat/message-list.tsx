@@ -26,12 +26,10 @@ export const MessageList = ({ messages, currentUserId, isLoading, isTyping, typi
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const bottomRef = React.useRef<HTMLDivElement>(null);
 
-  // Scroll to bottom when messages change
   React.useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // Group messages by date
   const groupedMessages = React.useMemo(() => {
     const groups: { date: Date; messages: MessageResponse[] }[] = [];
     let currentGroup: { date: Date; messages: MessageResponse[] } | null = null;
@@ -57,18 +55,15 @@ export const MessageList = ({ messages, currentUserId, isLoading, isTyping, typi
   }
 
   return (
-    <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+    <ScrollArea className="h-[calc(100%-80px)] flex-1 p-4" ref={scrollRef}>
       <div className="space-y-6">
         {groupedMessages.map((group, groupIndex) => (
           <div key={groupIndex}>
-            {/* Date divider */}
             <div className="flex items-center justify-center py-4">
               <div className="rounded-full bg-white/10 px-3 py-1">
                 <span className="text-xs text-gray-400">{formatDateDivider(group.date)}</span>
               </div>
             </div>
-
-            {/* Messages for this date */}
             <div className="space-y-3">
               {group.messages.map((message, index) => {
                 const isOwn = message.sender_id === currentUserId;
@@ -80,8 +75,6 @@ export const MessageList = ({ messages, currentUserId, isLoading, isTyping, typi
             </div>
           </div>
         ))}
-
-        {/* Typing indicator */}
         {isTyping && (
           <div className="flex items-center gap-2 pl-11">
             <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-white/10 px-4 py-2">
@@ -92,7 +85,6 @@ export const MessageList = ({ messages, currentUserId, isLoading, isTyping, typi
             <span className="text-xs text-gray-500">{typingUserName} is typing...</span>
           </div>
         )}
-
         <div ref={bottomRef} />
       </div>
     </ScrollArea>

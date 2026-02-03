@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import type { JobProps } from "@/types";
+import { fromSnakeCase } from "@/lib";
 
 interface Props {
   job: JobProps;
@@ -11,7 +12,7 @@ interface Props {
 export const Card = ({ job }: Props) => {
   return (
     <Link
-      className="border-primary-100/15 hover:border-primary-400/50 group flex h-full flex-col justify-between gap-y-4 border bg-black/20 p-5 transition-all duration-300 hover:bg-black/40"
+      className="border-primary-100/15 hover:border-primary-400/50 group hover:bg-primary-100/15 flex h-full flex-col justify-between gap-y-4 border p-5 transition-all duration-300"
       href={`/jobs/${job.id}`}
     >
       <div className="space-y-3">
@@ -27,7 +28,7 @@ export const Card = ({ job }: Props) => {
             {job.is_remote ? "Remote" : "On-site"}
           </span>
         </div>
-        <p className="text-primary-400 text-sm font-medium">{job.company}</p>
+        <p className="text-primary-400 text-sm font-medium">{job.company.name}</p>
         <p className="line-clamp-2 text-xs text-gray-400 sm:text-sm">{job.description}</p>
       </div>
       <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
@@ -37,7 +38,7 @@ export const Card = ({ job }: Props) => {
         </div>
         <div className="flex items-center gap-x-1">
           {job.is_remote ? <RiHomeOfficeLine className="size-3.5" /> : <RiBuilding2Line className="size-3.5" />}
-          <span className="capitalize">{job.employment_type?.toLowerCase() || "Full-time"}</span>
+          <span className="capitalize">{fromSnakeCase(job.employment_type).toLowerCase()}</span>
         </div>
         <div className="flex items-center gap-x-1">
           <RiTimeLine className="size-3.5" />

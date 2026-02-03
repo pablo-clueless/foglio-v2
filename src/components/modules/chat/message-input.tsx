@@ -22,25 +22,20 @@ export const MessageInput = ({ onSendMessage, onTyping, onStopTyping, disabled }
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setMessage(value);
-
-    // Auto-resize textarea
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`;
     }
 
-    // Handle typing indicator
     if (value.trim() && !isTyping) {
       setIsTyping(true);
       onTyping();
     }
 
-    // Clear existing timeout
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
-    // Set new timeout to stop typing
     if (value.trim()) {
       typingTimeoutRef.current = setTimeout(() => {
         setIsTyping(false);
@@ -61,12 +56,10 @@ export const MessageInput = ({ onSendMessage, onTyping, onStopTyping, disabled }
     setIsTyping(false);
     onStopTyping();
 
-    // Reset textarea height
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
     }
 
-    // Clear typing timeout
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
@@ -79,7 +72,6 @@ export const MessageInput = ({ onSendMessage, onTyping, onStopTyping, disabled }
     }
   };
 
-  // Cleanup timeout on unmount
   React.useEffect(() => {
     return () => {
       if (typingTimeoutRef.current) {
@@ -94,7 +86,6 @@ export const MessageInput = ({ onSendMessage, onTyping, onStopTyping, disabled }
         <Button variant="ghost" size="icon" className="shrink-0 text-gray-400 hover:text-white" disabled={disabled}>
           <RiAttachment2 className="size-5" />
         </Button>
-
         <div className="relative flex-1">
           <textarea
             ref={textareaRef}
@@ -121,7 +112,6 @@ export const MessageInput = ({ onSendMessage, onTyping, onStopTyping, disabled }
             <RiEmotionHappyLine className="size-5" />
           </Button>
         </div>
-
         <Button onClick={handleSend} disabled={!message.trim() || disabled} className="shrink-0 rounded-xl" size="icon">
           <RiSendPlaneFill className="size-5" />
         </Button>
