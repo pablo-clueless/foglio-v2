@@ -25,7 +25,7 @@ interface ChatHeaderProps {
 
 export const ChatHeader = ({ user, isOnline, isTyping, onDeleteConversation }: ChatHeaderProps) => {
   return (
-    <div className="flex items-center justify-between border-b border-white/10 bg-black/20 px-4 py-3">
+    <div className="flex h-20 items-center justify-between border-b border-white/10 bg-black/20 px-4">
       <div className="flex items-center gap-3">
         <div className="relative">
           <Avatar className="size-10">
@@ -45,7 +45,6 @@ export const ChatHeader = ({ user, isOnline, isTyping, onDeleteConversation }: C
           </p>
         </div>
       </div>
-
       <div className="flex items-center gap-1">
         <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white" disabled>
           <RiPhoneLine className="size-5" />
@@ -53,7 +52,6 @@ export const ChatHeader = ({ user, isOnline, isTyping, onDeleteConversation }: C
         <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white" disabled>
           <RiVideoOnLine className="size-5" />
         </Button>
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">

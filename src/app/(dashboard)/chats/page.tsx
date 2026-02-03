@@ -189,7 +189,7 @@ const Page = () => {
           showMobileChat ? "hidden md:block" : "block",
         )}
       >
-        <div className="border-b border-white/10 p-4">
+        <div className="h-20 border-b border-white/10 px-4">
           <h2 className="text-lg font-semibold text-white">Messages</h2>
           <p className="text-sm text-gray-400">{conversations.length} conversations</p>
         </div>

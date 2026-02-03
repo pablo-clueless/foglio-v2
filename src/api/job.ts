@@ -64,9 +64,10 @@ export const job = api.injectEndpoints({
       }),
     }),
     applyToJob: builder.mutation<HttpResponse<null>, ApplyToJobDto>({
-      query: () => ({
-        url: "/jobs",
+      query: ({ job_id, payload }) => ({
+        url: `/jobs/${job_id}/apply`,
         method: "POST",
+        body: payload,
       }),
     }),
     addCommentOnJob: builder.mutation<HttpResponse<JobProps>, { content: string; id: string }>({
