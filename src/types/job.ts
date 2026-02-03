@@ -57,7 +57,7 @@ export interface JobApplicationProps {
   job_id: string;
   job: JobProps;
   applicant_id: string;
-  apllicant: UserProps;
+  applicant: UserProps;
   resume: string;
   cover_letter?: string;
   status: string;
