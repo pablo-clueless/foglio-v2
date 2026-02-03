@@ -1,4 +1,4 @@
-import type { UserProps } from "./user";
+import type { CompanyProps, UserProps } from "./user";
 
 export type EmploymentType = "FULL_TIME" | "PART_TIME" | "CONTRACT" | "TEMPORARY" | "INTERNSHIP";
 
@@ -11,19 +11,20 @@ export interface SalaryProps {
 export interface JobProps {
   id: string;
   title: string;
-  company: string;
+  company_id: string;
+  company: CompanyProps;
   location: string;
   description: string;
   requirements: string[];
-  salary?: SalaryProps;
-  posted_date: Date;
-  deadline: Date;
+  salary: SalaryProps;
+  posted_date: string;
+  deadline: string;
   is_remote: boolean;
   employment_type: EmploymentType;
   created_by: UserProps;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
   applications: JobApplicationProps[];
   comments: CommentProps[];
   reactions: ReactionProps[];
@@ -36,8 +37,8 @@ export interface CommentProps {
   job: JobProps;
   created_by: string;
   created_by_user: UserProps;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ReactionProps {
@@ -47,8 +48,8 @@ export interface ReactionProps {
   job: JobProps;
   created_by: string;
   created_by_user: UserProps;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface JobApplicationProps {
@@ -60,10 +61,10 @@ export interface JobApplicationProps {
   resume: string;
   cover_letter?: string;
   status: string;
-  submission_date: Date;
-  last_updated: Date;
+  submission_date: string;
+  last_updated: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string | null;
   notes?: string;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at?: Date | null;
 }

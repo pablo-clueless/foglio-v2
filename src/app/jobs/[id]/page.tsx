@@ -16,6 +16,8 @@ import {
   RiShareLine,
 } from "@remixicon/react";
 
+import { formatCurrency, formatDate, fromSnakeCase } from "@/lib";
+import { ApplyToJob } from "@/components/modules/job";
 import { Footer, Navbar } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -90,7 +92,7 @@ const Page = () => {
         <Navbar />
         <div className="w-screen overflow-hidden">
           <motion.section
-            className="container mx-auto grid h-[500px] max-w-6xl place-items-center py-20 sm:py-32"
+            className="container mx-auto grid h-[100dvh] max-w-6xl place-items-center py-20 sm:py-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -144,12 +146,12 @@ const Page = () => {
                       jobData.is_remote ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"
                     }`}
                   >
-                    {jobData.employment_type}
+                    {fromSnakeCase(jobData.employment_type)}
                   </span>
                 </div>
                 <h1 className="text-3xl font-semibold capitalize sm:text-5xl">{jobData.title}</h1>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                  <p className="text-primary-400 text-lg font-medium">{jobData.company}</p>
+                  <p className="text-primary-400 text-lg font-medium">{jobData.company.name}</p>
                   <span className="bg-primary-400 hidden size-1.5 sm:block"></span>
                   <div className="flex items-center gap-x-1 text-gray-400">
                     <RiMapPinLine className="size-4" />
@@ -166,19 +168,15 @@ const Page = () => {
               <motion.div variants={itemVariants} className="border-primary-100/15 space-y-4 border bg-black/20 p-6">
                 <h2 className="text-xl font-semibold">Requirements</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-300">
-                  <li>Relevant experience in the field</li>
-                  <li>Strong communication skills</li>
-                  <li>Ability to work independently and in a team</li>
-                  <li>Problem-solving mindset</li>
+                  {jobData.requirements.map((requirement) => (
+                    <li key={requirement}>{requirement}</li>
+                  ))}
                 </ul>
               </motion.div>
               <motion.div variants={itemVariants} className="border-primary-100/15 space-y-4 border bg-black/20 p-6">
                 <h2 className="text-xl font-semibold">Benefits</h2>
                 <ul className="list-inside list-disc space-y-2 text-gray-300">
                   <li>Competitive salary and benefits</li>
-                  <li>Flexible working hours</li>
-                  <li>Professional development opportunities</li>
-                  <li>Health insurance</li>
                 </ul>
               </motion.div>
             </div>
@@ -188,10 +186,8 @@ const Page = () => {
                 className="border-primary-100/15 sticky top-24 space-y-6 border bg-black/30 p-6"
               >
                 <div className="space-y-4">
-                  <Button className="w-full" size="lg">
-                    Apply Now
-                  </Button>
-                  <Button variant="default-outline" className="w-full" size="lg">
+                  <ApplyToJob jobId={id} buttonClassName="w-full" />
+                  <Button variant="default-outline" className="w-full">
                     <RiShareLine className="mr-2 size-4" />
                     Share Job
                   </Button>
@@ -201,17 +197,11 @@ const Page = () => {
                   <div className="space-y-4">
                     <div className="flex items-start gap-x-3">
                       <RiBriefcase4Line className="text-primary-400 mt-0.5 size-5" />
-                      <div>
-                        <p className="text-sm text-gray-400">Job Type</p>
-                        <p className="capitalize">{jobData.employment_type.toLowerCase()}</p>
-                      </div>
+                      <p className="capitalize">{fromSnakeCase(jobData.employment_type).toLowerCase()}</p>
                     </div>
                     <div className="flex items-start gap-x-3">
                       <RiMapPinLine className="text-primary-400 mt-0.5 size-5" />
-                      <div>
-                        <p className="text-sm text-gray-400">Location</p>
-                        <p>{jobData.location}</p>
-                      </div>
+                      <p>{jobData.location}</p>
                     </div>
                     <div className="flex items-start gap-x-3">
                       {jobData.is_remote ? (
@@ -219,32 +209,26 @@ const Page = () => {
                       ) : (
                         <RiBuilding2Line className="text-primary-400 mt-0.5 size-5" />
                       )}
-                      <div>
-                        <p className="text-sm text-gray-400">Work Mode</p>
-                        <p>{jobData.is_remote ? "Remote" : "On-site"}</p>
-                      </div>
+                      <p>{jobData.is_remote ? "Remote" : "On-site"}</p>
                     </div>
                     <div className="flex items-start gap-x-3">
                       <RiMoneyDollarCircleLine className="text-primary-400 mt-0.5 size-5" />
-                      <div>
-                        <p className="text-sm text-gray-400">Salary</p>
-                        <p>Competitive</p>
-                      </div>
+                      <p>
+                        {formatCurrency(jobData.salary.min, jobData.salary.currency)} -{" "}
+                        {formatCurrency(jobData.salary.max, jobData.salary.currency)}
+                      </p>
                     </div>
                     <div className="flex items-start gap-x-3">
                       <RiCalendarLine className="text-primary-400 mt-0.5 size-5" />
-                      <div>
-                        <p className="text-sm text-gray-400">Posted</p>
-                        <p>Recently</p>
-                      </div>
+                      <p>{formatDate(jobData.posted_date)}</p>
                     </div>
                   </div>
                 </div>
                 <div className="border-primary-100/15 border-t pt-6">
-                  <h3 className="mb-4 font-semibold">About {jobData.company}</h3>
+                  <h3 className="mb-4 font-semibold">About {jobData.company.name}</h3>
                   <p className="text-sm text-gray-400">
-                    {jobData.company} is looking for talented individuals to join their team. Apply now to learn more
-                    about this opportunity.
+                    {jobData.company.name} is looking for talented individuals to join their team. Apply now to learn
+                    more about this opportunity.
                   </p>
                 </div>
               </motion.div>

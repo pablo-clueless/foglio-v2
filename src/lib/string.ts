@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const getInitials = (value?: string) => {
   if (!value) return "";
   return value
@@ -50,14 +52,10 @@ export const normalize = (path: string): string => {
   return cleanPath.slice(0, nextSlash);
 };
 
-export const formatDate = (date: string | undefined) => {
+export const formatDate = (date: string | undefined, formatting = "dd/MM/yyyy") => {
   if (!date) return "";
   const d = typeof date === "string" ? new Date(date) : date;
-  return new Date(d).toLocaleDateString("en-NG", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  return format(new Date(d), formatting);
 };
 
 /**
